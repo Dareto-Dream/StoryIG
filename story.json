@@ -1,0 +1,106 @@
+[
+{
+  "page": 13,
+  "speaker": "",
+  "image": "https://example.com/images/page9.jpg",
+  "background": "assets/backgrounds/club.png",
+  "position": [550, 650],
+  "text": "Sayori leads me into the clubroom. The lights flicker—only for a frame—but it's enough to make me pause.",
+  "inputs": []
+},
+{
+  "page": 14,
+  "speaker": "Monika",
+  "image": "assets/characters/monika.png",
+  "background": "assets/backgrounds/club.png",
+  "position": [100, 200],
+  "image_size": [200, 300],
+  "text": "Welcome to the Literature Club, [name]~",
+  "inputs": []
+},
+{
+  "page": 15,
+  "speaker": "",
+  "image": "https://example.com/images/page10.jpg",
+  "background": "assets/backgrounds/club.png",
+  "position": [150, 250],
+  "text": "Her voice cuts off like a scratched disc. I blink. She's smiling again.",
+  "inputs": []
+},
+{
+  "page": 16,
+  "speaker": "Yuri",
+  "image": "assets/characters/yuri.png",
+  "background": "assets/backgrounds/club.png",
+  "position": [0, 100],
+  "image_size": [200, 300],
+  "text": "You're... warm. I can feel it. It's so much louder now.",
+  "inputs": []
+},
+{
+  "page": 17,
+  "speaker": "Sayori",
+  "image": "assets/characters/sayori.png",
+  "background": "assets/backgrounds/club.png",
+  "position": [0, 100],
+  "image_size": [200, 300],
+  "text": "They said not to bring you here. But I *really* wanted to.",
+  "inputs": []
+},
+{
+  "page": 18,
+  "speaker": "",
+  "image": "https://example.com/images/page11.jpg",
+  "background": "assets/backgrounds/club.png",
+  "position": [200, 300],
+  "text": "There's a painting on the wall. No, a mirror. No—it's me, but my eyes are wrong.",
+  "inputs": []
+},
+{
+  "page": 19,
+  "speaker": "Natsuki",
+  "image": "assets/characters/natsuki.png",
+  "background": "assets/backgrounds/club.png",
+  "position": [0, 100],
+  "image_size": [200, 300],
+  "text": "You're not supposed to look behind the curtain.",
+  "inputs": []
+},
+{
+  "page": 20,
+  "speaker": "",
+  "image": "https://example.com/images/page12.jpg",
+  "background": "assets/backgrounds/club.png",
+  "position": [250, 350],
+  "text": "Sayori hands me a paper. I try to read it, but the words twist—like worms in a jar.",
+  "inputs": []
+},
+{
+  "page": 21,
+  "speaker": "",
+  "image": "https://example.com/images/page13.jpg",
+  "background": "assets/backgrounds/club.png",
+  "position": [300, 400],
+  "text": "It says: *Helphelphelphelphelphelphelphelphelphelp*",
+  "inputs": []
+},
+{
+  "page": 22,
+  "speaker": "Monika",
+  "image": "assets/characters/monika.png",
+  "background": "assets/backgrounds/club.png",
+  "position": [0, 100],
+  "image_size": [200, 300],
+  "text": "Oh no~ Don't mind that. It's just a *bad save state.*",
+  "inputs": []
+},
+{
+  "page": 23,
+  "speaker": "",
+  "image": "glitch/static1.png",
+  "background": "glitch/static_bg.png",
+  "position": [350, 450],
+  "text": "###DATA CORRUPTED###",
+  "inputs": []
+}
+]
