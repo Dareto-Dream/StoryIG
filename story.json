@@ -1,106 +1,112 @@
 [
-{
-  "page": 13,
-  "speaker": "",
-  "image": "https://example.com/images/page9.jpg",
-  "background": "assets/backgrounds/club.png",
-  "position": [550, 650],
-  "text": "Sayori leads me into the clubroom. The lights flicker—only for a frame—but it's enough to make me pause.",
-  "inputs": []
-},
-{
-  "page": 14,
-  "speaker": "Monika",
-  "image": "assets/characters/monika.png",
-  "background": "assets/backgrounds/club.png",
-  "position": [100, 200],
-  "image_size": [200, 300],
-  "text": "Welcome to the Literature Club, [name]~",
-  "inputs": []
-},
-{
-  "page": 15,
-  "speaker": "",
-  "image": "https://example.com/images/page10.jpg",
-  "background": "assets/backgrounds/club.png",
-  "position": [150, 250],
-  "text": "Her voice cuts off like a scratched disc. I blink. She's smiling again.",
-  "inputs": []
-},
-{
-  "page": 16,
-  "speaker": "Yuri",
-  "image": "assets/characters/yuri.png",
-  "background": "assets/backgrounds/club.png",
-  "position": [0, 100],
-  "image_size": [200, 300],
-  "text": "You're... warm. I can feel it. It's so much louder now.",
-  "inputs": []
-},
-{
-  "page": 17,
-  "speaker": "Sayori",
-  "image": "assets/characters/sayori.png",
-  "background": "assets/backgrounds/club.png",
-  "position": [0, 100],
-  "image_size": [200, 300],
-  "text": "They said not to bring you here. But I *really* wanted to.",
-  "inputs": []
-},
-{
-  "page": 18,
-  "speaker": "",
-  "image": "https://example.com/images/page11.jpg",
-  "background": "assets/backgrounds/club.png",
-  "position": [200, 300],
-  "text": "There's a painting on the wall. No, a mirror. No—it's me, but my eyes are wrong.",
-  "inputs": []
-},
-{
-  "page": 19,
-  "speaker": "Natsuki",
-  "image": "assets/characters/natsuki.png",
-  "background": "assets/backgrounds/club.png",
-  "position": [0, 100],
-  "image_size": [200, 300],
-  "text": "You're not supposed to look behind the curtain.",
-  "inputs": []
-},
-{
-  "page": 20,
-  "speaker": "",
-  "image": "https://example.com/images/page12.jpg",
-  "background": "assets/backgrounds/club.png",
-  "position": [250, 350],
-  "text": "Sayori hands me a paper. I try to read it, but the words twist—like worms in a jar.",
-  "inputs": []
-},
-{
-  "page": 21,
-  "speaker": "",
-  "image": "https://example.com/images/page13.jpg",
-  "background": "assets/backgrounds/club.png",
-  "position": [300, 400],
-  "text": "It says: *Helphelphelphelphelphelphelphelphelphelp*",
-  "inputs": []
-},
-{
-  "page": 22,
-  "speaker": "Monika",
-  "image": "assets/characters/monika.png",
-  "background": "assets/backgrounds/club.png",
-  "position": [0, 100],
-  "image_size": [200, 300],
-  "text": "Oh no~ Don't mind that. It's just a *bad save state.*",
-  "inputs": []
-},
-{
-  "page": 23,
-  "speaker": "",
-  "image": "glitch/static1.png",
-  "background": "glitch/static_bg.png",
-  "position": [350, 450],
-  "text": "###DATA CORRUPTED###",
-  "inputs": []
-}
+  {
+    "page": 1,
+    "speaker": "???",
+    "image": "assets/characters/sayori_normal.png",
+    "background": "assets/backgrounds/residential.png",
+    "position": [
+      100,
+      200
+    ],
+    "text": "You\u2019re going to be late again, [adjective] [noun]!",
+    "inputs": [
+      "adjective",
+      "noun"
+    ]
+  },
+  {
+    "page": 2,
+    "speaker": "Sayori",
+    "image": "assets/characters/sayori_happy.png",
+    "background": "assets/backgrounds/residential.png",
+    "position": [
+      150,
+      250
+    ],
+    "text": "C\u2019mon! The Performance Club got approved\u2014Monika says we\u2019re doing something *new* today!",
+    "inputs": []
+  },
+  {
+    "page": 3,
+    "speaker": "",
+    "image": "",
+    "background": "assets/backgrounds/classroom.png",
+    "position": [],
+    "text": "Classes drag on. Sayori doodles ballet shoes and skulls in her notebook. Typical.",
+    "inputs": []
+  },
+  {
+    "page": 4,
+    "speaker": "Sayori",
+    "image": "assets/characters/sayori_confused.png",
+    "background": "assets/backgrounds/hallway.png",
+    "position": [
+      150,
+      250
+    ],
+    "text": "Did you hear Monika say we need *matching shoes*? I didn\u2019t even know we had to *dance*.",
+    "inputs": []
+  },
+  {
+    "page": 5,
+    "speaker": "Monika",
+    "image": "assets/characters/monika_smile.png",
+    "background": "assets/backgrounds/clubroom.png",
+    "position": [
+      400,
+      200
+    ],
+    "text": "Everyone\u2019s here? Good. Let\u2019s warm up.",
+    "inputs": []
+  },
+  {
+    "page": 6,
+    "type": "game",
+    "game_number": 1
+  },
+  {
+    "page": 7,
+    "speaker": "Natsuki",
+    "image": "assets/characters/natsuki_angry.png",
+    "background": "assets/backgrounds/clubroom.png",
+    "position": [
+      200,
+      200
+    ],
+    "text": "Seriously? That minigame thing again? You\u2019re all acting like this is normal!",
+    "inputs": []
+  },
+  {
+    "page": 8,
+    "speaker": "Yuri",
+    "image": "assets/characters/yuri_shy.png",
+    "background": "assets/backgrounds/clubroom.png",
+    "position": [
+      600,
+      200
+    ],
+    "text": "Rhythm is everything. If you fall out of sync\u2026 you lose something.",
+    "inputs": []
+  },
+  {
+    "page": 9,
+    "speaker": "",
+    "image": "",
+    "background": "assets/backgrounds/clubroom.png",
+    "position": [],
+    "text": "Monika raises the volume. The music thuds unnaturally loud for a school speaker.",
+    "inputs": []
+  },
+  {
+    "page": 10,
+    "speaker": "Monika",
+    "image": "assets/characters/monika_lean.png",
+    "background": "assets/backgrounds/clubroom.png",
+    "position": [
+      400,
+      200
+    ],
+    "text": "Everyone performed well. But remember\u2014the *Finale* is still far away.",
+    "inputs": []
+  }
 ]
