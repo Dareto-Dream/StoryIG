@@ -1,0 +1,1661 @@
+[
+    {
+        "time": 2020,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 2507,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 2995,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 3482,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 3970,
+        "dir": "right",
+        "singer": "opponent",
+        "hold": 348
+    },
+    {
+        "time": 4458,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 4945,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 5421,
+        "dir": "left",
+        "singer": "opponent",
+        "hold": 621
+    },
+    {
+        "time": 5897,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 605
+    },
+    {
+        "time": 6362,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 6815,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 7279,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 7813,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 8335,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 8858,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 9357,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 9833,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 10309,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 10739,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 11180,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 11633,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 12085,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 12538,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 12979,
+        "dir": "up",
+        "singer": "player",
+        "hold": 707
+    },
+    {
+        "time": 13467,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 13966,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 14454,
+        "dir": "down",
+        "singer": "player",
+        "hold": 960
+    },
+    {
+        "time": 14953,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 15464,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 15963,
+        "dir": "down",
+        "singer": "opponent",
+        "hold": 393
+    },
+    {
+        "time": 16462,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 16962,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 17461,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 17960,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 18459,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 18959,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 19446,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 19922,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 20398,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 20886,
+        "dir": "left",
+        "singer": "player",
+        "hold": 693
+    },
+    {
+        "time": 21385,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 21873,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 22360,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 22848,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 23324,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 23812,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 24288,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 24775,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 25251,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 25750,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 26226,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 26702,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 27190,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 27678,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 28154,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 28641,
+        "dir": "left",
+        "singer": "player",
+        "hold": 922
+    },
+    {
+        "time": 29129,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 29617,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 30093,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 30569,
+        "dir": "down",
+        "singer": "player",
+        "hold": 677
+    },
+    {
+        "time": 31056,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 31544,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 32020,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 32519,
+        "dir": "right",
+        "singer": "player",
+        "hold": 917
+    },
+    {
+        "time": 33007,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 33483,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 33970,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 34458,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 560
+    },
+    {
+        "time": 34946,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 35422,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 35909,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 36397,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 36873,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 37349,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 37836,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 38324,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 38812,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 39288,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 39764,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 40251,
+        "dir": "right",
+        "singer": "player",
+        "hold": 955
+    },
+    {
+        "time": 40739,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 432
+    },
+    {
+        "time": 41227,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 41714,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 42190,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 42678,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 43154,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 43641,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 44117,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 44605,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 45093,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 45580,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 46056,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 46544,
+        "dir": "left",
+        "singer": "player",
+        "hold": 636
+    },
+    {
+        "time": 47032,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 47508,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 47995,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 48483,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 48970,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 49458,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 49946,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 50422,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 50898,
+        "dir": "up",
+        "singer": "player",
+        "hold": 442
+    },
+    {
+        "time": 51385,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 51873,
+        "dir": "up",
+        "singer": "player",
+        "hold": 554
+    },
+    {
+        "time": 52360,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 52848,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 963
+    },
+    {
+        "time": 53324,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 53812,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 54288,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 54775,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 622
+    },
+    {
+        "time": 55251,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 55739,
+        "dir": "right",
+        "singer": "opponent",
+        "hold": 925
+    },
+    {
+        "time": 56227,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 56714,
+        "dir": "right",
+        "singer": "player",
+        "hold": 670
+    },
+    {
+        "time": 57202,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 57689,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 58165,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 58653,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 59129,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 59617,
+        "dir": "right",
+        "singer": "player",
+        "hold": 440
+    },
+    {
+        "time": 60104,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 60580,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 471
+    },
+    {
+        "time": 61068,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 61556,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 62043,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 62519,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 63007,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 63494,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 63970,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 64458,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 64934,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 65422,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 407
+    },
+    {
+        "time": 65909,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 66397,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 66873,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 67361,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 67848,
+        "dir": "right",
+        "singer": "player",
+        "hold": 762
+    },
+    {
+        "time": 68336,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 68823,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 69299,
+        "dir": "right",
+        "singer": "opponent",
+        "hold": 670
+    },
+    {
+        "time": 69775,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 70263,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 70739,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 71227,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 71714,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 72202,
+        "dir": "left",
+        "singer": "player",
+        "hold": 743
+    },
+    {
+        "time": 72678,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 750
+    },
+    {
+        "time": 73154,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 73630,
+        "dir": "down",
+        "singer": "player",
+        "hold": 880
+    },
+    {
+        "time": 74106,
+        "dir": "right",
+        "singer": "player",
+        "hold": 371
+    },
+    {
+        "time": 74582,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 75058,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 75546,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 76033,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 873
+    },
+    {
+        "time": 76521,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 938
+    },
+    {
+        "time": 77008,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 77496,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 77984,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 78471,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 78959,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 79447,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 79934,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 80422,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 80909,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 81397,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 81885,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 82361,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 430
+    },
+    {
+        "time": 82837,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 83324,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 83812,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 84288,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 84776,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 85263,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 85739,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 86227,
+        "dir": "left",
+        "singer": "opponent",
+        "hold": 517
+    },
+    {
+        "time": 86703,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 87190,
+        "dir": "down",
+        "singer": "opponent",
+        "hold": 853
+    },
+    {
+        "time": 87678,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 88166,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 88642,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 89118,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 89605,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 90093,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 90569,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 91057,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 91544,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 92020,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 92508,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 92995,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 93483,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 93959,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 94447,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 94934,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 95422,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 95898,
+        "dir": "left",
+        "singer": "opponent",
+        "hold": 544
+    },
+    {
+        "time": 96397,
+        "dir": "down",
+        "singer": "opponent",
+        "hold": 396
+    },
+    {
+        "time": 96873,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 97349,
+        "dir": "left",
+        "singer": "opponent",
+        "hold": 302
+    },
+    {
+        "time": 97837,
+        "dir": "down",
+        "singer": "opponent",
+        "hold": 630
+    },
+    {
+        "time": 98324,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 98812,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 99288,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 99776,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 100263,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 100739,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 101227,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 101703,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 102191,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 102667,
+        "dir": "right",
+        "singer": "opponent",
+        "hold": 733
+    },
+    {
+        "time": 103154,
+        "dir": "right",
+        "singer": "opponent",
+        "hold": 731
+    },
+    {
+        "time": 103642,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 104118,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 104605,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 105093,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 105569,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 106057,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 106544,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 107032,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 107508,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 107996,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 819
+    },
+    {
+        "time": 108472,
+        "dir": "up",
+        "singer": "player",
+        "hold": 382
+    },
+    {
+        "time": 108959,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 109447,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 109934,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 110422,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 110910,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 111386,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 111873,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 112361,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 112837,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 113324,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 113812,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 114300,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 114787,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 115263,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 115739,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 116227,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 942
+    },
+    {
+        "time": 116715,
+        "dir": "left",
+        "singer": "player",
+        "hold": 983
+    },
+    {
+        "time": 117191,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 117678,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 118166,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 118653,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 119129,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 119617,
+        "dir": "right",
+        "singer": "player",
+        "hold": 520
+    },
+    {
+        "time": 120105,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 120592,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 121080,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 121556,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 122032,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 122508,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 122996,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 123483,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 123971,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 124458,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 124946,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 125422,
+        "dir": "right",
+        "singer": "opponent",
+        "hold": 771
+    },
+    {
+        "time": 125898,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 126386,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 126873,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 127349,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 127825,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 915
+    },
+    {
+        "time": 128313,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 128801,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 129288,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 129776,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 130263,
+        "dir": "down",
+        "singer": "player",
+        "hold": 406
+    },
+    {
+        "time": 130739,
+        "dir": "right",
+        "singer": "player",
+        "hold": 694
+    },
+    {
+        "time": 131227,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 131715,
+        "dir": "down",
+        "singer": "player",
+        "hold": 454
+    },
+    {
+        "time": 132191,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 132678,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 133166,
+        "dir": "right",
+        "singer": "player",
+        "hold": 541
+    },
+    {
+        "time": 133642,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 134130,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 134617,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 135105,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 135581,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 136068,
+        "dir": "down",
+        "singer": "player",
+        "hold": 401
+    },
+    {
+        "time": 136556,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 137032,
+        "dir": "right",
+        "singer": "opponent",
+        "hold": 354
+    },
+    {
+        "time": 137520,
+        "dir": "up",
+        "singer": "player",
+        "hold": 756
+    },
+    {
+        "time": 138007,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 138495,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 138983,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 139459,
+        "dir": "up",
+        "singer": "opponent",
+        "hold": 896
+    },
+    {
+        "time": 139935,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 140422,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 140910,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 141386,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 141873,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 142361,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 142849,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 143336,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 143824,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 144300,
+        "dir": "down",
+        "singer": "player",
+        "hold": 617
+    },
+    {
+        "time": 144776,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 145264,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 145751,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 146227,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 146715,
+        "dir": "left",
+        "singer": "opponent"
+    },
+    {
+        "time": 147202,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 147678,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 148154,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 148642,
+        "dir": "right",
+        "singer": "opponent",
+        "hold": 641
+    },
+    {
+        "time": 149118,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 149617,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 150093,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 150569,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 151057,
+        "dir": "right",
+        "singer": "player"
+    },
+    {
+        "time": 151545,
+        "dir": "left",
+        "singer": "opponent",
+        "hold": 883
+    },
+    {
+        "time": 152032,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 152508,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 152996,
+        "dir": "up",
+        "singer": "player",
+        "hold": 991
+    },
+    {
+        "time": 153483,
+        "dir": "left",
+        "singer": "player"
+    },
+    {
+        "time": 153959,
+        "dir": "down",
+        "singer": "player"
+    },
+    {
+        "time": 154447,
+        "dir": "down",
+        "singer": "opponent"
+    },
+    {
+        "time": 154935,
+        "dir": "up",
+        "singer": "player"
+    },
+    {
+        "time": 155411,
+        "dir": "up",
+        "singer": "opponent"
+    },
+    {
+        "time": 155898,
+        "dir": "right",
+        "singer": "opponent"
+    },
+    {
+        "time": 156386,
+        "dir": "right",
+        "singer": "opponent"
+    }
+]
