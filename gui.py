@@ -31,6 +31,11 @@ def draw_text(screen, text, position, color=(0, 0, 0), font_size=24):
     text_surface = font.render(text, True, color)
     screen.blit(text_surface, position)
 
+def load_song(song_name="song"):
+    pygame.mixer.init()
+    pygame.mixer.music.load(f"assets/minigame/songs/{song_name}.mp3")
+    pygame.mixer.music.play()
+
 # === Draw textbox background ===
 def draw_textbox(screen):
     sprite = pygame.image.load("assets/icons/text_box.png").convert_alpha()
@@ -124,12 +129,13 @@ def run_gui():
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.toggle_fullscreen()
+    # pygame.display.toggle_fullscreen()
     pygame.display.set_caption('AdLibs Visual Novel')
     clock = pygame.time.Clock()
 
     story = load_story('story.json')
     running = True
+    load_song("song1")
 
     while running:
         screen.fill((255, 255, 255))
