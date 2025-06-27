@@ -4,7 +4,7 @@ import json
 pygame.init()
 WIDTH, HEIGHT = 1920, 1080
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.toggle_fullscreen()
+# pygame.display.toggle_fullscreen()
 pygame.display.set_caption("Mini FNF Clone")
 
 clock = pygame.time.Clock()
