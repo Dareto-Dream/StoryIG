@@ -40,26 +40,53 @@ def draw_text(screen, text, position, color=(0, 0, 0), font_size=24):
     text_surface = font.render(text, True, color)  # Anti-aliasing enabled
     screen.blit(text_surface, position)
 
-def draw_text_wrapped(screen, text, position, font_size=24, color=(0, 0, 0), max_width=760):
+def draw_typing_text(screen, full_text, position, font_size=24, color=(0, 0, 0), max_width=760, chars_to_show=None):
     font = pygame.font.Font("assets/fonts/VarelaRound-Regular.ttf", font_size)
-    words = text.split(' ')
+    words = full_text.split(' ')
     lines = []
     current_line = ""
+    total_chars = 0
 
     for word in words:
         test_line = current_line + word + " "
+        word_len = len(word) + 1  # +1 for space
         if font.size(test_line)[0] <= max_width:
+            if chars_to_show is not None and total_chars + word_len > chars_to_show:
+                # Partial word rendering
+                remaining = chars_to_show - total_chars
+                partial_word = word[:max(0, remaining)]
+                current_line += partial_word
+                break
             current_line = test_line
+            total_chars += word_len
         else:
             lines.append(current_line.strip())
-            current_line = word + " "
+            current_line = ""
+            if chars_to_show is not None and total_chars >= chars_to_show:
+                break
     lines.append(current_line.strip())
 
+    # Draw all wrapped lines
     x, y = position
+    drawn_chars = 0
     for line in lines:
+        if chars_to_show is not None and drawn_chars + len(line) > chars_to_show:
+            line = line[:chars_to_show - drawn_chars]
         rendered = font.render(line, True, color)
         screen.blit(rendered, (x, y))
         y += font.get_linesize()
+        drawn_chars += len(line)
+
+def draw_text_wrapped(screen, full_text, position, font_size=24, color=(0, 0, 0), max_width=760):
+    draw_typing_text(
+        screen,
+        full_text,
+        position,
+        font_size=font_size,
+        color=color,
+        max_width=max_width,
+        chars_to_show=None  # Show full text
+    )
 
 def load_song(song_name="song"):
     pygame.mixer.init()
@@ -320,7 +347,16 @@ def run_gui():
                     elapsed = pygame.time.get_ticks() - text_start_time
                     chars_to_show = elapsed // page_speed if page_speed > 0 else len(full_text)
                     typed_text = full_text[:chars_to_show]
-                    draw_dialogue(screen, page['speaker'], typed_text)
+                    draw_text(screen, f"{page['speaker']}:", (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN))
+                    draw_typing_text(
+                        screen,
+                        substitute_text(page['text']),
+                        (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN + 30),
+                        font_size=24,
+                        color=(0, 0, 0),
+                        max_width=TEXTBOX_WIDTH - 2 * TEXT_MARGIN,
+                        chars_to_show=chars_to_show
+                    )
                     if chars_to_show >= len(full_text):
                         typing = False
                 else:
