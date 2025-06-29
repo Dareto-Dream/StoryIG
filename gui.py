@@ -20,6 +20,10 @@ selected_input = 0
 in_start_screen = True
 start_options = ["Start Game", "Load (Disabled)", "Exit"]
 selected_option = 0
+typing = True
+typed_text = ""
+text_start_time = 0
+user_text_speed = 40  # ms per character (default speed if page doesn't override)
 
 # === Load story from JSON file ===
 def load_story(json_file):
@@ -28,8 +32,8 @@ def load_story(json_file):
 
 # === Draw text on screen ===
 def draw_text(screen, text, position, color=(0, 0, 0), font_size=24):
-    font = pygame.font.Font(None, font_size)
-    text_surface = font.render(text, True, color)
+    font = pygame.font.Font("assets/fonts/VarelaRound-Regular.ttf", font_size)
+    text_surface = font.render(text, True, color)  # Anti-aliasing enabled
     screen.blit(text_surface, position)
 
 def load_song(song_name="song"):
@@ -141,6 +145,7 @@ def draw_option_box(screen, text, x, y, width, height, selected):
 def run_gui():
     global current_page, input_texts, variables, current_background
     global selected_input, in_start_screen, selected_option
+    global typing, typed_text, text_start_time, user_text_speed
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -203,7 +208,13 @@ def run_gui():
                             input_texts = []
                             page['inputs_done'] = True
                     elif event.key == K_RETURN:
-                        current_page += 1
+                        if typing:
+                            typing = False  # skip typing animation
+                        else:
+                            current_page += 1
+                            typing = True
+                            typed_text = ""
+                            text_start_time = pygame.time.get_ticks()
 
         # === Render current screen ===
         if in_start_screen:
@@ -264,8 +275,18 @@ def run_gui():
                     draw_text(screen, f"{prompt}:", (50, 100 + i * 60))
                     draw_input_box(screen, (150, 100 + i * 60), 300, 40, text=input_texts[i], selected=(i == selected_input))
             else:
-                substituted_text = substitute_text(page['text'])
-                draw_dialogue(screen, page['speaker'], substituted_text)
+                full_text = substitute_text(page['text'])
+                page_speed = page.get("text_speed", user_text_speed)
+
+                if typing:
+                    elapsed = pygame.time.get_ticks() - text_start_time
+                    chars_to_show = elapsed // page_speed if page_speed > 0 else len(full_text)
+                    typed_text = full_text[:chars_to_show]
+                    draw_dialogue(screen, page['speaker'], typed_text)
+                    if chars_to_show >= len(full_text):
+                        typing = False
+                else:
+                    draw_dialogue(screen, page['speaker'], full_text)
         else:
             draw_text(screen, "THE END", (SCREEN_WIDTH // 2 - 80, SCREEN_HEIGHT // 2), font_size=48)
 
