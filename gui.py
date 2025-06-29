@@ -19,7 +19,6 @@ TEXT_MARGIN = 20  # Padding inside the text box
 variables = {}
 input_texts = []
 current_page = 0
-current_background = None
 selected_input = 0
 in_start_screen = True
 start_options = ["Start Game", "Load (Disabled)", "Exit"]
@@ -28,6 +27,10 @@ typing = True
 typed_text = ""
 text_start_time = 0
 user_text_speed = 40  # ms per character (default speed if page doesn't override)
+current_background = None
+previous_background = None
+bg_transition_alpha = 0
+bg_transition_speed = 10  # alpha step per frame (adjust for faster/slower fade)
 
 # === Load story from JSON file ===
 def load_story(json_file):
@@ -208,9 +211,10 @@ def draw_option_box(screen, text, x, y, width, height, selected):
 
 # === Main VN Engine ===
 def run_gui():
-    global current_page, input_texts, variables, current_background
+    global current_page, input_texts, variables
     global selected_input, in_start_screen, selected_option
     global typing, typed_text, text_start_time, user_text_speed
+    global previous_background, current_background, bg_transition_speed, bg_transition_alpha
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -298,12 +302,23 @@ def run_gui():
                 selected_input = 0
 
             if 'background' in page:
-                new_bg = draw_background(screen, page['background'])
-                if new_bg:
-                    current_background = new_bg
+                if page['background'] != page.get('last_loaded_bg'):
+                    previous_background = current_background
+                    current_background = draw_background(screen, page['background'])
+                    page['last_loaded_bg'] = page['background']
+                    bg_transition_alpha = 255
 
             if current_background:
-                screen.blit(current_background, (0, 0))
+                if previous_background and bg_transition_alpha > 0:
+                    temp = current_background.copy()
+                    temp.set_alpha(255 - bg_transition_alpha)
+                    prev = previous_background.copy()
+                    prev.set_alpha(bg_transition_alpha)
+                    screen.blit(prev, (0, 0))
+                    screen.blit(temp, (0, 0))
+                    bg_transition_alpha = max(0, bg_transition_alpha - bg_transition_speed)
+                else:
+                    screen.blit(current_background, (0, 0))
             else:
                 screen.fill((255, 255, 255))
 
