@@ -12,59 +12,77 @@
             "adjective",
             "noun"
         ],
-        "pose": "1",
+        "pose": "2",
         "face": "e",
         "character": "mc"
     },
     {
         "page": 2,
         "speaker": "Sayori",
-        "image": "assets/characters/sayori_happy.png",
         "background": "assets/backgrounds/residential.png",
         "position": [
-            150,
-            250
+            90,
+            -40
         ],
-        "text": "C\u2019mon! The Performance Club got approved\u2014Monika says we\u2019re doing something *new* today!",
-        "inputs": []
+        "text": "C\u2019mon! The Performance Club got approved\u2014Harumi says we\u2019re doing something *new* today!",
+        "inputs": [],
+        "character": "tiffany",
+        "face": "f",
+        "pose_left": "1l",
+        "pose_right": "2br"
     },
     {
         "page": 3,
         "speaker": "",
-        "image": "",
         "background": "assets/backgrounds/clubroom.png",
-        "position": [],
+        "position": [
+            90,
+            -40
+        ],
         "text": "Classes drag on. Sayori doodles ballet shoes and skulls in her notebook. Typical.",
-        "inputs": []
+        "inputs": [],
+        "character": "tiffany",
+        "face": "a",
+        "pose_left": "1l",
+        "pose_right": "1br"
     },
     {
         "page": 4,
         "speaker": "Sayori",
-        "image": "assets/characters/sayori_confused.png",
         "background": "assets/backgrounds/hallway.png",
         "position": [
-            150,
-            250
+            90,
+            -40
         ],
-        "text": "Did you hear Monika say we need *matching shoes*? I didn\u2019t even know we had to *dance*.",
-        "inputs": []
+        "text": "Did you hear Harumi say we need *matching shoes*? I didn\u2019t even know we had to *dance*.",
+        "inputs": [],
+        "character": "tiffany",
+        "face": "x",
+        "pose_left": "1l",
+        "pose_right": "1br"
     },
     {
         "page": 5,
-        "speaker": "Monika",
-        "image": "assets/characters/monika_smile.png",
+        "speaker": "Harumi",
         "background": "assets/backgrounds/clubroom.png",
         "position": [
-            400,
-            200
+            260,
+            -60
         ],
         "text": "Everyone\u2019s here? Good. Let\u2019s warm up.",
-        "inputs": []
+        "inputs": [],
+        "pose": "2",
+        "face": "h",
+        "character": "harumi"
     },
     {
         "page": 6,
         "type": "game",
-        "game_number": 1
+        "game_number": 1,
+        "position": [
+            500,
+            281
+        ]
     },
     {
         "page": 7,
@@ -96,12 +114,12 @@
         "image": "",
         "background": "assets/backgrounds/clubroom.png",
         "position": [],
-        "text": "Monika raises the volume. The music thuds unnaturally loud for a school speaker.",
+        "text": "Harumi raises the volume. The music thuds unnaturally loud for a school speaker.",
         "inputs": []
     },
     {
         "page": 10,
-        "speaker": "Monika",
+        "speaker": "Harumi",
         "image": "assets/characters/monika_lean.png",
         "background": "assets/backgrounds/clubroom.png",
         "position": [

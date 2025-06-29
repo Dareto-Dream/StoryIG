@@ -231,14 +231,31 @@ def run_gui():
             else:
                 screen.fill((255, 255, 255))
 
-            # === Character sprite logic (new format or fallback) ===
-            if 'character' in page and 'pose' in page and 'face' in page and 'position' in page:
-                combined = get_combined_character_image(page['character'], page['pose'], page['face'])
-                if combined:
-                    screen.blit(combined, page['position'])
-            elif 'image' in page and 'position' in page:
-                size = page.get('image_size', None)
-                draw_character(screen, page['image'], page['position'], size)
+            # === Character sprite logic (priority: split > pose > image) ===
+            try:
+                if all(k in page for k in ["character", "pose_left", "pose_right", "face", "position"]):
+                    base_path = f"assets/characters/{page['character']}/"
+                    left = pygame.image.load(os.path.join(base_path, f"{page['pose_left']}.png")).convert_alpha()
+                    right = pygame.image.load(os.path.join(base_path, f"{page['pose_right']}.png")).convert_alpha()
+                    face = pygame.image.load(os.path.join(base_path, f"{page['face']}.png")).convert_alpha()
+                    combined = pygame.Surface(left.get_size(), pygame.SRCALPHA)
+                    combined.blit(left, (0, 0))
+                    combined.blit(right, (0, 0))
+                    combined.blit(face, (0, 0))
+                    screen.blit(combined, page["position"])
+                elif all(k in page for k in ["character", "pose", "face", "position"]):
+                    base_path = f"assets/characters/{page['character']}/"
+                    pose = pygame.image.load(os.path.join(base_path, f"{page['pose']}.png")).convert_alpha()
+                    face = pygame.image.load(os.path.join(base_path, f"{page['face']}.png")).convert_alpha()
+                    combined = pygame.Surface(pose.get_size(), pygame.SRCALPHA)
+                    combined.blit(pose, (0, 0))
+                    combined.blit(face, (0, 0))
+                    screen.blit(combined, page["position"])
+                elif "image" in page and "position" in page:
+                    size = page.get("image_size", None)
+                    draw_character(screen, page["image"], page["position"], size)
+            except Exception as e:
+                print(f"[!] Character render error on page {current_page}: {e}")
 
             draw_textbox(screen)
 

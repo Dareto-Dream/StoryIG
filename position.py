@@ -7,7 +7,6 @@ from pygame.locals import *
 SCREEN_WIDTH, SCREEN_HEIGHT = 1000, 563
 STORY_FILE = "story.json"
 
-# === Load story ===
 def load_story():
     with open(STORY_FILE, 'r') as f:
         return json.load(f)
@@ -16,32 +15,38 @@ def save_story(story):
     with open(STORY_FILE, 'w') as f:
         json.dump(story, f, indent=4)
 
-# === Load and combine character image ===
-def get_combined_image(character, pose, face):
-    try:
-        base = pygame.image.load(f"assets/characters/{character}/{pose}.png").convert_alpha()
-        face_img = pygame.image.load(f"assets/characters/{character}/{face}.png").convert_alpha()
-        out = pygame.Surface(base.get_size(), pygame.SRCALPHA)
-        out.blit(base, (0, 0))
-        out.blit(face_img, (0, 0))
-        return out
-    except Exception as e:
-        print(f"[!] Error loading pose/face for {character}: {e}")
-        return None
+def get_combined_image(page):
+    char = page.get("character")
+    base = f"assets/characters/{char}/"
 
-# === Load legacy flat image ===
-def get_flat_image(image_path):
     try:
-        return pygame.image.load(image_path).convert_alpha()
+        if "pose_left" in page and "pose_right" in page and "face" in page:
+            left = pygame.image.load(base + f"{page['pose_left']}.png").convert_alpha()
+            right = pygame.image.load(base + f"{page['pose_right']}.png").convert_alpha()
+            face = pygame.image.load(base + f"{page['face']}.png").convert_alpha()
+            result = pygame.Surface(left.get_size(), pygame.SRCALPHA)
+            result.blit(left, (0, 0))
+            result.blit(right, (0, 0))
+            result.blit(face, (0, 0))
+            return result, "Split Body"
+        elif "pose" in page and "face" in page:
+            pose = pygame.image.load(base + f"{page['pose']}.png").convert_alpha()
+            face = pygame.image.load(base + f"{page['face']}.png").convert_alpha()
+            result = pygame.Surface(pose.get_size(), pygame.SRCALPHA)
+            result.blit(pose, (0, 0))
+            result.blit(face, (0, 0))
+            return result, "Full Body"
+        elif "image" in page:
+            img = pygame.image.load(page["image"]).convert_alpha()
+            return img, "Legacy Image"
     except Exception as e:
-        print(f"[!] Error loading flat image {image_path}: {e}")
-        return None
+        print(f"[!] Failed to load image: {e}")
+    return None, "Missing"
 
-# === Main GUI ===
 def main():
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption("Position Tool")
+    pygame.display.set_caption("Positioning Tool")
     font = pygame.font.Font(None, 28)
 
     story = load_story()
@@ -51,28 +56,21 @@ def main():
     while True:
         screen.fill((255, 255, 255))
         page = story[current_page]
-        text = page.get("text", "")
 
-        # Load character image
-        sprite = None
-        if all(k in page for k in ["character", "pose", "face"]):
-            sprite = get_combined_image(page["character"], page["pose"], page["face"])
-        elif "image" in page:
-            sprite = get_flat_image(page["image"])
-
-        # Load position or set default
         if "position" not in page:
             page["position"] = [SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2]
         pos = page["position"]
 
-        # Draw character
+        sprite, mode = get_combined_image(page)
         if sprite:
             screen.blit(sprite, pos)
 
-        # UI text
+        # UI
+        text = page.get("text", "")
         screen.blit(font.render(f"Page {page['page']} | Pos: {pos}", True, (0, 0, 0)), (10, 10))
-        screen.blit(font.render(text, True, (0, 0, 0)), (10, 40))
-        screen.blit(font.render("Arrow keys = move | Enter = save | PgUp/PgDn = change page | Esc = quit", True, (0, 0, 0)), (10, 500))
+        screen.blit(font.render(f"Render Mode: {mode}", True, (0, 0, 0)), (10, 40))
+        screen.blit(font.render(f"{text}", True, (0, 0, 0)), (10, 70))
+        screen.blit(font.render("←↑↓→ = move | Enter = save | PgUp/PgDn = switch page | ESC = quit", True, (100, 0, 0)), (10, 520))
 
         pygame.display.flip()
 
@@ -96,7 +94,7 @@ def main():
                     pos[1] += 10
                 elif event.key == K_RETURN:
                     page["position"] = pos.copy()
-                    print(f"[✓] Saved position: {pos} to page {page['page']}")
+                    print(f"[✓] Saved position to page {page['page']}")
                 elif event.key == K_PAGEUP:
                     current_page = max(0, current_page - 1)
                 elif event.key == K_PAGEDOWN:
