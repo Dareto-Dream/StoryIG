@@ -9,7 +9,11 @@ from time import sleep
 
 # === Configuration ===
 SCREEN_WIDTH, SCREEN_HEIGHT = 1000, 563
-TEXTBOX_RECT = pygame.Rect(10, 390, 780, 200)
+
+# === Customizable Text Box Layout ===
+TEXTBOX_X, TEXTBOX_Y, TEXTBOX_WIDTH, TEXTBOX_HEIGHT = 10, 390, 780, 150
+TEXTBOX_RECT = pygame.Rect(TEXTBOX_X, TEXTBOX_Y, TEXTBOX_WIDTH, TEXTBOX_HEIGHT)
+TEXT_MARGIN = 20  # Padding inside the text box
 
 # === Global State Variables ===
 variables = {}
@@ -35,6 +39,27 @@ def draw_text(screen, text, position, color=(0, 0, 0), font_size=24):
     font = pygame.font.Font("assets/fonts/VarelaRound-Regular.ttf", font_size)
     text_surface = font.render(text, True, color)  # Anti-aliasing enabled
     screen.blit(text_surface, position)
+
+def draw_text_wrapped(screen, text, position, font_size=24, color=(0, 0, 0), max_width=760):
+    font = pygame.font.Font("assets/fonts/VarelaRound-Regular.ttf", font_size)
+    words = text.split(' ')
+    lines = []
+    current_line = ""
+
+    for word in words:
+        test_line = current_line + word + " "
+        if font.size(test_line)[0] <= max_width:
+            current_line = test_line
+        else:
+            lines.append(current_line.strip())
+            current_line = word + " "
+    lines.append(current_line.strip())
+
+    x, y = position
+    for line in lines:
+        rendered = font.render(line, True, color)
+        screen.blit(rendered, (x, y))
+        y += font.get_linesize()
 
 def load_song(song_name="song"):
     pygame.mixer.init()
@@ -72,9 +97,22 @@ def get_combined_character_image(character, pose, face):
         return None
 
 # === Display speaker + dialogue ===
-def draw_dialogue(screen, speaker, text):
-    draw_text(screen, f"{speaker}:", (30, 420), font_size=28)
-    draw_text(screen, text, (30, 460), font_size=24)
+def draw_dialogue(screen, speaker, text, font_size=24):
+    font = pygame.font.Font("assets/fonts/VarelaRound-Regular.ttf", font_size)
+
+    # Speaker name
+    speaker_surface = font.render(f"{speaker}:", True, (0, 0, 0))
+    screen.blit(speaker_surface, (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN))
+
+    # Dialogue text (wrapped)
+    draw_text_wrapped(
+        screen,
+        text,
+        (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN + font.get_linesize()),
+        font_size=font_size,
+        color=(0, 0, 0),
+        max_width=TEXTBOX_WIDTH - 2 * TEXT_MARGIN
+    )
 
 # === Draw input field ===
 def draw_input_box(screen, position, width, height, text='', selected=False):
