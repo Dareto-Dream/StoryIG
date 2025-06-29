@@ -7,7 +7,7 @@ from pygame.locals import *
 from time import sleep
 
 # === Configuration ===
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+SCREEN_WIDTH, SCREEN_HEIGHT = 1000, 563
 TEXTBOX_RECT = pygame.Rect(10, 390, 780, 200)
 
 # === Global State Variables ===
