@@ -3,6 +3,7 @@ import pygame
 import json
 import sys
 import subprocess
+import os
 from pygame.locals import *
 from time import sleep
 
@@ -42,7 +43,7 @@ def draw_textbox(screen):
     sprite = pygame.transform.smoothscale(sprite, (780, 150))
     screen.blit(sprite, (10, 400))
 
-# === Draw character sprite ===
+# === Draw character sprite (single image) ===
 def draw_character(screen, image_path, position, size=None):
     try:
         sprite = pygame.image.load(image_path).convert_alpha()
@@ -51,6 +52,20 @@ def draw_character(screen, image_path, position, size=None):
         screen.blit(sprite, position)
     except Exception as e:
         print(f"Error loading character image '{image_path}': {e}")
+
+# === Draw combined pose+face sprite ===
+def get_combined_character_image(character, pose, face):
+    base_path = f"assets/characters/{character}/"
+    try:
+        pose_img = pygame.image.load(os.path.join(base_path, f"{pose}.png")).convert_alpha()
+        face_img = pygame.image.load(os.path.join(base_path, f"{face}.png")).convert_alpha()
+        combined = pygame.Surface(pose_img.get_size(), pygame.SRCALPHA)
+        combined.blit(pose_img, (0, 0))
+        combined.blit(face_img, (0, 0))
+        return combined
+    except Exception as e:
+        print(f"Error loading layered character ({character}, {pose}, {face}): {e}")
+        return None
 
 # === Display speaker + dialogue ===
 def draw_dialogue(screen, speaker, text):
@@ -129,7 +144,6 @@ def run_gui():
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    # pygame.display.toggle_fullscreen()
     pygame.display.set_caption('AdLibs Visual Novel')
     clock = pygame.time.Clock()
 
@@ -197,21 +211,11 @@ def run_gui():
         elif current_page < len(story):
             page = story[current_page]
 
-            # === Game page: run and skip rendering ===
-            if page.get("type") == "game":
-                game_number = page.get("game_number", 1)
-                try:
-                    subprocess.run([sys.executable, "minigame.py"])
-                except Exception as e:
-                    print(f"Error launching minigame: {e}")
-                current_page += 1
-                continue
-
             if page.get("glitch_menu_flash") and not page.get("flashed"):
-                    draw_glitched_menu(screen)
-                    pygame.display.flip()
-                    pygame.time.delay(500)
-                    page["flashed"] = True
+                draw_glitched_menu(screen)
+                pygame.display.flip()
+                pygame.time.delay(500)
+                page["flashed"] = True
 
             if 'inputs' in page and not page.get('inputs_done', False) and not input_texts:
                 input_texts = ['' for _ in page['inputs']]
@@ -227,10 +231,14 @@ def run_gui():
             else:
                 screen.fill((255, 255, 255))
 
-            if 'image' in page and 'position' in page:
-                if page['image'] and page['position']:
-                    size = page.get('image_size', None)
-                    draw_character(screen, page['image'], page['position'], size)
+            # === Character sprite logic (new format or fallback) ===
+            if 'character' in page and 'pose' in page and 'face' in page and 'position' in page:
+                combined = get_combined_character_image(page['character'], page['pose'], page['face'])
+                if combined:
+                    screen.blit(combined, page['position'])
+            elif 'image' in page and 'position' in page:
+                size = page.get('image_size', None)
+                draw_character(screen, page['image'], page['position'], size)
 
             draw_textbox(screen)
 
