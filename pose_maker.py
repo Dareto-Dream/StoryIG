@@ -4,8 +4,8 @@ import os
 from pygame.locals import *
 
 # === Config ===
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
-CHARACTER = "tiffany"  # Change to active character name
+SCREEN_WIDTH, SCREEN_HEIGHT = 1500, 1000
+CHARACTER = "hanami"  # Change to active character name
 ASSET_PATH = f"assets/characters/{CHARACTER}"
 STORY_PATH = "story.json"
 POSE_MAP_PATH = "pose_face_map.json"
@@ -37,20 +37,25 @@ def get_files():
 # === Render composite image ===
 def get_combined_image(pose, face, mode, right_pose=None):
     try:
-        pose_img = None
         if mode == 1:
+            full_img = pygame.image.load(f"{ASSET_PATH}/{pose}.png").convert_alpha()
+            return full_img
+        elif mode == 2:
             pose_img = pygame.image.load(f"{ASSET_PATH}/{pose}.png").convert_alpha()
-        else:
+            face_img = pygame.image.load(f"{ASSET_PATH}/{face}.png").convert_alpha()
+            combined = pygame.Surface(pose_img.get_size(), pygame.SRCALPHA)
+            combined.blit(pose_img, (0, 0))
+            combined.blit(face_img, (0, 0))
+            return combined
+        elif mode == 3:
             left = pygame.image.load(f"{ASSET_PATH}/{pose}.png").convert_alpha()
             right = pygame.image.load(f"{ASSET_PATH}/{right_pose}.png").convert_alpha()
-            pose_img = pygame.Surface(left.get_size(), pygame.SRCALPHA)
-            pose_img.blit(left, (0, 0))
-            pose_img.blit(right, (0, 0))
-        face_img = pygame.image.load(f"{ASSET_PATH}/{face}.png").convert_alpha()
-        final = pygame.Surface(pose_img.get_size(), pygame.SRCALPHA)
-        final.blit(pose_img, (0, 0))
-        final.blit(face_img, (0, 0))
-        return final
+            face_img = pygame.image.load(f"{ASSET_PATH}/{face}.png").convert_alpha()
+            combined = pygame.Surface(left.get_size(), pygame.SRCALPHA)
+            combined.blit(left, (0, 0))
+            combined.blit(right, (0, 0))
+            combined.blit(face_img, (0, 0))
+            return combined
     except Exception as e:
         print(f"[!] Failed to load image: {e}")
         return None
@@ -65,7 +70,7 @@ def main():
     story = load_story()
     pose_map = load_pose_map()
     current_page = 0
-    mode = 1  # 1 = full-body, 2 = split-body
+    mode = 1  # 1 = single, 2 = pose+face, 3 = left+right+face
 
     poses, right_poses, faces = get_files()
     pose_idx, right_pose_idx, face_idx = 0, 0, 0
@@ -79,7 +84,7 @@ def main():
 
         pose = poses[pose_idx]
         right_pose = right_poses[right_pose_idx] if right_poses else None
-        face = faces[face_idx]
+        face = faces[face_idx] if faces else ""
 
         preview = get_combined_image(pose, face, mode, right_pose)
         if preview:
@@ -87,12 +92,13 @@ def main():
 
         # UI Info
         screen.blit(font.render(f"Page {page['page']}: {text}", True, (255, 255, 255)), (400, 100))
-        screen.blit(font.render(f"Mode: {'Split' if mode == 2 else 'Full'} Body [1/2]", True, (255, 255, 0)), (400, 140))
+        screen.blit(font.render(f"Mode: {mode} (1=Single, 2=Pose+Face, 3=Split)", True, (255, 255, 0)), (400, 140))
         screen.blit(font.render(f"Pose: {pose}", True, (255, 255, 255)), (400, 180))
-        if mode == 2:
+        if mode == 3:
             screen.blit(font.render(f"Right Pose: {right_pose}", True, (255, 255, 255)), (400, 210))
-        screen.blit(font.render(f"Face: {face}", True, (255, 255, 255)), (400, 240))
-        screen.blit(font.render("Arrows = Pose/Face | Q/E = Right Pose | Space = name expression | Enter = write to story | PgUp/PgDn = flip pages", True, (200, 200, 200)), (10, 550))
+        if mode > 1:
+            screen.blit(font.render(f"Face: {face}", True, (255, 255, 255)), (400, 240))
+        screen.blit(font.render("Arrows = Pose/Face | Q/E = Right Pose | 1-3 = Mode | Space = name | Enter = save | PgUp/PgDn = pages", True, (200, 200, 200)), (10, 550))
 
         pygame.display.flip()
 
@@ -108,34 +114,34 @@ def main():
                     pose_idx = (pose_idx - 1) % len(poses)
                 elif event.key == K_RIGHT:
                     pose_idx = (pose_idx + 1) % len(poses)
-                elif event.key == K_UP:
+                elif event.key == K_UP and mode > 1:
                     face_idx = (face_idx - 1) % len(faces)
-                elif event.key == K_DOWN:
+                elif event.key == K_DOWN and mode > 1:
                     face_idx = (face_idx + 1) % len(faces)
-                elif event.key == K_q and mode == 2:
+                elif event.key == K_q and mode == 3:
                     right_pose_idx = (right_pose_idx - 1) % len(right_poses)
-                elif event.key == K_e and mode == 2:
+                elif event.key == K_e and mode == 3:
                     right_pose_idx = (right_pose_idx + 1) % len(right_poses)
-                elif event.key == K_1:
-                    mode = 1
-                elif event.key == K_2:
-                    mode = 2
+                elif event.key in [K_1, K_2, K_3]:
+                    mode = int(event.unicode)
 
                 elif event.key == K_RETURN:
                     page["character"] = CHARACTER
-                    page["face"] = face
+                    page["face"] = face if mode > 1 else ""
                     if mode == 1:
                         page["pose"] = pose
                         page.pop("pose_left", None)
                         page.pop("pose_right", None)
-                    else:
+                    elif mode == 2:
+                        page["pose"] = pose
+                        page.pop("pose_left", None)
+                        page.pop("pose_right", None)
+                    elif mode == 3:
                         page["pose_left"] = pose
                         page["pose_right"] = right_pose
                         page.pop("pose", None)
-                    if "image" in page:
-                        del page["image"]
-                    if "image_size" in page:
-                        del page["image_size"]
+                    page.pop("image", None)
+                    page.pop("image_size", None)
                     print(f"[✓] Saved to story.json: {page}")
 
                 elif event.key == K_SPACE:
@@ -144,8 +150,10 @@ def main():
                         if CHARACTER not in pose_map:
                             pose_map[CHARACTER] = {}
                         if mode == 1:
+                            pose_map[CHARACTER][name] = [pose]
+                        elif mode == 2:
                             pose_map[CHARACTER][name] = [pose, face]
-                        else:
+                        elif mode == 3:
                             pose_map[CHARACTER][name] = [pose, right_pose, face]
                         print(f"[✓] Saved to pose_face_map.json: {name}")
 
