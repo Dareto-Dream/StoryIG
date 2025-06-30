@@ -4,7 +4,7 @@ import os
 from pygame.locals import *
 
 # === Config ===
-SCREEN_WIDTH, SCREEN_HEIGHT = 800, 600
+SCREEN_WIDTH, SCREEN_HEIGHT = 1500, 1000
 CHARACTER = "cassian"  # Change to active character name
 ASSET_PATH = f"assets/characters/{CHARACTER}"
 POSES_PATH = f"{ASSET_PATH}/Poses"
