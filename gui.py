@@ -34,7 +34,7 @@ bg_transition_speed = 10  # alpha step per frame (adjust for faster/slower fade)
 
 # === Load story from JSON file ===
 def load_story(json_file):
-    with open(json_file, 'r') as f:
+    with open(json_file, "r", encoding="utf-8") as f:
         return json.load(f)
 
 # === Draw text on screen ===

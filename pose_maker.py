@@ -14,7 +14,7 @@ POSE_MAP_PATH = "pose_face_map.json"
 
 # === Load JSON ===
 def load_story():
-    with open(STORY_PATH, 'r') as f:
+    with open("story.json", "r", encoding="utf-8") as f:
         return json.load(f)
 
 def save_story(data):
