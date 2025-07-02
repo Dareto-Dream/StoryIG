@@ -5,7 +5,7 @@ from pygame.locals import *
 
 # === Config ===
 SCREEN_WIDTH, SCREEN_HEIGHT = 1500, 1000
-CHARACTER = "cassian"  # Change to active character name
+CHARACTER = "hanami"
 ASSET_PATH = f"assets/characters/{CHARACTER}"
 POSES_PATH = f"{ASSET_PATH}/Poses"
 EXPRESSIONS_PATH = f"{ASSET_PATH}/Expressions"
@@ -14,40 +14,40 @@ POSE_MAP_PATH = "pose_face_map.json"
 
 # === Load JSON ===
 def load_story():
-    with open("story.json", "r", encoding="utf-8") as f:
+    with open(STORY_PATH, "r", encoding="utf-8") as f:
         return json.load(f)
 
 def save_story(data):
-    with open(STORY_PATH, 'w') as f:
+    with open(STORY_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
 def load_pose_map():
     return json.load(open(POSE_MAP_PATH)) if os.path.exists(POSE_MAP_PATH) else {}
 
 def save_pose_map(data):
-    with open(POSE_MAP_PATH, 'w') as f:
+    with open(POSE_MAP_PATH, "w", encoding="utf-8") as f:
         json.dump(data, f, indent=4)
 
 # === Load available parts ===
 def get_files():
     if CHARACTER == "cassian":
-        poses = sorted(f.split('.')[0] for f in os.listdir(POSES_PATH) if f.endswith('.png'))
-        eyes = sorted(f.split('.')[0] for f in os.listdir(f"{EXPRESSIONS_PATH}/eyes"))
-        brows = sorted(f.split('.')[0] for f in os.listdir(f"{EXPRESSIONS_PATH}/eyebrows"))
-        mouths = sorted(f.split('.')[0] for f in os.listdir(f"{EXPRESSIONS_PATH}/mouth"))
-        noses = sorted(f.split('.')[0] for f in os.listdir(f"{EXPRESSIONS_PATH}/nose"))
+        poses = sorted(f.split(".")[0] for f in os.listdir(POSES_PATH) if f.endswith(".png"))
+        eyes = sorted(f.split(".")[0] for f in os.listdir(f"{EXPRESSIONS_PATH}/eyes"))
+        brows = sorted(f.split(".")[0] for f in os.listdir(f"{EXPRESSIONS_PATH}/eyebrows"))
+        mouths = sorted(f.split(".")[0] for f in os.listdir(f"{EXPRESSIONS_PATH}/mouth"))
+        noses = sorted(f.split(".")[0] for f in os.listdir(f"{EXPRESSIONS_PATH}/nose"))
         return poses, eyes, brows, mouths, noses
     else:
         files = os.listdir(ASSET_PATH)
-        poses = sorted(set(f.split('.')[0] for f in files if f[0].isdigit() and '-' not in f and not f.endswith("r.png")))
-        right_poses = sorted(set(f.split('.')[0] for f in files if f.endswith('r.png')))
-        faces = sorted(set(f.split('.')[0] for f in files if f[0].isalpha() and len(f.split('.')[0]) == 1))
+        poses = sorted(set(f.split(".")[0] for f in files if f[0].isdigit() and "-" not in f and not f.endswith("r.png")))
+        right_poses = sorted(set(f.split(".")[0] for f in files if f.endswith("r.png")))
+        faces = sorted(set(f.split(".")[0] for f in files if f[0].isalpha() and len(f.split(".")[0]) == 1))
         return poses, right_poses, faces
 
 # === Assemble Cassian's face ===
 def get_cassian_face(eye, brow, mouth, nose):
     base = pygame.image.load(f"{EXPRESSIONS_PATH}/base.png").convert_alpha()
-    for part, folder in zip([eye, brow, mouth, nose], ['eyes', 'eyebrows', 'mouth', 'nose']):
+    for part, folder in zip([eye, brow, mouth, nose], ["eyes", "eyebrows", "mouth", "nose"]):
         path = f"{EXPRESSIONS_PATH}/{folder}/{part}.png"
         if os.path.exists(path):
             overlay = pygame.image.load(path).convert_alpha()
@@ -61,8 +61,7 @@ def get_combined_image(mode, pose, face=None, right_pose=None, parts=None):
             pose_img = pygame.image.load(f"{POSES_PATH}/{pose}.png").convert_alpha()
             face_img = get_cassian_face(*parts)
         elif mode == 1:
-            pose_img = pygame.image.load(f"{ASSET_PATH}/{pose}.png").convert_alpha()
-            face_img = pygame.image.load(f"{ASSET_PATH}/{face}.png").convert_alpha()
+            return pygame.image.load(f"{ASSET_PATH}/{pose}.png").convert_alpha()
         else:
             left = pygame.image.load(f"{ASSET_PATH}/{pose}.png").convert_alpha()
             right = pygame.image.load(f"{ASSET_PATH}/{right_pose}.png").convert_alpha()
@@ -89,13 +88,20 @@ def main():
     story = load_story()
     pose_map = load_pose_map()
     current_page = 0
-    mode = 4  # 1 = single, 2 = split, 3 = L/R+face, 4 = cassian
+    mode = 1
 
-    if mode == 4:
+    custom_files = sorted([f for f in os.listdir(ASSET_PATH) if f.endswith(".png")])
+    custom_file_idx = 0
+    selected_custom = 0
+    custom_categories = ["bodyL", "bodyR", "head", "eyes", "eyebrows", "mouth", "accessory"]
+
+    if CHARACTER == "cassian":
         poses, eyes, brows, mouths, noses = get_files()
         eye_idx, brow_idx, mouth_idx, nose_idx = 0, 0, 0, 0
     else:
         poses, right_poses, faces = get_files()
+        if not faces:
+            faces = ["_"]  # dummy entry so indexing doesn't break
         pose_idx, right_pose_idx, face_idx = 0, 0, 0
 
     pose_idx = 0
@@ -108,43 +114,56 @@ def main():
 
         pose = poses[pose_idx]
 
-        if mode == 4:
-            parts = [
-                eyes[eye_idx],
-                brows[brow_idx],
-                mouths[mouth_idx],
-                noses[nose_idx]
-            ]
-            preview = get_combined_image(mode, pose, parts=parts)
+        if mode == 0:
+            page.setdefault("custom_parts", [])
+            for i, part in enumerate(page["custom_parts"]):
+                try:
+                    fname = part["index"]
+                    x = part["x"]
+                    y = part["y"]
+                    img_path = os.path.join(ASSET_PATH, fname)
+                    if os.path.exists(img_path):
+                        img = pygame.image.load(img_path).convert_alpha()
+                        screen.blit(img, (50 + x, 50 + y))
+                    else:
+                        print(f"[!] MISSING FILE: {img_path}")
+                except Exception as e:
+                    print(f"[!] Failed to render part {part}: {e}")
+
+            screen.blit(font.render("Super Custom Mode", True, (255, 255, 0)), (400, 110))
+            if page["custom_parts"]:
+                part = page["custom_parts"][selected_custom]
+                screen.blit(font.render(
+                    f"Selected: {part['category']} [{part['index']}] @ ({part['x']}, {part['y']})",
+                    True, (255, 255, 255)
+                ), (400, 140))
+
+        elif mode == 4:
+            parts = [eyes[eye_idx], brows[brow_idx], mouths[mouth_idx], noses[nose_idx]]
+            preview = get_combined_image(mode=4, pose=pose, parts=parts)
+            if preview:
+                screen.blit(preview, (50, 50))
+
         elif mode == 1:
             face = faces[face_idx]
-            preview = get_combined_image(mode, pose, face)
+            preview = get_combined_image(mode=1, pose=pose, face=face)
+            if preview:
+                screen.blit(preview, (50, 50))
+
         else:
             face = faces[face_idx]
             right_pose = right_poses[right_pose_idx]
-            preview = get_combined_image(mode, pose, face, right_pose)
+            preview = get_combined_image(mode=2, pose=pose, face=face, right_pose=right_pose)
+            if preview:
+                screen.blit(preview, (50, 50))
 
-        if preview:
-            screen.blit(preview, (50, 50))
-
-        # === Display Info ===
+        # Info
         screen.blit(font.render(f"Page {page['page']}: {text}", True, (255, 255, 255)), (400, 80))
-        screen.blit(font.render(f"Mode: {mode}", True, (255, 255, 0)), (400, 110))
-        screen.blit(font.render(f"Pose: {pose}", True, (255, 255, 255)), (400, 140))
-
-        if mode == 4:
-            screen.blit(font.render(f"Eyes: {parts[0]}", True, (255, 255, 255)), (400, 170))
-            screen.blit(font.render(f"Brows: {parts[1]}", True, (255, 255, 255)), (400, 200))
-            screen.blit(font.render(f"Mouth: {parts[2]}", True, (255, 255, 255)), (400, 230))
-            screen.blit(font.render(f"Nose: {parts[3]}", True, (255, 255, 255)), (400, 260))
-        elif mode == 2:
-            screen.blit(font.render(f"Right Pose: {right_pose}", True, (255, 255, 255)), (400, 170))
-            screen.blit(font.render(f"Face: {face}", True, (255, 255, 255)), (400, 200))
-        else:
-            screen.blit(font.render(f"Face: {face}", True, (255, 255, 255)), (400, 170))
-
-        screen.blit(font.render("←→ Pose | ↑↓ Eyes | Q/E Brows | Z/C Mouth | A/D Nose", True, (200, 200, 200)), (10, 520))
-        screen.blit(font.render("1–4: Change mode | Enter: Save to story | Space: Save expression", True, (200, 200, 200)), (10, 550))
+        screen.blit(font.render("0–4 = Mode | Enter = Save | Space = Save Preset | PgUp/Dn = Change Page", True,
+                                (200, 200, 200)), (10, 920))
+        screen.blit(
+            font.render("←/→ = Change | WASD = Move (custom) | +/- = Add/Remove (custom)", True, (200, 200, 200)),
+            (10, 950))
 
         pygame.display.flip()
 
@@ -156,28 +175,8 @@ def main():
                 return
 
             elif event.type == KEYDOWN:
-                if event.key == K_LEFT:
-                    pose_idx = (pose_idx - 1) % len(poses)
-                elif event.key == K_RIGHT:
-                    pose_idx = (pose_idx + 1) % len(poses)
-
-                elif event.key == K_UP and mode == 4:
-                    eye_idx = (eye_idx - 1) % len(eyes)
-                elif event.key == K_DOWN and mode == 4:
-                    eye_idx = (eye_idx + 1) % len(eyes)
-                elif event.key == K_q and mode == 4:
-                    brow_idx = (brow_idx - 1) % len(brows)
-                elif event.key == K_e and mode == 4:
-                    brow_idx = (brow_idx + 1) % len(brows)
-                elif event.key == K_z and mode == 4:
-                    mouth_idx = (mouth_idx - 1) % len(mouths)
-                elif event.key == K_c and mode == 4:
-                    mouth_idx = (mouth_idx + 1) % len(mouths)
-                elif event.key == K_a and mode == 4:
-                    nose_idx = (nose_idx - 1) % len(noses)
-                elif event.key == K_d and mode == 4:
-                    nose_idx = (nose_idx + 1) % len(noses)
-
+                if event.key == K_0:
+                    mode = 0
                 elif event.key == K_1:
                     mode = 1
                 elif event.key == K_2:
@@ -187,9 +186,84 @@ def main():
                 elif event.key == K_4:
                     mode = 4
 
-                elif event.key == K_RETURN:
+                elif event.key == K_PAGEUP:
+                    current_page = max(0, current_page - 1)
+                elif event.key == K_PAGEDOWN:
+                    current_page = min(len(story) - 1, current_page + 1)
+
+                if mode == 0:
+                    if event.key in [K_PLUS, K_EQUALS]:
+                        cat = custom_categories[len(page["custom_parts"]) % len(custom_categories)]
+                        fname = custom_files[custom_file_idx]
+                        page["custom_parts"].append({"category": cat, "index": fname, "x": 0, "y": 0})
+                        selected_custom = len(page["custom_parts"]) - 1
+                    elif event.key == K_MINUS:
+                        if page["custom_parts"]:
+                            page["custom_parts"].pop(selected_custom)
+                            selected_custom = max(0, selected_custom - 1)
+                    elif event.key == K_TAB:
+                        if page["custom_parts"]:
+                            selected_custom = (selected_custom + 1) % len(page["custom_parts"])
+                    elif page.get("custom_parts"):
+                        part = page["custom_parts"][selected_custom]
+                        if event.key == K_LEFT:
+                            custom_file_idx = (custom_file_idx - 1) % len(custom_files)
+                            part["index"] = custom_files[custom_file_idx]
+                        elif event.key == K_RIGHT:
+                            custom_file_idx = (custom_file_idx + 1) % len(custom_files)
+                            part["index"] = custom_files[custom_file_idx]
+                        elif event.key == K_w:
+                            part["y"] -= 5
+                        elif event.key == K_s:
+                            part["y"] += 5
+                        elif event.key == K_a:
+                            part["x"] -= 5
+                        elif event.key == K_d:
+                            part["x"] += 5
+
+                elif mode == 4:
+                    if event.key == K_LEFT:
+                        pose_idx = (pose_idx - 1) % len(poses)
+                    elif event.key == K_RIGHT:
+                        pose_idx = (pose_idx + 1) % len(poses)
+                    elif event.key == K_UP:
+                        eye_idx = (eye_idx - 1) % len(eyes)
+                    elif event.key == K_DOWN:
+                        eye_idx = (eye_idx + 1) % len(eyes)
+                    elif event.key == K_q:
+                        brow_idx = (brow_idx - 1) % len(brows)
+                    elif event.key == K_e:
+                        brow_idx = (brow_idx + 1) % len(brows)
+                    elif event.key == K_z:
+                        mouth_idx = (mouth_idx - 1) % len(mouths)
+                    elif event.key == K_c:
+                        mouth_idx = (mouth_idx + 1) % len(mouths)
+                    elif event.key == K_a:
+                        nose_idx = (nose_idx - 1) % len(noses)
+                    elif event.key == K_d:
+                        nose_idx = (nose_idx + 1) % len(noses)
+
+                else:
+                    if event.key == K_LEFT:
+                        pose_idx = (pose_idx - 1) % len(poses)
+                    elif event.key == K_RIGHT:
+                        pose_idx = (pose_idx + 1) % len(poses)
+                    elif event.key == K_UP:
+                        face_idx = (face_idx - 1) % len(faces)
+                    elif event.key == K_DOWN:
+                        face_idx = (face_idx + 1) % len(faces)
+                    elif event.key == K_q and mode == 2:
+                        right_pose_idx = (right_pose_idx - 1) % len(right_poses)
+                    elif event.key == K_e and mode == 2:
+                        right_pose_idx = (right_pose_idx + 1) % len(right_poses)
+
+                if event.key == K_RETURN:
                     page["character"] = CHARACTER
-                    if mode == 1:
+                    page.pop("image", None)
+                    page.pop("image_size", None)
+                    if mode == 0:
+                        page["custom_mode"] = True
+                    elif mode == 1:
                         page["pose"] = pose
                         page["face"] = face
                         page.pop("pose_left", None)
@@ -201,15 +275,12 @@ def main():
                         page.pop("pose", None)
                     elif mode == 4:
                         page["pose"] = pose
-                        page["face_parts"] = parts
-                    if "image" in page:
-                        del page["image"]
-                    if "image_size" in page:
-                        del page["image_size"]
-                    print(f"[✓] Saved to story.json: {page}")
+                        if len(parts) == 4:
+                            page["face_parts"] = parts
+                    print("[✓] Saved pose to story.json")
 
                 elif event.key == K_SPACE:
-                    name = input("Enter expression name: ").strip().lower()
+                    name = input("Expression name: ").strip().lower()
                     if name:
                         if CHARACTER not in pose_map:
                             pose_map[CHARACTER] = {}
@@ -219,14 +290,11 @@ def main():
                             pose_map[CHARACTER][name] = [pose, right_pose, face]
                         elif mode == 4:
                             pose_map[CHARACTER][name] = [pose] + parts
-                        print(f"[✓] Saved to pose_face_map.json: {name}")
-
-                elif event.key == K_PAGEUP:
-                    current_page = max(0, current_page - 1)
-                elif event.key == K_PAGEDOWN:
-                    current_page = min(len(story) - 1, current_page + 1)
+                        print(f"[✓] Saved expression preset '{name}'")
 
         clock.tick(30)
 
+
 if __name__ == "__main__":
     main()
+

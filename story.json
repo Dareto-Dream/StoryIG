@@ -1,562 +1,332 @@
 [
     {
         "page": 1,
-        "speaker": "",
-        "background": "assets/backgrounds/residential.png",
+        "speaker": "Narrator",
+        "background": "street_morning.png",
         "position": [
             0,
             0
         ],
-        "text": "The sun was already high, painting warm stripes across the sidewalk as you rushed toward school, bag bouncing against your side. Late again.",
+        "text": "The sun was already up by the time you hit the sidewalk, bag bouncing against your side. You were late again.",
         "inputs": []
     },
     {
         "page": 2,
-        "speaker": "",
-        "background": "assets/backgrounds/residential.png",
+        "speaker": "Narrator",
+        "background": "school_hallway.png",
         "position": [
             0,
             0
         ],
-        "text": "You could already hear the bell tolling in the distance\u2014your internal clock always five minutes behind, your legs always five steps too slow.",
+        "text": "After class, you realized you forgot your pencil. Figures.",
         "inputs": []
     },
     {
         "page": 3,
-        "speaker": "Sayori",
-        "background": "assets/backgrounds/residential.png",
+        "speaker": "Narrator",
+        "background": "school_hallway.png",
         "position": [
-            90,
-            -40
+            0,
+            0
         ],
-        "text": "Wait up!!",
+        "text": "You headed back. The halls were quiet. Afternoon light filled the windows.",
         "inputs": []
     },
     {
         "page": 4,
-        "speaker": "",
-        "background": "assets/backgrounds/residential.png",
+        "speaker": "Narrator",
+        "background": "music_wing_hall.png",
         "position": [
             0,
             0
         ],
-        "text": "Sayori's voice cut through the breeze. You barely turned before she caught up, half-jogging, half-laughing, a pink blur of energy and determination.",
+        "text": "You heard something. Soft humming. Barely there.",
         "inputs": []
     },
     {
         "page": 5,
-        "speaker": "Sayori",
-        "background": "assets/backgrounds/residential.png",
+        "speaker": "Narrator",
+        "background": "music_wing_hall.png",
         "position": [
-            90,
-            -40
+            210,
+            -180
         ],
-        "text": "You're not in a club, right? Please say no.",
+        "character": "hanami",
+        "pose": "5",
+        "face": "_",
+        "text": "A girl sat by the window with a pillow in her lap. She was writing something and humming to herself.",
         "inputs": []
     },
     {
         "page": 6,
-        "speaker": "MC",
-        "background": "assets/backgrounds/residential.png",
+        "speaker": "Narrator",
+        "background": "music_wing_hall.png",
+        "position": [
+            390,
+            -70
+        ],
+        "text": "You stepped forward. She looked up, then stood and quickly walked away.",
+        "inputs": [],
+        "character": "hanami",
+        "pose": "2",
+        "face": "_"
+    },
+    {
+        "page": 7,
+        "speaker": "Narrator",
+        "background": "music_wing_hall.png",
         "position": [
             0,
             0
         ],
-        "text": "Technically\u2026",
-        "inputs": []
-    },
-    {
-        "page": 7,
-        "speaker": "Sayori",
-        "background": "assets/backgrounds/residential.png",
-        "position": [
-            90,
-            -40
-        ],
-        "text": "Perfect! You're coming with me. Performance Studies Club. It'll be fun. Harumi says we're doing something new today!",
+        "text": "She dropped a piece of paper behind.",
         "inputs": []
     },
     {
         "page": 8,
-        "speaker": "",
-        "background": "assets/backgrounds/residential.png",
+        "speaker": "Narrator",
+        "background": "flyer_closeup.png",
         "position": [
             0,
             0
         ],
-        "text": "Before you could protest, she was already pulling you across campus like a kite on a string.",
+        "text": "Performance Studies Club \u2013 Room 3-105, 4:00 PM. 'Let your voice be heard\u2026 even if it trembles.'",
         "inputs": []
     },
     {
         "page": 9,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "clubroom_day.png",
         "position": [
             0,
             0
         ],
-        "text": "The clubroom was tucked into the quiet end of the building. Inside, sunlight spilled across scattered sheet music and scuffed floors. A piano sat in the corner like an old friend.",
+        "text": "You followed the flyer. The clubroom was quiet. A piano sat in the corner. Light filled the space.",
         "inputs": []
     },
     {
         "page": 10,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Tiffany",
+        "background": "clubroom_day.png",
         "position": [
-            0,
-            0
+            400,
+            100
         ],
-        "text": "A girl with a clipboard looked up from her notes.",
+        "character": "Tiffany",
+        "pose": "neutral",
+        "face": "smile",
+        "text": "You\u2019re the new one, right? This is the Performance Studies Club. We express through voice, movement, music\u2014whatever fits.",
         "inputs": []
     },
     {
         "page": 11,
-        "speaker": "Tiffany",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Harumi",
+        "background": "clubroom_day.png",
         "position": [
-            120,
-            -30
+            200,
+            100
         ],
-        "text": "You must be our new member.",
+        "character": "Harumi",
+        "pose": "pose",
+        "face": "grin",
+        "text": "Or in plain English: we sing, dance, and sometimes cry on purpose.",
         "inputs": []
     },
     {
         "page": 12,
-        "speaker": "Tiffany",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Harumi",
+        "background": "clubroom_day.png",
         "position": [
-            120,
-            -30
+            200,
+            100
         ],
-        "text": "This is the Performance Studies Club. We explore movement, voice, and music as a form of self-expression. Every Friday, we perform something new\u2014structured, original, or interpretive.",
+        "character": "Harumi",
+        "pose": "pose",
+        "face": "grin",
+        "text": "It\u2019s like a talent show, but cooler.",
         "inputs": []
     },
     {
         "page": 13,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Cassian",
+        "background": "clubroom_day.png",
         "position": [
-            0,
-            0
+            600,
+            100
         ],
-        "text": "Before you could respond, someone flipped over a desk and landed in front of you with a dramatic pose.",
+        "character": "Cassian",
+        "pose": "leaning",
+        "face": "smirk",
+        "text": "Don\u2019t forget the breakdowns.",
         "inputs": []
     },
     {
         "page": 14,
-        "speaker": "Harumi",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "clubroom_day.png",
         "position": [
-            60,
-            -30
+            0,
+            0
         ],
-        "text": "Or in normal-people terms, we sing, we dance, and we occasionally cry on purpose. It's awesome.",
+        "text": "You looked around. In the corner was the same girl from the hallway, hugging her pillow.",
         "inputs": []
     },
     {
         "page": 15,
         "speaker": "Harumi",
-        "background": "assets/backgrounds/clubroom.png",
+        "background": "clubroom_day.png",
         "position": [
-            60,
-            -30
+            200,
+            100
         ],
-        "text": "Basically, think talent show but way cooler.",
+        "character": "Harumi",
+        "pose": "neutral",
+        "face": "soft",
+        "text": "That\u2019s Hanami. She\u2019s\u2026 shy. Don\u2019t worry about it.",
         "inputs": []
     },
     {
         "page": 16,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "clubroom_day.png",
         "position": [
             0,
             0
         ],
-        "text": "A voice drifted lazily from the window.",
+        "text": "They gave you a warm-up sheet. Asked if you wanted to try something.",
         "inputs": []
     },
     {
         "page": 17,
-        "speaker": "Cassian",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            160,
-            -20
-        ],
-        "text": "Don't forget the weekly identity crises.",
-        "inputs": [],
-        "character": "cassian",
-        "pose": "1",
-        "face_parts": [
-            "1",
-            "1",
-            "4",
-            "1"
-        ]
-    },
-    {
-        "page": 18,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "clubroom_day.png",
         "position": [
             0,
             0
         ],
-        "text": "You turned. Leaning against the windowsill was a boy with tousled hair and an unreadable smile. Cassian.",
+        "text": "Harumi danced. Loud, fun, full of energy. Tiffany played piano\u2014clean and calm. Cassian just spoke.",
+        "inputs": []
+    },
+    {
+        "page": 18,
+        "speaker": "Cassian",
+        "background": "clubroom_day.png",
+        "position": [
+            600,
+            100
+        ],
+        "character": "Cassian",
+        "pose": "leaning",
+        "face": "neutral",
+        "text": "We perform because we\u2019re scared of being invisible. We lie loud. We break quiet. We smile when we mean scream.",
         "inputs": []
     },
     {
         "page": 19,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "clubroom_day.png",
         "position": [
             0,
             0
         ],
-        "text": "He looked at you like you were already predictable. And in the corner, curled up around a faded pink pillow, was a girl who hadn't spoken.",
+        "text": "Then it was your turn. You stepped up and tried.",
         "inputs": []
     },
     {
         "page": 20,
-        "speaker": "Harumi",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "clubroom_day.png",
         "position": [
-            60,
-            -30
+            0,
+            0
         ],
-        "text": "That's Hanami. She's quiet. Don't push her.",
+        "text": "Maybe you nailed it. Maybe not. But they reacted.",
         "inputs": []
     },
     {
         "page": 21,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Tiffany",
+        "background": "clubroom_day.png",
         "position": [
-            0,
-            0
+            400,
+            100
         ],
-        "text": "You introduced yourself\u2014formally, or sarcastically, or not at all. Either way, it was too late to back out.",
+        "character": "Tiffany",
+        "pose": "smile",
+        "face": "neutral",
+        "text": "Good start.",
         "inputs": []
     },
     {
         "page": 22,
-        "speaker": "Harumi",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            60,
-            -30
-        ],
-        "text": "Since you're new, I'll show you how it's done.",
-        "inputs": []
-    },
-    {
-        "page": 23,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "school_hallway_evening.png",
         "position": [
             0,
             0
         ],
-        "text": "She queued up a track on her phone and exploded into motion\u2014claps, steps, twirls, a pirouette that ended in a wink.",
+        "text": "After the meeting, the sun was setting. Tiffany reminded you about tomorrow\u2019s session.",
+        "inputs": []
+    },
+    {
+        "page": 23,
+        "speaker": "Tiffany",
+        "background": "school_hallway_evening.png",
+        "position": [
+            400,
+            100
+        ],
+        "character": "Tiffany",
+        "pose": "neutral",
+        "face": "soft",
+        "text": "Bring ideas. Bring heart.",
         "inputs": []
     },
     {
         "page": 24,
         "speaker": "Harumi",
-        "background": "assets/backgrounds/clubroom.png",
+        "background": "school_hallway_evening.png",
         "position": [
-            60,
-            -30
+            200,
+            100
         ],
-        "text": "Try to keep up.",
+        "character": "Harumi",
+        "pose": "laughing",
+        "face": "grin",
+        "text": "And snacks!",
         "inputs": []
     },
     {
         "page": 25,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "school_hallway_evening.png",
         "position": [
             0,
             0
         ],
-        "text": "You stepped in. Maybe you crushed it. Maybe you tripped. Either way, you earned a reaction.",
-        "inputs": [],
-        "type": "game",
-        "game_number": 1
+        "text": "Cassian gave you a peace sign. Hanami slipped out quietly, pillow in hand.",
+        "inputs": []
     },
     {
         "page": 26,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "street_evening.png",
         "position": [
             0,
             0
         ],
-        "text": "Harumi whooped or teased. Cassian smirked or shrugged. Tiffany jotted something down. Hanami didn't move.",
+        "text": "You walked home under the fading light. A flyer fluttered on a telephone pole.",
         "inputs": []
     },
     {
         "page": 27,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
+        "speaker": "Narrator",
+        "background": "flyer_closeup.png",
         "position": [
             0,
             0
         ],
-        "text": "Next, Tiffany took the piano. Her fingers moved like clock hands, precise and polished. A soft waltz filled the room.",
-        "inputs": []
-    },
-    {
-        "page": 28,
-        "speaker": "Tiffany",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            120,
-            -30
-        ],
-        "text": "Now you.",
-        "inputs": []
-    },
-    {
-        "page": 29,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "Maybe you tried. Maybe you hesitated. Either way, she nodded\u2014understanding or not.",
-        "inputs": []
-    },
-    {
-        "page": 30,
-        "speaker": "Tiffany",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            120,
-            -30
-        ],
-        "text": "Hanami?",
-        "inputs": []
-    },
-    {
-        "page": 31,
-        "speaker": "Hanami",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            40,
-            0
-        ],
-        "text": "Not today.",
-        "inputs": []
-    },
-    {
-        "page": 32,
-        "speaker": "Harumi",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            60,
-            -30
-        ],
-        "text": "No problem.",
-        "inputs": []
-    },
-    {
-        "page": 33,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "Cassian walked to the center of the room. No music. Just a slow breath.",
-        "inputs": []
-    },
-    {
-        "page": 34,
-        "speaker": "Cassian",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            160,
-            -20
-        ],
-        "text": "We perform because we're afraid of being invisible.",
-        "inputs": []
-    },
-    {
-        "page": 35,
-        "speaker": "Cassian",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            160,
-            -20
-        ],
-        "text": "We lie loudly. We bleed quietly. We smile when we mean scream.",
-        "inputs": []
-    },
-    {
-        "page": 36,
-        "speaker": "Cassian",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            160,
-            -20
-        ],
-        "text": "Your turn.",
-        "inputs": []
-    },
-    {
-        "page": 37,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "Maybe you matched his tempo. Maybe you stumbled. Either way, he gave you a verdict.",
-        "inputs": []
-    },
-    {
-        "page": 38,
-        "speaker": "Cassian",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            160,
-            -20
-        ],
-        "text": "You listen.",
-        "inputs": []
-    },
-    {
-        "page": 39,
-        "speaker": "Cassian",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            160,
-            -20
-        ],
-        "text": "Or: You're part of the noise.",
-        "inputs": []
-    },
-    {
-        "page": 40,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "The spotlight was yours now. You stepped forward. You breathed in. You performed.",
-        "inputs": []
-    },
-    {
-        "page": 41,
-        "speaker": "",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "Maybe you soared. Or maybe your fingers slipped. Either way, the room reacted.",
-        "inputs": []
-    },
-    {
-        "page": 42,
-        "speaker": "Tiffany",
-        "background": "assets/backgrounds/clubroom.png",
-        "position": [
-            120,
-            -30
-        ],
-        "text": "Good start.",
-        "inputs": []
-    },
-    {
-        "page": 43,
-        "speaker": "",
-        "background": "assets/backgrounds/school_path.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "After the club, the sky burned gold behind the trees. The others packed up, chatting and teasing. You lingered by the doorway.",
-        "inputs": []
-    },
-    {
-        "page": 44,
-        "speaker": "Tiffany",
-        "background": "assets/backgrounds/school_path.png",
-        "position": [
-            120,
-            -30
-        ],
-        "text": "Next meeting's tomorrow. Bring ideas. Bring heart.",
-        "inputs": []
-    },
-    {
-        "page": 45,
-        "speaker": "Harumi",
-        "background": "assets/backgrounds/school_path.png",
-        "position": [
-            60,
-            -30
-        ],
-        "text": "And bring snacks.",
-        "inputs": []
-    },
-    {
-        "page": 46,
-        "speaker": "Cassian",
-        "background": "assets/backgrounds/school_path.png",
-        "position": [
-            160,
-            -20
-        ],
-        "text": "*two-finger salute*",
-        "inputs": []
-    },
-    {
-        "page": 47,
-        "speaker": "",
-        "background": "assets/backgrounds/school_path.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "Hanami slipped out without a word, her pillow still clutched tightly.",
-        "inputs": []
-    },
-    {
-        "page": 48,
-        "speaker": "",
-        "background": "assets/backgrounds/school_path.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "You thought about following someone home... Tiffany, Cassian, or no one at all.",
-        "inputs": []
-    },
-    {
-        "page": 49,
-        "speaker": "",
-        "background": "assets/backgrounds/residential.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "Somewhere down the path, a flyer fluttered on a telephone pole.",
-        "inputs": []
-    },
-    {
-        "page": 50,
-        "speaker": "",
-        "background": "assets/backgrounds/residential.png",
-        "position": [
-            0,
-            0
-        ],
-        "text": "\u201cPERFORMANCE,\u201d it read in bold, black ink. Beneath it, scribbled by hand: If you mess up, do it loud enough to matter.",
+        "text": "PERFORMANCE. 'If you mess up, do it loud enough to matter.'",
         "inputs": []
     }
 ]
