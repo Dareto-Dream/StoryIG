@@ -280,7 +280,9 @@
             0
         ],
         "text": "You stepped in. Maybe you crushed it. Maybe you tripped. Either way, you earned a reaction.",
-        "inputs": []
+        "inputs": [],
+        "type": "game",
+        "game_number": 1
     },
     {
         "page": 26,

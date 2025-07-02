@@ -256,14 +256,13 @@ def run_gui():
                     page = story[current_page]
 
                     # === Game page trigger ===
-                    if page.get("type") == "game":
-                        game_number = page.get("game_number", 1)
-                        try:
-                            subprocess.run([sys.executable, "minigame.py"])
-                        except Exception as e:
-                            print(f"Error launching minigame: {e}")
+                    if 'type' in page and page['type'] == 'game':
+                        game_number = page.get('game_number', 1)
+                        if game_number == 1:
+                            from minigame import run_minigame
+                            run_minigame(screen)  # Waits for game to complete
                         current_page += 1
-                        continue
+                        continue  # Skip normal render/input
 
                     # === Input handling ===
                     if 'inputs' in page and not page.get('inputs_done', False):
