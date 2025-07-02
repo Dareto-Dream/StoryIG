@@ -223,7 +223,7 @@ def run_gui():
 
     story = load_story('story.json')
     running = True
-    load_song("song1")
+    # load_song("song1")
 
     while running:
         screen.fill((255, 255, 255))
