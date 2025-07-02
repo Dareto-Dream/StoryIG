@@ -8,7 +8,21 @@
             0
         ],
         "text": "The sun was already up by the time you hit the sidewalk, bag bouncing against your side. You were late again.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": [
+            {
+                "category": "bodyL",
+                "index": "1l.png",
+                "x": 0,
+                "y": 0
+            },
+            {
+                "category": "bodyR",
+                "index": "1r.png",
+                "x": 0,
+                "y": 0
+            }
+        ]
     },
     {
         "page": 2,
@@ -19,7 +33,8 @@
             0
         ],
         "text": "After class, you realized you forgot your pencil. Figures.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 3,
@@ -30,7 +45,8 @@
             0
         ],
         "text": "You headed back. The halls were quiet. Afternoon light filled the windows.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 4,
@@ -41,7 +57,8 @@
             0
         ],
         "text": "You heard something. Soft humming. Barely there.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 5,
@@ -55,7 +72,8 @@
         "pose": "5",
         "face": "_",
         "text": "A girl sat by the window with a pillow in her lap. She was writing something and humming to herself.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 6,
@@ -69,7 +87,8 @@
         "inputs": [],
         "character": "hanami",
         "pose": "2",
-        "face": "_"
+        "face": "_",
+        "custom_parts": []
     },
     {
         "page": 7,
@@ -80,7 +99,8 @@
             0
         ],
         "text": "She dropped a piece of paper behind.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 8,
@@ -91,7 +111,8 @@
             0
         ],
         "text": "Performance Studies Club \u2013 Room 3-105, 4:00 PM. 'Let your voice be heard\u2026 even if it trembles.'",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 9,
@@ -102,7 +123,8 @@
             0
         ],
         "text": "You followed the flyer. The clubroom was quiet. A piano sat in the corner. Light filled the space.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 10,
@@ -112,11 +134,38 @@
             400,
             100
         ],
-        "character": "Tiffany",
+        "character": "tiffany",
         "pose": "neutral",
         "face": "smile",
         "text": "You\u2019re the new one, right? This is the Performance Studies Club. We express through voice, movement, music\u2014whatever fits.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": [
+            {
+                "category": "bodyL",
+                "index": "1l.png",
+                "x": 0,
+                "y": 0
+            },
+            {
+                "category": "bodyR",
+                "index": "4r.png",
+                "x": 0,
+                "y": 0
+            },
+            {
+                "category": "head",
+                "index": "head.png",
+                "x": 0,
+                "y": 0
+            },
+            {
+                "category": "eyes",
+                "index": "b.png",
+                "x": 0,
+                "y": 0
+            }
+        ],
+        "custom_mode": true
     },
     {
         "page": 11,
@@ -130,7 +179,8 @@
         "pose": "pose",
         "face": "grin",
         "text": "Or in plain English: we sing, dance, and sometimes cry on purpose.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 12,
@@ -144,7 +194,8 @@
         "pose": "pose",
         "face": "grin",
         "text": "It\u2019s like a talent show, but cooler.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 13,
@@ -154,11 +205,18 @@
             600,
             100
         ],
-        "character": "Cassian",
-        "pose": "leaning",
+        "character": "cassian",
+        "pose": "2",
         "face": "smirk",
         "text": "Don\u2019t forget the breakdowns.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": [],
+        "face_parts": [
+            "1",
+            "1",
+            "4",
+            "1"
+        ]
     },
     {
         "page": 14,
@@ -169,7 +227,8 @@
             0
         ],
         "text": "You looked around. In the corner was the same girl from the hallway, hugging her pillow.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 15,
@@ -183,7 +242,8 @@
         "pose": "neutral",
         "face": "soft",
         "text": "That\u2019s Hanami. She\u2019s\u2026 shy. Don\u2019t worry about it.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 16,
@@ -194,7 +254,8 @@
             0
         ],
         "text": "They gave you a warm-up sheet. Asked if you wanted to try something.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 17,
@@ -205,7 +266,8 @@
             0
         ],
         "text": "Harumi danced. Loud, fun, full of energy. Tiffany played piano\u2014clean and calm. Cassian just spoke.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 18,
@@ -215,11 +277,36 @@
             600,
             100
         ],
-        "character": "Cassian",
-        "pose": "leaning",
-        "face": "neutral",
+        "character": "tiffany",
         "text": "We perform because we\u2019re scared of being invisible. We lie loud. We break quiet. We smile when we mean scream.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": [
+            {
+                "category": "bodyL",
+                "index": "1l.png",
+                "x": 0,
+                "y": 0
+            },
+            {
+                "category": "bodyR",
+                "index": "1r.png",
+                "x": 0,
+                "y": 0
+            },
+            {
+                "category": "head",
+                "index": "head.png",
+                "x": 0,
+                "y": 0
+            },
+            {
+                "category": "eyes",
+                "index": "d.png",
+                "x": 0,
+                "y": 0
+            }
+        ],
+        "custom_mode": true
     },
     {
         "page": 19,
@@ -230,7 +317,8 @@
             0
         ],
         "text": "Then it was your turn. You stepped up and tried.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 20,
@@ -241,7 +329,8 @@
             0
         ],
         "text": "Maybe you nailed it. Maybe not. But they reacted.",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": []
     },
     {
         "page": 21,
@@ -305,7 +394,15 @@
             0
         ],
         "text": "Cassian gave you a peace sign. Hanami slipped out quietly, pillow in hand.",
-        "inputs": []
+        "inputs": [],
+        "character": "cassian",
+        "pose": "1",
+        "face_parts": [
+            "1",
+            "1",
+            "1",
+            "1"
+        ]
     },
     {
         "page": 26,
