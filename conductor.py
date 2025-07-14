@@ -82,8 +82,9 @@ class Conductor:
             lane.handle_input(event, song_time)
 
     def draw(self):
+        song_time = self.get_song_time()
         for lane in self.lanes:
-            lane.draw()
+            lane.draw(song_time)
 
 # ------------------- MAIN GAME LOOP DEMO ------------------------
 

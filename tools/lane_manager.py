@@ -67,11 +67,11 @@ class LaneManager:
         if not self.is_player:
             self.simple_opponent_ai(song_time)
 
-    def draw(self):
+    def draw(self, song_time):
         render_notes(
             self.screen,
             self.note_handler,
-            song_time=self.get_song_time(),
+            song_time=song_time,
             hit_y=self.hit_y,
             arrow_frames=self.frames,
             lane_positions=self.lane_positions,
