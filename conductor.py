@@ -29,6 +29,11 @@ class Conductor:
         self.voices_channel = None
 
     def load_song(self):
+        if not pygame.mixer.get_init():
+            try:
+                pygame.mixer.init()
+            except pygame.error as exc:
+                print(f"[!] Mixer init failed: {exc}")
         chart_path = f"assets/minigame/songs/{self.song_name}/{self.song_name}.json"
         audio_path = f"assets/minigame/songs/{self.song_name}/{self.song_name}.mp3"
 
@@ -51,7 +56,7 @@ class Conductor:
             player_animator=self.player_animator
         )
 
-        if os.path.exists(audio_path):
+        if pygame.mixer.get_init() and os.path.exists(audio_path):
             pygame.mixer.music.load(audio_path)
 
     def play_music(self):
@@ -60,6 +65,9 @@ class Conductor:
         inst_path = f"assets/minigame/songs/{self.song_name}/Inst.ogg"
         voices_path = f"assets/minigame/songs/{self.song_name}/Voices.ogg"
         fallback_mp3 = f"assets/minigame/songs/{self.song_name}/{self.song_name}.mp3"
+
+        if not pygame.mixer.get_init():
+            return
 
         if os.path.exists(inst_path) and os.path.exists(voices_path):
             # Use legacy split playback
@@ -71,7 +79,7 @@ class Conductor:
 
             self.inst_channel.play(inst_sound)
             self.voices_channel.play(voices_sound)
-        else:
+        elif os.path.exists(fallback_mp3):
             # Fallback to single MP3 playback
             pygame.mixer.music.load(fallback_mp3)
             pygame.mixer.music.play()
@@ -79,12 +87,13 @@ class Conductor:
     def get_song_time(self):
         return pygame.time.get_ticks() - self.start_time
 
-    def update(self):
+    def update(self, dt):
+        """Advance game state by ``dt`` milliseconds."""
         song_time = self.get_song_time()
         self.chart_handler.update(song_time, self.note_handler)
         self.note_handler.update(song_time)
-        self.arrow_handler.update(0)  # splash/timers
-        self.player_animator.update(0)
+        self.arrow_handler.update(dt)
+        self.player_animator.update(dt)
 
     def handle_input(self, event, key_map):
         song_time = self.get_song_time()
@@ -183,7 +192,7 @@ if __name__ == "__main__":
                 running = False
             conductor.handle_input(event, key_map)
 
-        conductor.update()
+        conductor.update(dt)
 
         screen.fill((0, 0, 0))
         conductor.draw(lane_positions)
