@@ -23,10 +23,11 @@ class Conductor:
         self.scroll_speed = 0.3
         self.hit_y = 100
 
-        self.load_song()
-        self.play_music()
         self.inst_channel = None
         self.voices_channel = None
+
+        self.load_song()
+        self.play_music()
 
     def load_song(self):
         chart_path = f"assets/minigame/songs/{self.song_name}/{self.song_name}.json"
@@ -88,7 +89,8 @@ class Conductor:
             Time since last update in milliseconds.  Used for animations.
         """
         song_time = self.get_song_time()
-        self.chart_handler.update(song_time, self.note_handler)
+        # Spawn notes early enough so they scroll from the bottom
+        self.chart_handler.update(song_time, self.note_handler, prebuffer=2500)
         self.note_handler.update(song_time)
         self.arrow_handler.update(dt)
         self.player_animator.update(dt)
@@ -99,7 +101,11 @@ class Conductor:
         if event.type == pygame.KEYDOWN:
             if event.key in key_map:
                 direction = key_map[event.key]
-                self.note_handler.handle_key_press(direction, song_time)
+                hit = self.note_handler.handle_key_press(direction, song_time)
+                if not hit:
+                    # Flash arrows and play animation even without a note
+                    self.arrow_handler.press(direction)
+                    self.player_animator.play(direction)
 
         elif event.type == pygame.KEYUP:
             if event.key in key_map:

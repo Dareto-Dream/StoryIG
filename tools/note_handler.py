@@ -25,9 +25,10 @@ class NoteHandler:
             self.notes_by_lane[lane].sort(key=lambda n: n.time_ms)
 
     def handle_key_press(self, direction, press_time):
+        """Handle a key press and return True if a note was hit."""
         lane = self.notes_by_lane.get(direction, [])
         if not lane:
-            return
+            return False
 
         for note in lane:
             if note.hit or note.missed:
@@ -42,12 +43,14 @@ class NoteHandler:
                 self.arrow_handler.press(direction, with_note=True, judgement=result)
                 self.player_animator.play(direction)
 
-                break
+                return True
             else:
                 # Too late? mark as missed
                 if press_time > note.time_ms + self.judgement.window("miss"):
                     note.missed = True
                 break
+
+        return False
 
     def handle_key_release(self, direction):
         self.arrow_handler.release(direction)
