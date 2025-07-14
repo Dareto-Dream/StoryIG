@@ -77,18 +77,30 @@ class Arrow:
 
 class ArrowHandler:
     def __init__(self, arrow_frames=None, position=(640, 100), spacing=150,
-                 directions=('left', 'down', 'up', 'right'), frames=None):
-        """
-        arrow_frames: dict[str] = {'left': {'idle', 'hold', 'flash'}, ...}
-                      If None, will be built from DEFAULT_SPRITE_KEYS using 'frames' lookup
-        frames: dict[str, Surface] — required if arrow_frames is None
+                 directions=("left", "down", "up", "right"), frames=None):
+        """Create and manage stationary arrow targets.
+
+        Parameters
+        ----------
+        arrow_frames : dict[str, dict[str, Surface]] or None
+            Preloaded frames for each direction.  If ``None`` the ``frames``
+            dictionary will be used in combination with
+            :data:`DEFAULT_SPRITE_KEYS` to build the mapping.
+        position : tuple[int, int]
+            Base (center) position for the arrow targets.
+        spacing : int
+            Pixel spacing between individual lanes.
+        directions : Iterable[str]
+            Which directions should be visible.
+        frames : dict[str, Surface] or None
+            Raw sprite frame dictionary used when ``arrow_frames`` is ``None``.
         """
         self.arrows = {}
         self.directions = directions
         self.base_position = position
         self.spacing = spacing
 
-        dir_order = ['left', 'down', 'up', 'right']
+        dir_order = ["left", "down", "up", "right"]
         visible_dirs = [d for d in dir_order if d in directions]
 
         center_x = position[0]
@@ -98,7 +110,27 @@ class ArrowHandler:
 
         # Auto-fill default arrow frames if not passed
         if arrow_frames is None:
-            raise ValueError("Must pass arrow_frames if pre-processed")
+            if frames is None:
+                raise ValueError(
+                    "frames must be provided when arrow_frames is None")
+            arrow_frames = {
+                d: {
+                    "idle": frames[DEFAULT_SPRITE_KEYS[d]["idle"]],
+                    "hold": frames[DEFAULT_SPRITE_KEYS[d]["hold"]],
+                    "flash": frames[DEFAULT_SPRITE_KEYS[d]["flash"]],
+                }
+                for d in visible_dirs
+            }
+
+        for i, direction in enumerate(visible_dirs):
+            pos = (start_x + i * self.spacing, base_y)
+            frameset = arrow_frames[direction]
+            self.arrows[direction] = Arrow(
+                idle=frameset["idle"],
+                hold=frameset["hold"],
+                flash=frameset["flash"],
+                position=pos,
+            )
 
     def press(self, direction, with_note=False, judgement=None):
         if direction in self.arrows:
