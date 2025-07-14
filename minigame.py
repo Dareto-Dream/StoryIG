@@ -1,6 +1,9 @@
 import pygame
 import xml.etree.ElementTree as ET
 
+BASE_WIDTH = 1280
+BASE_HEIGHT = 720
+
 
 def load_sprites_from_xml(image_path, xml_path):
     image = pygame.image.load(image_path).convert_alpha()
@@ -14,21 +17,27 @@ def load_sprites_from_xml(image_path, xml_path):
         y = int(sub.attrib['y'])
         w = int(sub.attrib['width'])
         h = int(sub.attrib['height'])
-        frames[name] = image.subsurface(pygame.Rect(x, y, w, h))
+        frames[name] = image.subsurface(pygame.Rect(x, y, w, h)).copy()
 
     return frames
 
 
 class Arrow:
-    def __init__(self, idle, hold, flash, position):
-        self.idle = idle
-        self.hold = hold
-        self.flash = flash
-        self.position = position
+    def __init__(self, idle, hold, flash, base_pos):
+        self.base_idle = idle
+        self.base_hold = hold
+        self.base_flash = flash
+        self.base_pos = base_pos
+
+        self.scaled_idle = idle
+        self.scaled_hold = hold
+        self.scaled_flash = flash
+        self.scaled_pos = base_pos
+
         self.state = "idle"
         self.anim_timer = 0
         self.note_active = False
-        self.held = False  # <-- NEW: track actual key state
+        self.held = False
 
     def press(self, with_note=False):
         self.note_active = with_note
@@ -50,15 +59,30 @@ class Arrow:
                 else:
                     self.state = "idle"
 
+    def rescale(self, scale):
+        def scale_image(img):
+            w = int(img.get_width() * scale)
+            h = int(img.get_height() * scale)
+            return pygame.transform.smoothscale(img, (w, h))
+
+        self.scaled_idle = scale_image(self.base_idle)
+        self.scaled_hold = scale_image(self.base_hold)
+        self.scaled_flash = scale_image(self.base_flash)
+
+        self.scaled_pos = (int(self.base_pos[0] * scale), int(self.base_pos[1] * scale))
+
     def draw(self, screen):
         if self.state == "flash":
-            frame = self.flash  # BRIGHT
+
+            frame = self.scaled_flash
         elif self.state == "hold":
-            frame = self.flash if self.note_active else self.hold  # BRIGHT if note, else COLORED GRAY
+            frame = self.scaled_flash if self.note_active else self.scaled_hold
         else:
-            frame = self.idle  # GRAY
-        rect = frame.get_rect(center=self.position)
+            frame = self.scaled_idle
+
+        rect = frame.get_rect(center=self.scaled_pos)
         screen.blit(frame, rect.topleft)
+
 
 def run_minigame(screen):
     clock = pygame.time.Clock()
@@ -70,43 +94,54 @@ def run_minigame(screen):
         "assets/minigame/notes/NOTE_assets.xml"
     )
 
-    screen_width, screen_height = screen.get_size()
-    arrow_spacing = 120
-    base_y = 450
-    center_x = screen_width // 2
-    positions = [
-        center_x - arrow_spacing * 1.5,
-        center_x - arrow_spacing * 0.5,
-        center_x + arrow_spacing * 0.5,
-        center_x + arrow_spacing * 1.5
-    ]
+    def compute_base_positions():
+        spacing = BASE_WIDTH // 8
+        center_x = BASE_WIDTH // 2
+        return [
+            center_x - spacing * 1.5,
+            center_x - spacing * 0.5,
+            center_x + spacing * 0.5,
+            center_x + spacing * 1.5
+        ]
+
+    base_y = 100
+    positions = compute_base_positions()
 
     arrow_map = {
         'left': Arrow(
             idle=frames["arrow static instance 10000"],
             flash=frames["purple instance 10000"],
             hold=frames["left press instance 10000"],
-            position=(positions[0], base_y)
+            base_pos=(positions[0], base_y)
         ),
         'down': Arrow(
             idle=frames["arrow static instance 20000"],
             flash=frames["blue instance 10000"],
             hold=frames["down press instance 10000"],
-            position=(positions[1], base_y)
+            base_pos=(positions[1], base_y)
         ),
         'right': Arrow(
             idle=frames["arrow static instance 30000"],
             flash=frames["red instance 10000"],
             hold=frames["right press instance 10000"],
-            position=(positions[2], base_y)
+            base_pos=(positions[3], base_y)
         ),
         'up': Arrow(
             idle=frames["arrow static instance 40000"],
             flash=frames["green instance 10000"],
             hold=frames["up press instance 10000"],
-            position=(positions[3], base_y)
+            base_pos=(positions[2], base_y)
         ),
     }
+
+    def rescale_all_arrows(screen_size):
+        scale_x = screen_size[0] / BASE_WIDTH
+        scale_y = screen_size[1] / BASE_HEIGHT
+        scale = min(scale_x, scale_y)
+        for arrow in arrow_map.values():
+            arrow.rescale(scale)
+
+    rescale_all_arrows(screen.get_size())
 
     key_to_dir = {
         pygame.K_a: 'left',
@@ -128,8 +163,7 @@ def run_minigame(screen):
                     running = False
                 elif event.key in key_to_dir:
                     direction = key_to_dir[event.key]
-                    arrow = arrow_map[direction]
-                    arrow.press(with_note=False)  # no note logic yet
+                    arrow_map[direction].press(with_note=False)
                     held_keys.add(direction)
 
             elif event.type == pygame.KEYUP:
@@ -137,6 +171,10 @@ def run_minigame(screen):
                     direction = key_to_dir[event.key]
                     arrow_map[direction].release()
                     held_keys.discard(direction)
+
+            elif event.type == pygame.VIDEORESIZE:
+                screen = pygame.display.set_mode((event.w, event.h), pygame.RESIZABLE)
+                rescale_all_arrows((event.w, event.h))
 
         for arrow in arrow_map.values():
             arrow.update(dt)
@@ -152,7 +190,7 @@ def run_minigame(screen):
 
 if __name__ == "__main__":
     pygame.init()
-    screen = pygame.display.set_mode((800, 600))
+    screen = pygame.display.set_mode((BASE_WIDTH, BASE_HEIGHT), pygame.RESIZABLE)
     pygame.display.set_caption("Minigame Test")
     run_minigame(screen)
     pygame.quit()
