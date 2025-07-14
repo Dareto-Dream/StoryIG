@@ -1,6 +1,8 @@
 import os
 import json
 import pygame
+
+from tools import judgement
 from tools.chart_handler import ChartHandler
 from tools.note_handler import NoteHandler, render_notes
 from tools.judgement import evaluate, window
@@ -47,7 +49,7 @@ class Conductor:
         self.arrow_handler = ArrowHandler(arrow_frames=self.frames)
 
         self.note_handler = NoteHandler(
-            judgement=__import__('tools.judgement'),
+            judgement=judgement,
             arrow_handler=self.arrow_handler,
             player_animator=self.player_animator
         )
