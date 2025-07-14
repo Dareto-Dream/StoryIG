@@ -79,12 +79,19 @@ class Conductor:
     def get_song_time(self):
         return pygame.time.get_ticks() - self.start_time
 
-    def update(self):
+    def update(self, dt=0):
+        """Update active game objects.
+
+        Parameters
+        ----------
+        dt : int
+            Time since last update in milliseconds.  Used for animations.
+        """
         song_time = self.get_song_time()
         self.chart_handler.update(song_time, self.note_handler)
         self.note_handler.update(song_time)
-        self.arrow_handler.update(0)  # splash/timers
-        self.player_animator.update(0)
+        self.arrow_handler.update(dt)
+        self.player_animator.update(dt)
 
     def handle_input(self, event, key_map):
         song_time = self.get_song_time()
@@ -183,7 +190,7 @@ if __name__ == "__main__":
                 running = False
             conductor.handle_input(event, key_map)
 
-        conductor.update()
+        conductor.update(dt)
 
         screen.fill((0, 0, 0))
         conductor.draw(lane_positions)
