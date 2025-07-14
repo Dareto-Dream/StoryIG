@@ -17,6 +17,9 @@ class LaneManager:
         arrow_x,
         hit_y=100,
         is_player=False,
+        bpm=120,
+        song_speed=1.0,
+        section_list=None,
         key_map=None,
         lane_positions=None,
         scroll_speed=0.3
@@ -24,6 +27,12 @@ class LaneManager:
         self.name = name
         self.is_player = is_player
         self.screen = screen
+
+        self.base_pixels_per_beat = 250
+        self.bpm = bpm
+        self.song_speed = song_speed
+
+        self.section_list = section_list or []
 
         self.chart_handler = ChartHandler(chart)
         self.arrow_handler = ArrowHandler(
@@ -63,10 +72,10 @@ class LaneManager:
             self.screen,
             self.note_handler,
             song_time=self.get_song_time(),
-            scroll_speed=self.scroll_speed,
             hit_y=self.hit_y,
             arrow_frames=self.frames,
-            lane_positions=self.lane_positions
+            lane_positions=self.lane_positions,
+            section_list=self.section_list  # <--- NEW
         )
         self.arrow_handler.draw(self.screen)
         self.animator.draw(self.screen)
