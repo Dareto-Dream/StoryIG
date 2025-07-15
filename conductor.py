@@ -117,7 +117,12 @@ if __name__ == "__main__":
         pygame.K_a: 'left',
         pygame.K_s: 'down',
         pygame.K_w: 'up',
-        pygame.K_d: 'right'
+        pygame.K_d: 'right',
+        # Arrow key controls
+        pygame.K_LEFT: 'left',
+        pygame.K_DOWN: 'down',
+        pygame.K_UP: 'up',
+        pygame.K_RIGHT: 'right'
     }
 
     side_configs = [
