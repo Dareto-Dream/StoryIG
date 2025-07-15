@@ -4,7 +4,7 @@ from tools.character_animations import CharacterAnimator
 from tools.judgement_splash import JudgementSplash
 from tools.lane_manager import LaneManager
 from tools import judgement
-from tools.xml_sprite_loader import load_sprites_from_xml, load_character_frames
+from tools.xml_sprite_loader import load_sprites_from_xml, load_character_frames, load_character_sprites_from_xml
 from tools.legacy_loader import load_fnf_chart
 
 class Conductor:
@@ -98,7 +98,7 @@ if __name__ == "__main__":
 
     pygame.init()
     screen = pygame.display.set_mode((1280, 720))
-    pygame.display.set_caption("Conductor (LaneManager) Test")
+    pygame.display.set_caption("Conductor (Character) Test")
     clock = pygame.time.Clock()
 
     frames = load_sprites_from_xml(
@@ -107,10 +107,13 @@ if __name__ == "__main__":
         scale=0.7 # arrow scale
     )
 
-    player_frames = load_character_frames("player", frames)
-    tiffany_frames = load_character_frames("tiffany", frames)
+    # For a mod character:
+    dustman_raw = load_character_sprites_from_xml("assets/minigame/characters/dustmanltbl.png", "assets/minigame/characters/dustmanltbl.xml", scale=0.6)
+    dustman_frames = load_character_frames("unused", dustman_raw)
+    megaman_raw = load_character_sprites_from_xml("assets/minigame/characters/megamanltbl1.png", "assets/minigame/characters/megamanltbl1.xml", scale=0.6)
+    tiffany_frames = load_character_frames("tiffany", megaman_raw)
 
-    player_animator = CharacterAnimator(player_frames, position=(950, 620))
+    player_animator = CharacterAnimator(dustman_frames, position=(950, 620))
     tiffany_animator = CharacterAnimator(tiffany_frames, position=(330, 620))
 
     player_key_map = {

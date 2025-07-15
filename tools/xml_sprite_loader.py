@@ -47,18 +47,61 @@ def load_sprites_from_xml(image_path, xml_path, scale=1.0):
 
     return arrow_frames
 
+def load_character_sprites_from_xml(image_path, xml_path, scale=1.0):
+    import pygame
+    import xml.etree.ElementTree as ET
+
+    image = pygame.image.load(image_path).convert_alpha()
+    tree = ET.parse(xml_path)
+    root = tree.getroot()
+
+    frames = {}
+    for sub in root.findall('SubTexture'):
+        name = sub.attrib['name']
+        x = int(sub.attrib['x'])
+        y = int(sub.attrib['y'])
+        w = int(sub.attrib['width'])
+        h = int(sub.attrib['height'])
+
+        # Check for 'rotated="true"'
+        rotated = sub.attrib.get('rotated', 'false') == 'true'
+        if rotated:
+            frame = image.subsurface(pygame.Rect(x, y, w, h)).copy()
+            frame = pygame.transform.rotate(frame, 90)  # 90 degrees CCW
+        else:
+            frame = image.subsurface(pygame.Rect(x, y, w, h)).copy()
+
+        if scale != 1.0:
+            frame = pygame.transform.smoothscale(
+                frame,
+                (int(frame.get_width() * scale), int(frame.get_height() * scale))
+            )
+        frames[name] = frame
+
+    return frames
 
 def load_character_frames(name_prefix, frames_dict, anims=('idle', 'singLEFT', 'singDOWN', 'singUP', 'singRIGHT')):
     """
-    Loads multi-frame character animations from XML-named frames.
-    Example keys: 'tiffany_singLEFT_0', 'tiffany_singLEFT_1', ...
+    Loads multi-frame character animations from FNF-style XML-named frames.
+    Supports names like 'Down0000', 'Left0001', 'Idle0003', etc.
     """
+    # Mapping from loader anim name to FNF XML base
+    FNF_ANIM_MAP = {
+        'idle': 'Idle',
+        'singLEFT': 'Left',
+        'singDOWN': 'Down',
+        'singUP': 'Up',
+        'singRIGHT': 'Right'
+    }
+
     anim_map = {}
     for anim in anims:
+        base = FNF_ANIM_MAP.get(anim, anim)
         frames = []
         i = 0
         while True:
-            key = f"{name_prefix}_{anim}_{i}"
+            # Look for FNF style names like 'Down0000', 'Left0004', etc.
+            key = f"{base}{i:04d}"
             if key in frames_dict:
                 frames.append(frames_dict[key])
                 i += 1

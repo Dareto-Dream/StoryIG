@@ -42,7 +42,7 @@ def split_fnf_chart_sections_with_bpm_speed(sections, global_bpm, global_speed):
                 "bpm": current_bpm,
                 "song_speed": current_speed,
             }
-            if must_hit:
+            if not must_hit:
                 if lane in (0, 1, 2, 3):
                     player_notes.append(note_obj)
                 elif lane in (4, 5, 6, 7):
