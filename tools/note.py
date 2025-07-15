@@ -1,10 +1,14 @@
 class Note:
-    def __init__(self, direction, time_ms, bpm, song_speed):
+    def __init__(self, direction, time_ms, bpm, song_speed, sustain_ms=0):
         self.direction = direction
-        self.time_ms = time_ms
-        self.hit = False
-        self.missed = False
-        self.judgement = None
+        self.time_ms = time_ms                  # Head time (when the note is hit)
+        self.sustain_ms = sustain_ms            # How long to hold (0 for tap notes)
+        self.hit = False                        # Tap/initial hit
+        self.missed = False                     # Missed entirely
+        self.held = False                       # Key is currently being held
+        self.released_early = False             # Released before end of sustain
+        self.judgement = None                   # Tap/initial judgement
+        self.hold_judgement = None              # Hold score (if you want to grade it)
         self.bpm = bpm
         self.song_speed = song_speed
 
@@ -15,7 +19,22 @@ class Note:
         distance = self.time_ms - song_time
         return hit_y + distance * pixels_per_ms
 
+    def get_tail_time(self):
+        return self.time_ms + self.sustain_ms
+
+    def get_tail_screen_y(self, song_time, hit_y, base_pixels_per_beat=100):
+        """Returns the y-coordinate for the tail (end) of the hold note."""
+        beat_time = 60000 / self.bpm
+        pixels_per_beat = base_pixels_per_beat * self.song_speed
+        pixels_per_ms = pixels_per_beat / beat_time
+        distance = (self.time_ms + self.sustain_ms) - song_time
+        return hit_y + distance * pixels_per_ms
+
+    def is_hold(self):
+        return self.sustain_ms > 0
+
     def draw(self, screen, song_time, hit_y, sprite, center_x, base_pixels_per_beat=250):
+        # Only draws the head, for backward compatibility.
         if self.hit or self.missed:
             return
         y = self.get_screen_y(song_time, hit_y, base_pixels_per_beat)

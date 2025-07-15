@@ -2,6 +2,13 @@ import pygame
 import xml.etree.ElementTree as ET
 from tools.arrow_handler import DEFAULT_SPRITE_KEYS
 
+FNF_DIRECTION_COLOR = {
+    'left':   'purple',
+    'down':   'blue',
+    'up':     'green',
+    'right':  'red'
+}
+
 def load_sprites_from_xml(image_path, xml_path):
     image = pygame.image.load(image_path).convert_alpha()
     tree = ET.parse(xml_path)
@@ -18,14 +25,16 @@ def load_sprites_from_xml(image_path, xml_path):
         raw_frames[name] = image.subsurface(pygame.Rect(x, y, w, h)).copy()
 
     # Convert to arrow_frames structure
-    arrow_frames = {
-        dir: {
-            'idle':  raw_frames[DEFAULT_SPRITE_KEYS[dir]['idle']],
+    arrow_frames = {}
+    for dir in DEFAULT_SPRITE_KEYS:
+        color = FNF_DIRECTION_COLOR[dir]
+        arrow_frames[dir] = {
+            'idle': raw_frames[DEFAULT_SPRITE_KEYS[dir]['idle']],
             'flash': raw_frames[DEFAULT_SPRITE_KEYS[dir]['flash']],
-            'hold':  raw_frames[DEFAULT_SPRITE_KEYS[dir]['hold']],
+            'hold': raw_frames[DEFAULT_SPRITE_KEYS[dir]['hold']],
+            'hold_piece': raw_frames.get(f"{color} hold piece instance 10000"),
+            'hold_end': raw_frames.get(f"{color} hold end instance 10000"),
         }
-        for dir in DEFAULT_SPRITE_KEYS
-    }
 
     # Optionally include raw XML access
     arrow_frames['_raw'] = raw_frames

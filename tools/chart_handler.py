@@ -22,7 +22,8 @@ class ChartHandler:
                     direction=note_info["direction"],
                     time_ms=note_info["time"],
                     bpm=note_info["bpm"],
-                    song_speed=note_info["song_speed"]
+                    song_speed=note_info["song_speed"],
+                    sustain_ms=note_info.get("sustain", 0)  # Pass sustain_ms!
                 )
                 note_handler.add_note(note)
                 self.index += 1

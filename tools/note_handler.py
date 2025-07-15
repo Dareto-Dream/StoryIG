@@ -60,22 +60,57 @@ class NoteHandler:
         self.arrow_handler.release(direction)
         self.player_animator.release()
 
-def render_notes(screen, note_handler, song_time, hit_y, arrow_frames, lane_positions, section_list, base_pixels_per_beat):
+def render_notes(
+    screen,
+    note_handler,
+    song_time,
+    hit_y,
+    arrow_frames,
+    lane_positions,
+    section_list,
+    base_pixels_per_beat
+):
     NOTE_SPAWN_TIME = 2500  # ms
 
     for direction, notes in note_handler.notes_by_lane.items():
         x = lane_positions[direction]
-        sprite = arrow_frames[direction]['flash']
+        frameset = arrow_frames[direction]
 
         for note in notes:
             time_until_hit = note.time_ms - song_time
             if time_until_hit > NOTE_SPAWN_TIME:
                 continue # Too early to show this note
-            if note.time_ms < song_time:
-                continue  # Note already passed (missed or hit)
+            if note.time_ms < song_time and (not note.is_hold() or song_time > note.get_tail_time()):
+                continue  # Tap note already passed, or hold note completely finished
 
-            y = get_screen_y_fnf(note.time_ms, song_time, hit_y, section_list)
-            if y < 0 or y > screen.get_height() + 100:
+            # HEAD Y position (where you hit the note)
+            y_head = note.get_screen_y(song_time, hit_y, base_pixels_per_beat)
+            # For hold notes, TAIL Y (where you finish holding)
+            y_tail = note.get_tail_screen_y(song_time, hit_y, base_pixels_per_beat) if note.is_hold() else y_head
+
+            # Only render visible range
+            if y_head > screen.get_height() + 100 or y_tail < -100:
                 continue
 
+            # RENDER HOLD BAR (between head and tail, below head and above tail)
+            if note.is_hold():
+                hold_piece = frameset.get("hold_piece")
+                hold_end = frameset.get("hold_end")
+                if hold_piece is not None and hold_end is not None:
+                    piece_height = hold_piece.get_height()
+                    # Calculate bar range
+                    y_top = min(y_head, y_tail)
+                    y_bot = max(y_head, y_tail)
+                    # Tile the hold_piece vertically between head and tail
+                    y_pos = y_top
+                    while y_pos < y_bot - piece_height:
+                        rect = hold_piece.get_rect(center=(x, int(y_pos + piece_height / 2)))
+                        screen.blit(hold_piece, rect.topleft)
+                        y_pos += piece_height
+                    # Draw end cap/tail at y_tail
+                    rect_end = hold_end.get_rect(center=(x, int(y_tail)))
+                    screen.blit(hold_end, rect_end.topleft)
+
+            # RENDER HEAD (flash sprite for now, can switch to state-based)
+            sprite = frameset['flash']
             note.draw(screen, song_time, hit_y, sprite, x, base_pixels_per_beat)
