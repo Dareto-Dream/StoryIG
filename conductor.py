@@ -1,9 +1,11 @@
 import os
 import pygame
 from tools.character_animations import CharacterAnimator
+from tools.event_handler import EventHandler
 from tools.judgement_splash import JudgementSplash
 from tools.lane_manager import LaneManager
 from tools import judgement
+from tools.utils import VideoPlayer
 from tools.xml_sprite_loader import load_sprites_from_xml, load_character_frames, load_character_sprites_from_xml
 from tools.legacy_loader import load_fnf_chart
 
@@ -17,9 +19,14 @@ class Conductor:
 
         # --- Use legacy_loader for all chart parsing and BPM/song_speed extraction ---
         chart_path = f"assets/minigame/songs/{song_name}/{song_name}.json"
-        bpm, song_speed, player_notes, opponent_notes, song_meta, section_list = load_fnf_chart(chart_path)
+        bpm, song_speed, player_notes, opponent_notes, song_meta, section_list, events = load_fnf_chart(chart_path)
 
-        # --- Load in judgement_splash for splash text
+        # --- Event support ---
+        self.event_handler = EventHandler(events, conductor=self)
+        self.video_player = None
+        self.video_active = False
+
+        # --- Load in judgement_splash for splash text ---
         self.judgement_splash = JudgementSplash(center=(screen.get_width() // 2, 180))
 
         # --- Assign correct chart to each LaneManager ---
@@ -73,11 +80,29 @@ class Conductor:
             pygame.mixer.music.play()
             self.start_time = pygame.time.get_ticks()  # <-- Move here!
 
+    def play_video(self, path):
+        self.video_player = VideoPlayer(path, self.screen.get_size())
+        self.video_active = True
+
+    def set_scroll_speed(self, speed, lane=None):
+        # If lane is specified, update only that lane; else update all
+        if lane is not None and 0 <= lane < len(self.lanes):
+            self.lanes[lane].scroll_speed = speed
+        else:
+            for lane_obj in self.lanes:
+                lane_obj.scroll_speed = speed
+        print(f"Set scroll speed: {speed} (lane {lane})")
     def get_song_time(self):
         return pygame.time.get_ticks() - self.start_time
 
     def update(self, dt):
         song_time = self.get_song_time()
+        self.event_handler.update(song_time)
+        if self.video_active:
+            frame = self.video_player.update(dt)
+            if frame is None:
+                self.video_active = False
+                self.video_player.release()
         for lane in self.lanes:
             lane.update(song_time, dt)
 
@@ -90,6 +115,9 @@ class Conductor:
         song_time = self.get_song_time()
         for lane in self.lanes:
             lane.draw(song_time)
+        # Overlay video if active (draws ON TOP)
+        if self.video_active and self.video_player and self.video_player.frame:
+            self.video_player.draw(self.screen)
 
 # ------------------- MAIN GAME LOOP DEMO ------------------------
 
@@ -97,7 +125,7 @@ if __name__ == "__main__":
     import sys
 
     pygame.init()
-    screen = pygame.display.set_mode((1280, 720))
+    screen = pygame.display.set_mode((1280, 720), pygame.FULLSCREEN)
     pygame.display.set_caption("Conductor (Character) Test")
     clock = pygame.time.Clock()
 

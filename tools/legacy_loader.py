@@ -5,6 +5,7 @@ def load_fnf_chart(path):
     with open(path, 'r') as f:
         raw = json.load(f)
     song = raw.get("song", {})
+    events = song.get("events", None)
     global_bpm = song.get("bpm", 120)
     global_speed = song.get("speed", song.get("songSpeed", 1.0))
     sections = song["notes"]
@@ -12,7 +13,7 @@ def load_fnf_chart(path):
         sections, global_bpm, global_speed
     )
     section_list = build_section_table(sections, global_bpm, global_speed)
-    return global_bpm, global_speed, player_notes, opponent_notes, song, section_list
+    return global_bpm, global_speed, player_notes, opponent_notes, song, section_list, events
 
 def split_fnf_chart_sections_with_bpm_speed(sections, global_bpm, global_speed):
     player_notes = []
