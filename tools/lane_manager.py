@@ -45,6 +45,7 @@ class LaneManager:
         self.animator = animator
 
         self.ai_press_timers = {}  # direction: release_time_ms
+        self.ai_hold_releases = {}  # direction: release_time
 
         self.hit_y = hit_y
         self.scroll_speed = scroll_speed
@@ -69,6 +70,7 @@ class LaneManager:
         if not self.is_player:
             self.simple_opponent_ai(song_time)
         # Release bot arrows if their timer has expired
+        # Tap note releases
         to_release = []
         for direction, release_time in self.ai_press_timers.items():
             if song_time >= release_time:
@@ -77,6 +79,20 @@ class LaneManager:
                 to_release.append(direction)
         for direction in to_release:
             del self.ai_press_timers[direction]
+
+        # Hold note releases
+        to_release_hold = []
+        for direction, release_time in self.ai_hold_releases.items():
+            if song_time >= release_time:
+                self.arrow_handler.release(direction)
+                self.animator.release()
+                # Release the held flag in the note itself (mark as not held)
+                for note in self.note_handler.notes_by_lane[direction]:
+                    if note.is_hold() and note.hit and note.held and not note.missed:
+                        note.held = False
+                to_release_hold.append(direction)
+        for direction in to_release_hold:
+            del self.ai_hold_releases[direction]
 
     def draw(self, song_time):
         render_notes(
@@ -117,9 +133,14 @@ class LaneManager:
                     note.judgement = 'sick'
                     self.arrow_handler.press(direction, with_note=True, judgement='sick')
                     self.animator.play(direction)
-                    # Schedule a release in 80 ms (or your preferred duration)
-                    self.ai_press_timers[direction] = song_time + 80
-                    break
+                    # If hold note, start holding and schedule release
+                    if note.is_hold():
+                        note.held = True
+                        self.ai_hold_releases[direction] = note.get_tail_time()
+                    else:
+                        # Tap note: release after a short delay (like before)
+                        self.ai_press_timers[direction] = song_time + 80
+                    break  # One note per lane per frame
 
     def get_song_time(self):
         # Optionally override this to sync with global song time
