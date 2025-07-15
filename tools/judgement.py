@@ -3,7 +3,8 @@
 JUDGEMENT_WINDOWS = {
     'sick': 45,
     'good': 90,
-    'bad': 135,
+    'bad': 115,
+    'abysmal dogshit': 135,
     'miss': 135  # used as upper bound in logic, not returned directly
 }
 

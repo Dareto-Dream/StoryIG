@@ -1,6 +1,7 @@
 import os
 import pygame
 from tools.character_animations import CharacterAnimator
+from tools.judgement_splash import JudgementSplash
 from tools.lane_manager import LaneManager
 from tools import judgement
 from tools.xml_sprite_loader import load_sprites_from_xml, load_character_frames
@@ -17,6 +18,9 @@ class Conductor:
         # --- Use legacy_loader for all chart parsing and BPM/song_speed extraction ---
         chart_path = f"assets/minigame/songs/{song_name}/{song_name}.json"
         bpm, song_speed, player_notes, opponent_notes, song_meta, section_list = load_fnf_chart(chart_path)
+
+        # --- Load in judgement_splash for splash text
+        self.judgement_splash = JudgementSplash(center=(screen.get_width() // 2, 180))
 
         # --- Assign correct chart to each LaneManager ---
         charts = []
@@ -42,7 +46,8 @@ class Conductor:
                 song_speed=song_speed,
                 key_map=side_cfg.get('key_map'),
                 lane_positions=side_cfg.get('lane_positions'),
-                section_list=section_list  # <--- pass the sections here
+                section_list=section_list,
+                judgement_splash=self.judgement_splash if side_cfg['name'] == "player" else None  # THIS LINE ADDED
             )
             self.lanes.append(lane)
 
@@ -140,8 +145,12 @@ if __name__ == "__main__":
                 running = False
             conductor.handle_input(event)
         conductor.update(dt)
+        if hasattr(conductor, "judgement_splash"):
+            conductor.judgement_splash.update(dt)
         screen.fill((0, 0, 0))
         conductor.draw()
+        if hasattr(conductor, "judgement_splash"):
+            conductor.judgement_splash.draw(screen)
         pygame.display.flip()
 
     pygame.quit()

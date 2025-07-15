@@ -59,6 +59,7 @@ class Arrow:
                     self.state = "hold"
                 else:
                     self.state = "idle"
+        self.splash.update(dt)
 
     def draw(self, screen):
         if self.state == "flash":
@@ -70,6 +71,7 @@ class Arrow:
 
         rect = frame.get_rect(center=self.position)
         screen.blit(frame, rect.topleft)
+        self.splash.draw(screen)
 
     def set_position(self, pos):
         self.base_position = pos

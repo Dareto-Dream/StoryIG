@@ -22,6 +22,7 @@ class LaneManager:
         section_list=None,
         key_map=None,
         lane_positions=None,
+        judgement_splash=None,
         scroll_speed=0.3
     ):
         self.name = name
@@ -40,7 +41,7 @@ class LaneManager:
             position=(arrow_x, hit_y)
         )
         self.note_handler = NoteHandler(
-            judgement, self.arrow_handler, animator
+            judgement, self.arrow_handler, animator, judgement_splash
         )
         self.animator = animator
 

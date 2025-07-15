@@ -1,10 +1,11 @@
 from tools.note import get_screen_y_fnf
 
 class NoteHandler:
-    def __init__(self, judgement, arrow_handler, player_animator):
+    def __init__(self, judgement, arrow_handler, player_animator, judgement_splash=None):
         self.judgement = judgement
         self.arrow_handler = arrow_handler
         self.player_animator = player_animator
+        self.judgement_splash = judgement_splash
 
         self.notes_by_lane = {
             'left': [],
@@ -54,6 +55,9 @@ class NoteHandler:
 
             result = self.judgement.evaluate(note, press_time)
             print("You've Been Judged:", result)
+
+            if self.judgement_splash:
+                self.judgement_splash.show(result)
 
             if result != "miss":
                 note.hit = True
