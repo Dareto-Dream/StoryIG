@@ -98,7 +98,8 @@ if __name__ == "__main__":
 
     frames = load_sprites_from_xml(
         "assets/minigame/notes/NOTE_assets.png",
-        "assets/minigame/notes/NOTE_assets.xml"
+        "assets/minigame/notes/NOTE_assets.xml",
+        scale=0.7 # arrow scale
     )
 
     player_frames = load_character_frames("player", frames)

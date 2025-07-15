@@ -54,7 +54,7 @@ class LaneManager:
         self.frames = frames
 
     def default_lane_positions(self, arrow_x):
-        spacing = 150
+        spacing = 100
         return {
             'left': arrow_x - spacing * 1.5,
             'down': arrow_x - spacing * 0.5,

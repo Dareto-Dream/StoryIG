@@ -9,7 +9,7 @@ FNF_DIRECTION_COLOR = {
     'right':  'red'
 }
 
-def load_sprites_from_xml(image_path, xml_path):
+def load_sprites_from_xml(image_path, xml_path, scale=1.0):
     image = pygame.image.load(image_path).convert_alpha()
     tree = ET.parse(xml_path)
     root = tree.getroot()
@@ -22,7 +22,13 @@ def load_sprites_from_xml(image_path, xml_path):
         w = int(sub.attrib['width'])
         h = int(sub.attrib['height'])
 
-        raw_frames[name] = image.subsurface(pygame.Rect(x, y, w, h)).copy()
+        frame = image.subsurface(pygame.Rect(x, y, w, h)).copy()
+        if scale != 1.0:
+            frame = pygame.transform.smoothscale(
+                frame,
+                (int(w * scale), int(h * scale))
+            )
+        raw_frames[name] = frame
 
     # Convert to arrow_frames structure
     arrow_frames = {}

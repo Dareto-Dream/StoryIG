@@ -76,7 +76,7 @@ class Arrow:
         self.position = pos
 
 class ArrowHandler:
-    def __init__(self, arrow_frames=None, position=(640, 100), spacing=150,
+    def __init__(self, arrow_frames=None, position=(640, 100), spacing=100,
                  directions=("left", "down", "up", "right"), frames=None):
         """Create and manage stationary arrow targets.
 
