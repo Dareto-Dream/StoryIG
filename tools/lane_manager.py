@@ -44,6 +44,8 @@ class LaneManager:
         )
         self.animator = animator
 
+        self.ai_press_timers = {}  # direction: release_time_ms
+
         self.hit_y = hit_y
         self.scroll_speed = scroll_speed
         self.key_map = key_map or {}
@@ -66,6 +68,15 @@ class LaneManager:
         self.animator.update(dt)
         if not self.is_player:
             self.simple_opponent_ai(song_time)
+        # Release bot arrows if their timer has expired
+        to_release = []
+        for direction, release_time in self.ai_press_timers.items():
+            if song_time >= release_time:
+                self.arrow_handler.release(direction)
+                self.animator.release()
+                to_release.append(direction)
+        for direction in to_release:
+            del self.ai_press_timers[direction]
 
     def draw(self, song_time):
         render_notes(
@@ -106,7 +117,9 @@ class LaneManager:
                     note.judgement = 'sick'
                     self.arrow_handler.press(direction, with_note=True, judgement='sick')
                     self.animator.play(direction)
-                    break  # One note per lane per frame
+                    # Schedule a release in 80 ms (or your preferred duration)
+                    self.ai_press_timers[direction] = song_time + 80
+                    break
 
     def get_song_time(self):
         # Optionally override this to sync with global song time

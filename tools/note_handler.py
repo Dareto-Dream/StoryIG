@@ -13,19 +13,34 @@ class NoteHandler:
             'right': []
         }
 
+    def _note_is_active(self, n, current_time):
+        # Remove tap notes if hit or missed
+        if not n.is_hold():
+            return not n.hit and not n.missed
+        # For hold notes, keep until tail time passes + a small fudge (for scroll-off), or missed and tail is gone
+        tail_gone = current_time > n.get_tail_time() + 200
+        return (not n.missed and not tail_gone) or (n.missed and not tail_gone)
+
     def add_note(self, note):
         """Add a new note to the correct lane"""
         # print(f"Spawning {note.direction} at {note.time_ms}")
         self.notes_by_lane[note.direction].append(note)
 
     def update(self, current_time):
-        """Clean up old notes, sort lanes"""
+        """Clean up old notes, sort lanes, and handle hold-miss logic."""
         for lane in self.notes_by_lane:
             self.notes_by_lane[lane] = [
                 n for n in self.notes_by_lane[lane]
-                if not n.hit and not n.missed
+                if self._note_is_active(n, current_time)
             ]
             self.notes_by_lane[lane].sort(key=lambda n: n.time_ms)
+            for note in self.notes_by_lane[lane]:
+                # FNF hold logic: If this is a hold note, was hit, but not being held, and it's not finished yet
+                if note.is_hold() and note.hit and not note.held and not note.missed:
+                    if current_time < note.get_tail_time():
+                        note.missed = True
+                        note.hold_judgement = 'miss'
+                        print(f"Hold note missed early on {lane} at {current_time}")
 
     def handle_key_press(self, direction, press_time):
         """Handle a key press and return True if a note was hit."""
@@ -46,6 +61,10 @@ class NoteHandler:
 
                 self.arrow_handler.press(direction, with_note=True, judgement=result)
                 self.player_animator.play(direction)
+
+                # FNF hold note logic: Only start "held" if we hit the head!
+                if note.is_hold():
+                    note.held = True
 
                 return True
             else:
@@ -98,18 +117,32 @@ def render_notes(
                 hold_end = frameset.get("hold_end")
                 if hold_piece is not None and hold_end is not None:
                     piece_height = hold_piece.get_height()
-                    # Calculate bar range
-                    y_top = min(y_head, y_tail)
-                    y_bot = max(y_head, y_tail)
-                    # Tile the hold_piece vertically between head and tail
-                    y_pos = y_top
-                    while y_pos < y_bot - piece_height:
-                        rect = hold_piece.get_rect(center=(x, int(y_pos + piece_height / 2)))
-                        screen.blit(hold_piece, rect.topleft)
-                        y_pos += piece_height
-                    # Draw end cap/tail at y_tail
-                    rect_end = hold_end.get_rect(center=(x, int(y_tail)))
-                    screen.blit(hold_end, rect_end.topleft)
+
+                    head_y = note.get_screen_y(song_time, hit_y, base_pixels_per_beat)
+                    tail_y = note.get_tail_screen_y(song_time, hit_y, base_pixels_per_beat)
+
+                    if note.hit and note.held and not note.missed:
+                        # Being held: bar starts at receptor (hit_y), not at head_y
+                        y_top = hit_y
+                    else:
+                        # Not held (yet), or missed: bar starts at head_y
+                        y_top = head_y
+
+                    y_bot = tail_y
+
+                    # Ensure correct direction
+                    if y_top > y_bot:
+                        y_top, y_bot = y_bot, y_top
+
+                    if y_bot - y_top > 0:
+                        y_pos = y_top
+                        while y_pos < y_bot - piece_height:
+                            rect = hold_piece.get_rect(center=(x, int(y_pos + piece_height / 2)))
+                            screen.blit(hold_piece, rect.topleft)
+                            y_pos += piece_height
+                        # Draw end cap/tail at y_bot
+                        rect_end = hold_end.get_rect(center=(x, int(y_bot)))
+                        screen.blit(hold_end, rect_end.topleft)
 
             # RENDER HEAD (flash sprite for now, can switch to state-based)
             sprite = frameset['flash']
