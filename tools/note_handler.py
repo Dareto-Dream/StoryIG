@@ -50,7 +50,7 @@ class NoteHandler:
                 return True
             else:
                 # Too late? mark as missed
-                if press_time > note.time_ms + self.judgement.window("miss"):
+                if press_time - 20 > note.time_ms + self.judgement.window("miss"):
                     note.missed = True
                 break
 
@@ -80,7 +80,7 @@ def render_notes(
             time_until_hit = note.time_ms - song_time
             if time_until_hit > NOTE_SPAWN_TIME:
                 continue # Too early to show this note
-            if note.time_ms < song_time and (not note.is_hold() or song_time > note.get_tail_time()):
+            if note.time_ms + 75 < song_time and (not note.is_hold() or song_time > note.get_tail_time()):
                 continue  # Tap note already passed, or hold note completely finished
 
             # HEAD Y position (where you hit the note)
