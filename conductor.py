@@ -116,6 +116,9 @@ if __name__ == "__main__":
     player_animator = CharacterAnimator(dustman_frames, position=(950, 620))
     tiffany_animator = CharacterAnimator(tiffany_frames, position=(330, 620))
 
+    background_img = pygame.image.load("assets/minigame/backgrounds/lettherebebg.png").convert()
+    background_img = pygame.transform.smoothscale(background_img, (1280, 720))
+
     player_key_map = {
         pygame.K_a: 'left',
         pygame.K_s: 'down',
@@ -155,7 +158,7 @@ if __name__ == "__main__":
         conductor.update(dt)
         if hasattr(conductor, "judgement_splash"):
             conductor.judgement_splash.update(dt)
-        screen.fill((0, 0, 0))
+        screen.blit(background_img, (0, 0))
         conductor.draw()
         if hasattr(conductor, "judgement_splash"):
             conductor.judgement_splash.draw(screen)
