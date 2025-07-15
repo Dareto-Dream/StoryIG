@@ -15,7 +15,7 @@ class NoteHandler:
 
     def add_note(self, note):
         """Add a new note to the correct lane"""
-        print(f"Spawning {note.direction} at {note.time_ms}")
+        # print(f"Spawning {note.direction} at {note.time_ms}")
         self.notes_by_lane[note.direction].append(note)
 
     def update(self, current_time):
@@ -38,6 +38,7 @@ class NoteHandler:
                 continue
 
             result = self.judgement.evaluate(note, press_time)
+            print("You've Been Judged:", result)
 
             if result != "miss":
                 note.hit = True
@@ -66,9 +67,7 @@ def render_notes(screen, note_handler, song_time, hit_y, arrow_frames, lane_posi
         x = lane_positions[direction]
         sprite = arrow_frames[direction]['flash']
 
-        print(f"Direction: {direction} — Notes in lane: {len(notes)}")
         for note in notes:
-            print("rendering notes!")
             time_until_hit = note.time_ms - song_time
             if time_until_hit > NOTE_SPAWN_TIME:
                 continue # Too early to show this note
@@ -76,7 +75,6 @@ def render_notes(screen, note_handler, song_time, hit_y, arrow_frames, lane_posi
                 continue  # Note already passed (missed or hit)
 
             y = get_screen_y_fnf(note.time_ms, song_time, hit_y, section_list)
-            print("Note Y:", y)
             if y < 0 or y > screen.get_height() + 100:
                 continue
 
