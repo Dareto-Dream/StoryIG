@@ -96,6 +96,7 @@ class LaneManager:
             del self.ai_hold_releases[direction]
 
     def draw(self, song_time):
+        self.animator.draw(self.screen)
         render_notes(
             self.screen,
             self.note_handler,
@@ -107,7 +108,6 @@ class LaneManager:
             base_pixels_per_beat=self.base_pixels_per_beat
         )
         self.arrow_handler.draw(self.screen)
-        self.animator.draw(self.screen)
 
     def handle_input(self, event, song_time):
         if not self.is_player:
