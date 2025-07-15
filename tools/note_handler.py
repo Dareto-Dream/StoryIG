@@ -59,7 +59,7 @@ class NoteHandler:
         self.arrow_handler.release(direction)
         self.player_animator.release()
 
-def render_notes(screen, note_handler, song_time, hit_y, arrow_frames, lane_positions, section_list):
+def render_notes(screen, note_handler, song_time, hit_y, arrow_frames, lane_positions, section_list, base_pixels_per_beat):
     NOTE_SPAWN_TIME = 2500  # ms
 
     for direction, notes in note_handler.notes_by_lane.items():
@@ -80,4 +80,4 @@ def render_notes(screen, note_handler, song_time, hit_y, arrow_frames, lane_posi
             if y < 0 or y > screen.get_height() + 100:
                 continue
 
-            note.draw(screen, song_time, hit_y, sprite, x)
+            note.draw(screen, song_time, hit_y, sprite, x, base_pixels_per_beat)

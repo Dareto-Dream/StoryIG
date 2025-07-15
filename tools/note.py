@@ -15,7 +15,7 @@ class Note:
         distance = self.time_ms - song_time
         return hit_y + distance * pixels_per_ms
 
-    def draw(self, screen, song_time, hit_y, sprite, center_x, base_pixels_per_beat=100):
+    def draw(self, screen, song_time, hit_y, sprite, center_x, base_pixels_per_beat=250):
         if self.hit or self.missed:
             return
         y = self.get_screen_y(song_time, hit_y, base_pixels_per_beat)

@@ -75,7 +75,8 @@ class LaneManager:
             hit_y=self.hit_y,
             arrow_frames=self.frames,
             lane_positions=self.lane_positions,
-            section_list=self.section_list  # <--- NEW
+            section_list=self.section_list,  # <--- NEW
+            base_pixels_per_beat=self.base_pixels_per_beat
         )
         self.arrow_handler.draw(self.screen)
         self.animator.draw(self.screen)
