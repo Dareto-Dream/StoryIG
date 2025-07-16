@@ -6,9 +6,12 @@ import subprocess
 import os
 from pygame.locals import *
 from time import sleep
+from conductor import Conductor
+from tools.xml_sprite_loader import load_sprites_from_xml, load_character_frames, load_character_sprites_from_xml
+from tools.character_animations import CharacterAnimator
 
 # === Configuration ===
-SCREEN_WIDTH, SCREEN_HEIGHT = 1000, 563
+SCREEN_WIDTH, SCREEN_HEIGHT = 1280, 720
 
 # === Customizable Text Box Layout ===
 TEXTBOX_X, TEXTBOX_Y, TEXTBOX_WIDTH, TEXTBOX_HEIGHT = 10, 390, 780, 150
@@ -79,6 +82,54 @@ def draw_typing_text(screen, full_text, position, font_size=24, color=(0, 0, 0),
         screen.blit(rendered, (x, y))
         y += font.get_linesize()
         drawn_chars += len(line)
+
+def run_rhythm_minigame(screen, song_name="tutorial"):
+    # (Nearly identical to conductor.py __main__ loop)
+    frames = load_sprites_from_xml(
+        "assets/minigame/notes/NOTE_assets.png",
+        "assets/minigame/notes/NOTE_assets.xml",
+        scale=0.7
+    )
+    dustman_raw = load_character_sprites_from_xml("assets/minigame/characters/dustmanltbl.png", "assets/minigame/characters/dustmanltbl.xml", scale=0.6)
+    dustman_frames = load_character_frames("unused", dustman_raw)
+    megaman_raw = load_character_sprites_from_xml("assets/minigame/characters/megamanltbl1.png", "assets/minigame/characters/megamanltbl1.xml", scale=0.6)
+    tiffany_frames = load_character_frames("tiffany", megaman_raw)
+    player_animator = CharacterAnimator(dustman_frames, position=(950, 620))
+    tiffany_animator = CharacterAnimator(tiffany_frames, position=(330, 620))
+    player_key_map = {
+        pygame.K_a: 'left',
+        pygame.K_s: 'down',
+        pygame.K_w: 'up',
+        pygame.K_d: 'right',
+        pygame.K_LEFT: 'left',
+        pygame.K_DOWN: 'down',
+        pygame.K_UP: 'up',
+        pygame.K_RIGHT: 'right'
+    }
+    side_configs = [
+        {'name': "player", 'animator': player_animator, 'arrow_x': 900, 'is_player': True, 'key_map': player_key_map},
+        {'name': "tiffany", 'animator': tiffany_animator, 'arrow_x': 350}
+    ]
+    conductor = Conductor(song_name, frames, screen, side_configs)
+    clock = pygame.time.Clock()
+    background_img = pygame.image.load("assets/minigame/backgrounds/lettherebebg.png").convert()
+    background_img = pygame.transform.smoothscale(background_img, (1280, 720))
+    running = True
+    while running:
+        dt = clock.tick(60)
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+            conductor.handle_input(event)
+        conductor.update(dt)
+        if hasattr(conductor, "judgement_splash"):
+            conductor.judgement_splash.update(dt)
+        screen.blit(background_img, (0, 0))
+        conductor.draw()
+        if hasattr(conductor, "judgement_splash"):
+            conductor.judgement_splash.draw(screen)
+        pygame.display.flip()
+    # Optional: grab stats, return results here before quitting the minigame
 
 def draw_text_wrapped(screen, full_text, position, font_size=24, color=(0, 0, 0), max_width=760):
     draw_typing_text(
@@ -170,7 +221,7 @@ def handle_input_event(event, selected_input):
 # === Load background ===
 def draw_background(screen, image_path):
     try:
-        bg = pygame.image.load(image_path).convert()
+        bg = pygame.image.load(os.path.join("assets/backgrounds", image_path)).convert()
         bg = pygame.transform.scale(bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
         return bg
     except Exception as e:
@@ -217,7 +268,7 @@ def run_gui():
     global previous_background, current_background, bg_transition_speed, bg_transition_alpha
 
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
     pygame.display.set_caption('AdLibs Visual Novel')
     clock = pygame.time.Clock()
 
@@ -257,10 +308,8 @@ def run_gui():
 
                     # === Game page trigger ===
                     if 'type' in page and page['type'] == 'game':
-                        game_number = page.get('game_number', 1)
-                        if game_number == 1:
-                            from minigame import run_minigame
-                            run_minigame(screen)  # Waits for game to complete
+                        song_name = page.get('song', "tutorial")
+                        run_rhythm_minigame(screen, song_name=song_name)
                         current_page += 1
                         continue  # Skip normal render/input
 

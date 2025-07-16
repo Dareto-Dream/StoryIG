@@ -18,6 +18,8 @@ def evaluate(note, press_time):
         return 'good'
     elif diff <= JUDGEMENT_WINDOWS['bad']:
         return 'bad'
+    elif diff <= JUDGEMENT_WINDOWS['abysmal dogshit']:
+        return 'abysmal dogshit'
     else:
         return 'miss'
 
