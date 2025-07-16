@@ -10368,6 +10368,16 @@
 		"gfVersion": "gf",
 		"events": [
 			[
+				100,
+				[
+					[
+						"vid",
+						"assets/minigame/video/fakeintro.mp4",
+						""
+					]
+				]
+			],
+			[
 				33415.0284194608,
 				[
 					[
@@ -12441,8 +12451,8 @@
 				262207.692708814,
 				[
 					[
-						"",
-						"playFinale",
+						"vid",
+						"assets/minigame/video/fakefinale.mp4",
 						""
 					]
 				]

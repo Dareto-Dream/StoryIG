@@ -136,16 +136,25 @@ if __name__ == "__main__":
     )
 
     # For a mod character:
-    dustman_raw = load_character_sprites_from_xml("assets/minigame/characters/dustmanltbl.png", "assets/minigame/characters/dustmanltbl.xml", scale=0.6)
+    dustman_raw = load_character_sprites_from_xml("assets/minigame/characters/dearest_fnfbaby.png", "assets/minigame/characters/dearest_fnfbaby.xml", scale=0.3)
     dustman_frames = load_character_frames("unused", dustman_raw)
-    megaman_raw = load_character_sprites_from_xml("assets/minigame/characters/megamanltbl1.png", "assets/minigame/characters/megamanltbl1.xml", scale=0.6)
+    megaman_raw = load_character_sprites_from_xml("assets/minigame/characters/nmi_real.png", "assets/minigame/characters/nmi_real.xml", scale=0.2)
     tiffany_frames = load_character_frames("tiffany", megaman_raw)
 
-    player_animator = CharacterAnimator(dustman_frames, position=(950, 620))
-    tiffany_animator = CharacterAnimator(tiffany_frames, position=(330, 620))
+    # player_animator = CharacterAnimator(dustman_frames, position=(950, 620))
+    # tiffany_animator = CharacterAnimator(tiffany_frames, position=(330, 620))
 
-    background_img = pygame.image.load("assets/minigame/backgrounds/lettherebebg.png").convert()
+    player_animator = CharacterAnimator(dustman_frames, position=(1000, 575))
+    tiffany_animator = CharacterAnimator(tiffany_frames, position=(550, 400))
+
+    background_img = pygame.image.load("assets/minigame/backgrounds/skynsuch.png").convert()
     background_img = pygame.transform.smoothscale(background_img, (1280, 720))
+    midground_img = pygame.image.load("assets/minigame/backgrounds/letrees.png").convert_alpha()
+    midground_img = pygame.transform.smoothscale(midground_img, (1280, 720))
+    foreground_img = pygame.image.load("assets/minigame/backgrounds/agua.png").convert_alpha()
+    foreground_img = pygame.transform.smoothscale(foreground_img, (1280, 720))
+    highground_img = pygame.image.load("assets/minigame/backgrounds/lefrontree.png").convert_alpha() # ITS OVER LUKE I HAVE THE HIGHGROUND
+    highground_img = pygame.transform.smoothscale(highground_img, (1280, 720))
 
     player_key_map = {
         pygame.K_a: 'left',
@@ -174,7 +183,7 @@ if __name__ == "__main__":
         }
     ]
 
-    conductor = Conductor("tutorial", frames, screen, side_configs)
+    conductor = Conductor("fakebaby", frames, screen, side_configs)
 
     running = True
     while running:
@@ -187,9 +196,12 @@ if __name__ == "__main__":
         if hasattr(conductor, "judgement_splash"):
             conductor.judgement_splash.update(dt)
         screen.blit(background_img, (0, 0))
+        screen.blit(midground_img, (0, 0))
+        screen.blit(foreground_img, (0, 0))
         conductor.draw()
         if hasattr(conductor, "judgement_splash"):
             conductor.judgement_splash.draw(screen)
+        screen.blit(highground_img, (0, 0))
         pygame.display.flip()
 
     pygame.quit()

@@ -267,8 +267,7 @@
         ],
         "text": "Harumi danced. Loud, fun, full of energy. Tiffany played piano\u2014clean and calm. Cassian just spoke.",
         "inputs": [],
-        "custom_parts": [],
-        "type": "game"
+        "custom_parts": []
     },
     {
         "page": 18,
@@ -331,7 +330,8 @@
         ],
         "text": "Maybe you nailed it. Maybe not. But they reacted.",
         "inputs": [],
-        "custom_parts": []
+        "custom_parts": [],
+        "type": "game"
     },
     {
         "page": 21,
