@@ -107,8 +107,8 @@ def run_rhythm_minigame(screen, song_name="tutorial"):
         pygame.K_RIGHT: 'right'
     }
     side_configs = [
-        {'name': "player", 'animator': player_animator, 'arrow_x': 900, 'is_player': True, 'key_map': player_key_map},
-        {'name': "tiffany", 'animator': tiffany_animator, 'arrow_x': 350}
+        {'name': "tiffany", 'animator': player_animator, 'arrow_x': 900},
+        {'name': "player", 'animator': tiffany_animator, 'arrow_x': 350, 'is_player': True, 'key_map': player_key_map}
     ]
     conductor = Conductor(song_name, frames, screen, side_configs)
     clock = pygame.time.Clock()
