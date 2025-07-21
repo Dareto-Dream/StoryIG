@@ -7,6 +7,7 @@ import os
 from pygame.locals import *
 from time import sleep
 from conductor import Conductor
+from discord import presence
 from tools.xml_sprite_loader import load_sprites_from_xml, load_character_frames, load_character_sprites_from_xml
 from tools.character_animations import CharacterAnimator
 
@@ -268,9 +269,10 @@ def run_gui():
     global previous_background, current_background, bg_transition_speed, bg_transition_alpha
 
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
     pygame.display.set_caption('AdLibs Visual Novel')
     clock = pygame.time.Clock()
+    presence.set_presence(details="In Main Menu")
 
     story = load_story('story.json')
     running = True
@@ -290,6 +292,8 @@ def run_gui():
                         selected_option = (selected_option + 1) % len(start_options)
                     elif event.key == K_RETURN:
                         if selected_option == 0:
+                            presence.set_presence(details="Reading VN", state="Act 1: Beginning", small_image="vn",
+                                                  small_text="Story Mode")
                             in_start_screen = False
                         elif selected_option == 1:
                             print("Load option is disabled.")
@@ -309,9 +313,12 @@ def run_gui():
                     # === Game page trigger ===
                     if 'type' in page and page['type'] == 'game':
                         song_name = page.get('song', "tutorial")
+                        presence.set_presence(details="Playing Rhythm Game", state=f"Track: {song_name}",
+                                              small_image="rhythm")
                         run_rhythm_minigame(screen, song_name=song_name)
+                        presence.set_presence(details="Reading VN", state=f"Act Unknown", small_image="vn")
                         current_page += 1
-                        continue  # Skip normal render/input
+                        continue
 
                     # === Input handling ===
                     if 'inputs' in page and not page.get('inputs_done', False):
