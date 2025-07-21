@@ -1,5 +1,7 @@
 import os
 import pygame
+
+from discord import presence
 from tools.character_animations import CharacterAnimator
 from tools.event_handler import EventHandler
 from tools.judgement_splash import JudgementSplash
@@ -7,7 +9,8 @@ from tools.lane_manager import LaneManager
 from tools import judgement
 from tools.utils import VideoPlayer
 from tools.xml_sprite_loader import load_sprites_from_xml, load_character_frames, load_character_sprites_from_xml
-from tools.legacy_loader import load_fnf_chart
+from tools.loader import load_fnf_chart, load_chart
+
 
 class Conductor:
     def __init__(self, song_name, frames, screen, side_configs):
@@ -19,7 +22,7 @@ class Conductor:
 
         # --- Use legacy_loader for all chart parsing and BPM/song_speed extraction ---
         chart_path = f"assets/minigame/songs/{song_name}/{song_name}.json"
-        bpm, song_speed, player_notes, opponent_notes, song_meta, section_list, events = load_fnf_chart(chart_path)
+        bpm, song_speed, player_notes, opponent_notes, song_meta, section_list, events = load_chart(chart_path, "fnf")
 
         # --- Event support ---
         self.event_handler = EventHandler(events, conductor=self)
@@ -125,7 +128,7 @@ if __name__ == "__main__":
     import sys
 
     pygame.init()
-    screen = pygame.display.set_mode((1280, 720), pygame.FULLSCREEN)
+    screen = pygame.display.set_mode((1280, 720))
     pygame.display.set_caption("Conductor (Character) Test")
     clock = pygame.time.Clock()
 
@@ -146,6 +149,7 @@ if __name__ == "__main__":
 
     player_animator = CharacterAnimator(dustman_frames, position=(1000, 575))
     tiffany_animator = CharacterAnimator(tiffany_frames, position=(550, 400))
+    three_animator = CharacterAnimator(tiffany_frames, position=(550, 400))
 
     background_img = pygame.image.load("assets/minigame/backgrounds/skynsuch.png").convert()
     background_img = pygame.transform.smoothscale(background_img, (1280, 720))
@@ -180,10 +184,17 @@ if __name__ == "__main__":
             'name': "tiffany",
             'animator': tiffany_animator,
             'arrow_x': 350,
+        },
+        {
+            'name': "three",
+            'animator': three_animator,
+            'arrow_x': 550,
         }
     ]
 
     conductor = Conductor("fakebaby", frames, screen, side_configs)
+    presence.set_presence(state="Playing Alpha", large_image="fakebaby", details="No More Innocence Fakebaby", small_image="vn",
+                          small_text="Im dead")
 
     running = True
     while running:
