@@ -270,7 +270,9 @@ def run_gui():
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-    pygame.display.set_caption('AdLibs Visual Novel')
+    pygame.display.set_caption('Cadence Collapse')
+    icon_surface = pygame.image.load("assets/icons/icon32.png").convert_alpha()
+    pygame.display.set_icon(icon_surface)
     clock = pygame.time.Clock()
     presence.set_presence(details="In Main Menu")
 
