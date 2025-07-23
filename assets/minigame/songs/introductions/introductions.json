@@ -1,0 +1,42 @@
+{
+  "characters": 3,
+  "notes": [
+    {
+        "sectionNotes": [],
+        "lengthInSteps": 16,
+        "mustHitSection": false
+    },
+    {
+        "sectionBeats": 4,
+        "altAnim": false,
+        "mustHitSection": false,
+        "lengthInSteps": 16,
+        "sectionNotes": [],
+        "bpm": 100,
+        "changeBPM": false
+    },
+    {
+        "sectionBeats": 4,
+        "altAnim": false,
+        "mustHitSection": false,
+        "lengthInSteps": 16,
+        "sectionNotes": [],
+        "bpm": 100,
+        "changeBPM": false
+    }
+  ],
+  "events": [
+    [
+        262207.692708814,
+        [
+            [
+                "vid",
+                "assets/minigame/video/fakefinale.mp4",
+                ""
+            ]
+        ]
+    ]
+  ],
+  "bpm": 127,
+  "speed": 3.2
+}

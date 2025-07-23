@@ -149,15 +149,22 @@ if __name__ == "__main__":
 
     player_animator = CharacterAnimator(dustman_frames, position=(1000, 575))
     tiffany_animator = CharacterAnimator(tiffany_frames, position=(550, 400))
-    three_animator = CharacterAnimator(tiffany_frames, position=(550, 400))
 
-    background_img = pygame.image.load("assets/minigame/backgrounds/skynsuch.png").convert()
-    background_img = pygame.transform.smoothscale(background_img, (1280, 720))
-    midground_img = pygame.image.load("assets/minigame/backgrounds/letrees.png").convert_alpha()
-    midground_img = pygame.transform.smoothscale(midground_img, (1280, 720))
-    foreground_img = pygame.image.load("assets/minigame/backgrounds/agua.png").convert_alpha()
-    foreground_img = pygame.transform.smoothscale(foreground_img, (1280, 720))
-    highground_img = pygame.image.load("assets/minigame/backgrounds/lefrontree.png").convert_alpha() # ITS OVER LUKE I HAVE THE HIGHGROUND
+    # Load 5 background layers
+    layer_filenames = [
+        "skynsuch.png", "letrees.png", "arena.png",
+        "agua.png", "mustardgas.png"
+    ]
+
+    # Load and scale each layer to (1280, 720)
+    background_layers = [
+        pygame.transform.smoothscale(
+            pygame.image.load(f"assets/minigame/backgrounds/nmi/{filename}").convert_alpha(),
+            (1280, 720)
+        )
+        for filename in layer_filenames
+    ]
+    highground_img = pygame.image.load("assets/minigame/backgrounds/nmi/lefrontree.png").convert_alpha() # ITS OVER LUKE I HAVE THE HIGHGROUND
     highground_img = pygame.transform.smoothscale(highground_img, (1280, 720))
 
     player_key_map = {
@@ -184,11 +191,6 @@ if __name__ == "__main__":
             'name': "tiffany",
             'animator': tiffany_animator,
             'arrow_x': 350,
-        },
-        {
-            'name': "three",
-            'animator': three_animator,
-            'arrow_x': 550,
         }
     ]
 
@@ -206,9 +208,8 @@ if __name__ == "__main__":
         conductor.update(dt)
         if hasattr(conductor, "judgement_splash"):
             conductor.judgement_splash.update(dt)
-        screen.blit(background_img, (0, 0))
-        screen.blit(midground_img, (0, 0))
-        screen.blit(foreground_img, (0, 0))
+        for layer in background_layers:
+            screen.blit(layer, (0, 0))
         conductor.draw()
         if hasattr(conductor, "judgement_splash"):
             conductor.judgement_splash.draw(screen)

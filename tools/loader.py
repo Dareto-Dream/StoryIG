@@ -1,5 +1,19 @@
 import json
 
+def load_default_chart(path):
+    """ Load the default chart from the given path. """
+    with open(path, 'r') as f:
+        raw = json.load(f)
+    events = raw.get("events", None)
+    global_bpm = raw.get("bpm", 120)
+    global_speed = raw.get("speed", raw.get("songSpeed", 1.0))
+    sections = raw["notes"]
+    player_notes, opponent_notes = split_chart_sections_with_bpm_speed(
+        sections, global_bpm, global_speed
+    )
+    section_list = build_section_table(sections, global_bpm, global_speed)
+    return global_bpm, global_speed, player_notes, opponent_notes, raw, section_list, events
+
 def load_fnf_chart(path):
     """Loads an FNF-style JSON and returns bpm, song_speed, player_notes, opponent_notes, song_meta, section_list"""
     with open(path, 'r') as f:
@@ -55,6 +69,50 @@ def split_fnf_chart_sections_with_bpm_speed(sections, global_bpm, global_speed):
                     player_notes.append(note_obj)
     return player_notes, opponent_notes
 
+def split_chart_sections_with_bpm_speed(sections, global_bpm, global_speed, characters):
+    """Parses notes and assigns them to characters based on lane index.
+    characters: list of character names (len determines total lanes = 4 * n)
+    """
+    character_notes = {name: [] for name in characters}
+    lanes_per_char = 4
+
+    current_bpm = global_bpm
+    current_speed = global_speed
+
+    for section in sections:
+        if section.get("changeBPM"):
+            current_bpm = section.get("bpm", current_bpm)
+        if "scrollSpeed" in section:
+            current_speed = section["scrollSpeed"]
+
+        must_hit = section.get("mustHitSection", False)
+
+        for note in section.get("sectionNotes", []):
+            time, lane, sustain = note
+            char_index = lane // lanes_per_char
+            if char_index >= len(characters):
+                continue  # ignore out-of-range lanes
+
+            char_name = characters[char_index]
+            direction_index = lane % lanes_per_char
+            direction = ["left", "down", "up", "right"][direction_index]
+
+            note_obj = {
+                "direction": direction,
+                "time": int(time),
+                "sustain": sustain,
+                "bpm": current_bpm,
+                "song_speed": current_speed,
+                "lane": lane,
+                "character": char_name,
+                "controlled_by": "player" if (must_hit and char_index == len(characters) - 1) or
+                                                (not must_hit and char_index != len(characters) - 1) else "opponent"
+            }
+
+            character_notes[char_name].append(note_obj)
+
+    return character_notes
+
 def build_section_table(sections, global_bpm, global_speed):
     section_list = []
     current_time = 0
@@ -91,8 +149,10 @@ def load_osu_chart(path):
     pass
 
 # --- Main entrypoint for loading any chart ---
-def load_chart(path, fmt="fnf"):
-    if fmt == "fnf":
+def load_chart(path, fmt="default"):
+    if fmt == "default":
+        return load_default_chart(path)
+    elif fmt == "fnf":
         return load_fnf_chart(path)
     elif fmt == "stepmania":
         return load_stepmania_chart(path)
