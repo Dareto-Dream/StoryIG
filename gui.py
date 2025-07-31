@@ -231,7 +231,7 @@ def draw_background(screen, image_path):
 
 # === Start screen drawing ===
 def draw_start_screen(screen, selected_option, options):
-    bg = pygame.image.load("assets/screens/all_dokis.png").convert()
+    bg = pygame.image.load("assets/screens/all_singers.png").convert()
     bg = pygame.transform.scale(bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.blit(bg, (0, 0))
     for i, option in enumerate(options):

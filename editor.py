@@ -1,7 +1,7 @@
 import json
 import os
 
-STORY_PATH = "story.json"
+STORY_PATH = "proto.json"
 DEFAULT_BG = "assets/backgrounds/residential.png"
 DEFAULT_POS = [100, 200]
 
