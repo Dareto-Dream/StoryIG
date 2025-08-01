@@ -10,10 +10,11 @@ def load_image_safe(path):
 
 def render_character(page, base_path="assets/characters"):
     character = page.get("character")
-    if not character:
+    if not character and "image" not in page:
         return None
 
-    char_path = os.path.join(base_path, character)
+    char_path = os.path.join(base_path, character) if character else None
+    return_surf = None
 
     # === Cassian Modular (face_parts) ===
     if page.get("face_parts") and "pose" in page:
@@ -29,7 +30,7 @@ def render_character(page, base_path="assets/characters"):
         final = pygame.Surface(pose.get_size(), pygame.SRCALPHA)
         final.blit(pose, (0, 0))
         final.blit(base, (0, 0))
-        return final
+        return_surf = final
 
     # === Dual Pose + Face (e.g. bodyL, bodyR + face) ===
     elif all(k in page for k in ("pose_left", "pose_right", "face")):
@@ -42,7 +43,7 @@ def render_character(page, base_path="assets/characters"):
         pose.blit(left, (0, 0))
         pose.blit(right, (0, 0))
         pose.blit(face, (0, 0))
-        return pose
+        return_surf = pose
 
     # === Single Pose + Face ===
     elif all(k in page for k in ("pose", "face")):
@@ -53,11 +54,12 @@ def render_character(page, base_path="assets/characters"):
         final = pygame.Surface(pose.get_size(), pygame.SRCALPHA)
         final.blit(pose, (0, 0))
         final.blit(face, (0, 0))
-        return final
+        return_surf = final
 
     # === Single Image ===
     elif "image" in page:
-        return load_image_safe(page["image"])
+        img = load_image_safe(page["image"])
+        return_surf = img
 
     # === Custom Mode? ===
     elif "custom_parts" in page:
@@ -66,6 +68,18 @@ def render_character(page, base_path="assets/characters"):
             part_img = load_image_safe(os.path.join(char_path, part["index"]))
             if part_img:
                 surf.blit(part_img, (part["x"], part["y"]))
-        return surf
+        return_surf = surf
 
-    return None
+    # === None found ===
+    if return_surf is None:
+        return None
+
+    # === SCALING SUPPORT ===
+    if "image_size" in page:
+        return_surf = pygame.transform.smoothscale(return_surf, tuple(page["image_size"]))
+    elif "scale" in page:
+        w, h = return_surf.get_size()
+        s = page["scale"]
+        return_surf = pygame.transform.smoothscale(return_surf, (int(w * s), int(h * s)))
+
+    return return_surf

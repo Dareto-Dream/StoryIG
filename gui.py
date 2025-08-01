@@ -6,6 +6,8 @@ import subprocess
 import os
 from pygame.locals import *
 from time import sleep
+
+from character_renderer import render_character
 from conductor import Conductor
 from discord import presence
 from tools.xml_sprite_loader import load_sprites_from_xml, load_character_frames, load_character_sprites_from_xml
@@ -145,7 +147,7 @@ def draw_text_wrapped(screen, full_text, position, font_size=24, color=(0, 0, 0)
 
 def load_song(song_name="song"):
     pygame.mixer.init()
-    pygame.mixer.music.load(f"assets/minigame/songs/{song_name}.mp3")
+    pygame.mixer.music.load(f"assets/songs/{song_name}.mp3")
     pygame.mixer.music.play()
 
 # === Draw textbox background ===
@@ -278,7 +280,7 @@ def run_gui():
 
     story = load_story('story.json')
     running = True
-    # load_song("song1")
+    load_song("title")
 
     while running:
         screen.fill((255, 255, 255))
@@ -381,27 +383,10 @@ def run_gui():
 
             # === Character sprite logic (priority: split > pose > image) ===
             try:
-                if all(k in page for k in ["character", "pose_left", "pose_right", "face", "position"]):
-                    base_path = f"assets/characters/{page['character']}/"
-                    left = pygame.image.load(os.path.join(base_path, f"{page['pose_left']}.png")).convert_alpha()
-                    right = pygame.image.load(os.path.join(base_path, f"{page['pose_right']}.png")).convert_alpha()
-                    face = pygame.image.load(os.path.join(base_path, f"{page['face']}.png")).convert_alpha()
-                    combined = pygame.Surface(left.get_size(), pygame.SRCALPHA)
-                    combined.blit(left, (0, 0))
-                    combined.blit(right, (0, 0))
-                    combined.blit(face, (0, 0))
-                    screen.blit(combined, page["position"])
-                elif all(k in page for k in ["character", "pose", "face", "position"]):
-                    base_path = f"assets/characters/{page['character']}/"
-                    pose = pygame.image.load(os.path.join(base_path, f"{page['pose']}.png")).convert_alpha()
-                    face = pygame.image.load(os.path.join(base_path, f"{page['face']}.png")).convert_alpha()
-                    combined = pygame.Surface(pose.get_size(), pygame.SRCALPHA)
-                    combined.blit(pose, (0, 0))
-                    combined.blit(face, (0, 0))
-                    screen.blit(combined, page["position"])
-                elif "image" in page and "position" in page:
-                    size = page.get("image_size", None)
-                    draw_character(screen, page["image"], page["position"], size)
+                if "position" in page:
+                    sprite = render_character(page)
+                    if sprite:
+                        screen.blit(sprite, page["position"])
             except Exception as e:
                 print(f"[!] Character render error on page {current_page}: {e}")
 

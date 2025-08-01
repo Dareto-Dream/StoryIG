@@ -2,128 +2,155 @@
     {
         "page": 1,
         "speaker": "",
-        "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "The bell rings, school is finally over, and you are ready for spring break",
-        "inputs": []
+        "inputs": [],
+        "character": "tiffany",
+        "pose": "_",
+        "face": "_"
     },
     {
         "page": 2,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "*sigh* finally",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose_left": "1",
+        "pose_right": "r",
+        "face": "e",
+        "scale": 1.0
     },
     {
         "page": 3,
         "speaker": "",
-        "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "As you begin to walk home you suddenly realize",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose_left": "1",
+        "pose_right": "r",
+        "face": "w"
     },
     {
         "page": 4,
         "speaker": "",
-        "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "You had left your **PHONE**!",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose_left": "1",
+        "pose_right": "r",
+        "face": "w"
     },
     {
         "page": 5,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "Shit, where is it?",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose_left": "1",
+        "pose_right": "r",
+        "face": "r"
     },
     {
         "page": 6,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "I must've left it in my desk",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose_left": "1",
+        "pose_right": "r",
+        "face": "e"
     },
     {
         "page": 7,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "Classy.",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose_left": "1",
+        "pose_right": "r",
+        "face": "e"
     },
     {
         "page": 8,
         "speaker": "",
-        "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "As you approach the now empty classroom, you hear a slight humming coming from inside",
-        "inputs": []
+        "inputs": [],
+        "character": "tiffany",
+        "pose": "_",
+        "face": "_"
     },
     {
         "page": 9,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "It's so close, but its missing something",
-        "inputs": []
+        "inputs": [],
+        "character": "tiffany",
+        "pose": "_",
+        "face": "_"
     },
     {
         "page": 10,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "Who is here this late?",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "e"
     },
     {
         "page": 11,
         "speaker": "Event",
         "image": "assets/characters/event.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
@@ -134,440 +161,558 @@
     {
         "page": 12,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            630,
+            -30
         ],
         "text": "*ahh*",
-        "inputs": []
+        "inputs": [],
+        "character": "hanami",
+        "pose": "2",
+        "face": "_",
+        "scale": 0.6
     },
     {
         "page": 13,
         "speaker": "",
-        "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "The girl ran away covering her face",
-        "inputs": []
+        "inputs": [],
+        "character": "tiffany",
+        "pose": "_",
+        "face": "_"
     },
     {
         "page": 14,
         "speaker": "",
-        "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "It seems she left something behind",
-        "inputs": []
+        "inputs": [],
+        "character": "tiffany",
+        "pose": "_",
+        "face": "_"
     },
     {
         "page": 15,
         "speaker": "",
-        "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "A half-finished poster",
-        "inputs": []
+        "inputs": [],
+        "character": "tiffany",
+        "pose": "_",
+        "face": "_"
     },
     {
         "page": 16,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "Music club?",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "f"
     },
     {
         "page": 17,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "Why would i join a club?",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "a"
     },
     {
         "page": 18,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "although that girl was pretty cute",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "e"
     },
     {
         "page": 19,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "...",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "a"
     },
     {
         "page": 20,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            320,
+            -40
         ],
         "text": "eh, whats 3 hours of my life?",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "e"
     },
     {
         "page": 21,
         "speaker": "",
-        "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "There seems to be a commotion in the room",
-        "inputs": []
+        "inputs": [],
+        "character": "tiffany",
+        "pose": "_",
+        "face": "_"
     },
     {
         "page": 22,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            480,
+            -70
         ],
         "text": "No this part is *clearly* marked as a solo!",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": [
+            {
+                "category": "bodyL",
+                "index": "ch4i.png",
+                "x": 0,
+                "y": 0
+            }
+        ],
+        "character": "tiffany",
+        "custom_mode": true
     },
     {
         "page": 23,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -50
         ],
         "text": "It would fit the club better if it was an A CAPPELLA!",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": [],
+        "character": "harumi",
+        "pose_left": "1",
+        "pose_right": "r",
+        "face": "v"
     },
     {
         "page": 24,
         "speaker": "",
-        "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -70
         ],
         "text": "A girl swings open the door and stomps out",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": [
+            {
+                "category": "bodyL",
+                "index": "ch6h.png",
+                "x": 0,
+                "y": 0
+            }
+        ],
+        "character": "tiffany",
+        "custom_mode": true
     },
     {
         "page": 25,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -50
         ],
         "text": "HEY! You there",
-        "inputs": []
+        "inputs": [],
+        "custom_parts": [],
+        "character": "harumi",
+        "pose_left": "1",
+        "pose_right": "r",
+        "face": "c"
     },
     {
         "page": 26,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -40
         ],
         "text": "Me?",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "w"
     },
     {
         "page": 27,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -50
         ],
         "text": "Yes, you",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "1",
+        "face": "c"
     },
     {
         "page": 28,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -50
         ],
         "text": "Are you interested in joining the music club?",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "1",
+        "face": "e"
     },
     {
         "page": 29,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
-            200
+            -40
         ],
         "text": "I wanted to come check it out",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "z"
     },
     {
         "page": 30,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -50
         ],
         "text": "Well come on in, don't be shy",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "1",
+        "face": "e"
     },
     {
         "page": 31,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
-            200
+            -40
         ],
         "text": "What was that all about?",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "e"
     },
     {
         "page": 32,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -50
         ],
         "text": "Oh, you overheard the argument didn't you?",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "1",
+        "face": "x"
     },
     {
         "page": 33,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -50
         ],
         "text": "Don't worry about it, Tiffany usually gets worked up on things like this. But she will come around",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "1",
+        "face": "x"
     },
     {
         "page": 34,
         "speaker": "Harumi",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            120,
+            -50
         ],
         "text": "By the way, the name's Harumi!",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "1",
+        "face": "e"
     },
     {
         "page": 35,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
-            200
+            -40
         ],
         "text": "I'm {MC}",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "e"
     },
     {
         "page": 36,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
-            100,
-            200
+            -150,
+            10
         ],
         "text": "Are you guys done flirting, or can we get to practicing?",
-        "inputs": []
+        "inputs": [],
+        "character": "cassian",
+        "pose": "2",
+        "face_parts": [
+            "1",
+            "1",
+            "4",
+            "1"
+        ]
     },
     {
         "page": 37,
         "speaker": "Harumi",
-        "image": "assets/characters/harumi.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "HEY! We are **NOT** flirting. I'm just trying to introduce the newbie.",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose_left": "1",
+        "pose_right": "r",
+        "face": "v"
     },
     {
         "page": 38,
         "speaker": "???",
-        "image": "assets/characters/???.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "Well whatever it is, you sure are taking your sweet time.",
-        "inputs": []
+        "inputs": [],
+        "character": "cassian",
+        "pose": "1",
+        "face_parts": [
+            "1",
+            "3",
+            "4",
+            "1"
+        ]
     },
     {
         "page": 39,
         "speaker": "Harumi",
-        "image": "assets/characters/harumi.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "Cassian, it takes a while to do introductions",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "1",
+        "face": "u"
     },
     {
         "page": 40,
         "speaker": "Cassian",
-        "image": "assets/characters/cassian.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "Well call me when you are finally done trading numbers or whatever.",
-        "inputs": []
+        "inputs": [],
+        "character": "cassian",
+        "pose": "1",
+        "face_parts": [
+            "1",
+            "1",
+            "4",
+            "1"
+        ]
     },
     {
         "page": 41,
         "speaker": "Harumi",
-        "image": "assets/characters/harumi.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "Woah Woah Woah",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "3",
+        "face": "s"
     },
     {
         "page": 42,
         "speaker": "Harumi",
-        "image": "assets/characters/harumi.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "Hold it there mister",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "3",
+        "face": "s"
     },
     {
         "page": 43,
         "speaker": "Harumi",
-        "image": "assets/characters/harumi.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "Since your *so* adamant about practicing, why dont *you* sing with the newbie?",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose": "3",
+        "face": "v"
     },
     {
         "page": 44,
         "speaker": "Cassian",
-        "image": "assets/characters/cassian.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "Pssh, him against *me*, you might as well be signing him up for a 5 mile freefall",
-        "inputs": []
+        "inputs": [],
+        "character": "cassian",
+        "pose": "2",
+        "face_parts": [
+            "1",
+            "3",
+            "6",
+            "1"
+        ]
     },
     {
         "page": 45,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "We will see about that",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "e"
     },
     {
         "page": 46,
         "speaker": "Cassian",
-        "image": "assets/characters/cassian.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "So he speaks!",
-        "inputs": []
+        "inputs": [],
+        "character": "cassian",
+        "pose": "2",
+        "face_parts": [
+            "1",
+            "1",
+            "7",
+            "1"
+        ]
     },
     {
         "page": 47,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "*sigh* Just start the music",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose_left": "2",
+        "pose_right": "r",
+        "face": "e"
     },
     {
         "page": 48,
         "speaker": "",
         "image": "assets/characters/.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
@@ -580,37 +725,49 @@
     {
         "page": 49,
         "speaker": "Cassian",
-        "image": "assets/characters/cassian.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "Not bad, not bad at all",
-        "inputs": []
+        "inputs": [],
+        "character": "cassian",
+        "pose": "2",
+        "face_parts": [
+            "1",
+            "1",
+            "4",
+            "1"
+        ]
     },
     {
         "page": 50,
         "speaker": "Harumi",
-        "image": "assets/characters/harumi.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "Sooo, {MC} are you coming back on monday?",
-        "inputs": []
+        "inputs": [],
+        "character": "harumi",
+        "pose_left": "2",
+        "pose_right": "r",
+        "face": "x"
     },
     {
         "page": 51,
         "speaker": "Mc",
-        "image": "assets/characters/mc.png",
-        "background": "assets/backgrounds/classroom_day.png",
+        "background": "classroom_day.png",
         "position": [
             100,
             200
         ],
         "text": "We will see.",
-        "inputs": []
+        "inputs": [],
+        "character": "mc",
+        "pose": "1",
+        "face": "e"
     }
 ]
