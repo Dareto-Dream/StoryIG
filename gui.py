@@ -10,6 +10,8 @@ from time import sleep
 from character_renderer import render_character
 from conductor import Conductor
 from discord import presence
+from rendering.background import BackgroundManager
+from rendering.text import TextManager
 from tools.xml_sprite_loader import load_sprites_from_xml, load_character_frames, load_character_sprites_from_xml
 from tools.character_animations import CharacterAnimator
 
@@ -17,7 +19,7 @@ from tools.character_animations import CharacterAnimator
 SCREEN_WIDTH, SCREEN_HEIGHT = 1280, 720
 
 # === Customizable Text Box Layout ===
-TEXTBOX_X, TEXTBOX_Y, TEXTBOX_WIDTH, TEXTBOX_HEIGHT = 10, 390, 780, 150
+TEXTBOX_X, TEXTBOX_Y, TEXTBOX_WIDTH, TEXTBOX_HEIGHT = 30, 400, 1200, 200
 TEXTBOX_RECT = pygame.Rect(TEXTBOX_X, TEXTBOX_Y, TEXTBOX_WIDTH, TEXTBOX_HEIGHT)
 TEXT_MARGIN = 20  # Padding inside the text box
 
@@ -29,65 +31,19 @@ selected_input = 0
 in_start_screen = True
 start_options = ["Start Game", "Load (Disabled)", "Exit"]
 selected_option = 0
-typing = True
-typed_text = ""
-text_start_time = 0
+last_page = -1
 user_text_speed = 40  # ms per character (default speed if page doesn't override)
-current_background = None
-previous_background = None
-bg_transition_alpha = 0
-bg_transition_speed = 10  # alpha step per frame (adjust for faster/slower fade)
 
-# === Load story from JSON file ===
 def load_story(json_file):
     with open(json_file, "r", encoding="utf-8") as f:
         return json.load(f)
 
-# === Draw text on screen ===
 def draw_text(screen, text, position, color=(0, 0, 0), font_size=24):
     font = pygame.font.Font("assets/fonts/VarelaRound-Regular.ttf", font_size)
-    text_surface = font.render(text, True, color)  # Anti-aliasing enabled
+    text_surface = font.render(text, True, color)
     screen.blit(text_surface, position)
 
-def draw_typing_text(screen, full_text, position, font_size=24, color=(0, 0, 0), max_width=760, chars_to_show=None):
-    font = pygame.font.Font("assets/fonts/VarelaRound-Regular.ttf", font_size)
-    words = full_text.split(' ')
-    lines = []
-    current_line = ""
-    total_chars = 0
-
-    for word in words:
-        test_line = current_line + word + " "
-        word_len = len(word) + 1  # +1 for space
-        if font.size(test_line)[0] <= max_width:
-            if chars_to_show is not None and total_chars + word_len > chars_to_show:
-                # Partial word rendering
-                remaining = chars_to_show - total_chars
-                partial_word = word[:max(0, remaining)]
-                current_line += partial_word
-                break
-            current_line = test_line
-            total_chars += word_len
-        else:
-            lines.append(current_line.strip())
-            current_line = ""
-            if chars_to_show is not None and total_chars >= chars_to_show:
-                break
-    lines.append(current_line.strip())
-
-    # Draw all wrapped lines
-    x, y = position
-    drawn_chars = 0
-    for line in lines:
-        if chars_to_show is not None and drawn_chars + len(line) > chars_to_show:
-            line = line[:chars_to_show - drawn_chars]
-        rendered = font.render(line, True, color)
-        screen.blit(rendered, (x, y))
-        y += font.get_linesize()
-        drawn_chars += len(line)
-
 def run_rhythm_minigame(screen, song_name="tutorial"):
-    # (Nearly identical to conductor.py __main__ loop)
     frames = load_sprites_from_xml(
         "assets/minigame/notes/NOTE_assets.png",
         "assets/minigame/notes/NOTE_assets.xml",
@@ -132,31 +88,17 @@ def run_rhythm_minigame(screen, song_name="tutorial"):
         if hasattr(conductor, "judgement_splash"):
             conductor.judgement_splash.draw(screen)
         pygame.display.flip()
-    # Optional: grab stats, return results here before quitting the minigame
 
-def draw_text_wrapped(screen, full_text, position, font_size=24, color=(0, 0, 0), max_width=760):
-    draw_typing_text(
-        screen,
-        full_text,
-        position,
-        font_size=font_size,
-        color=color,
-        max_width=max_width,
-        chars_to_show=None  # Show full text
-    )
-
-def load_song(song_name="song"):
+def load_song(song_name="song", song_type="mp3", loops=0):
     pygame.mixer.init()
-    pygame.mixer.music.load(f"assets/songs/{song_name}.mp3")
-    pygame.mixer.music.play()
+    pygame.mixer.music.load(f"assets/songs/{song_name}.{song_type}")
+    pygame.mixer.music.play(loops)
 
-# === Draw textbox background ===
 def draw_textbox(screen):
     sprite = pygame.image.load("assets/icons/text_box.png").convert_alpha()
-    sprite = pygame.transform.smoothscale(sprite, (780, 150))
-    screen.blit(sprite, (10, 400))
+    sprite = pygame.transform.smoothscale(sprite, (TEXTBOX_WIDTH, TEXTBOX_HEIGHT))
+    screen.blit(sprite, (TEXTBOX_X, TEXTBOX_Y))
 
-# === Draw character sprite (single image) ===
 def draw_character(screen, image_path, position, size=None):
     try:
         sprite = pygame.image.load(image_path).convert_alpha()
@@ -166,51 +108,11 @@ def draw_character(screen, image_path, position, size=None):
     except Exception as e:
         print(f"Error loading character image '{image_path}': {e}")
 
-# === Draw combined pose+face sprite ===
-def get_combined_character_image(character, pose, face):
-    base_path = f"assets/characters/{character}/"
-    try:
-        pose_img = pygame.image.load(os.path.join(base_path, f"{pose}.png")).convert_alpha()
-        face_img = pygame.image.load(os.path.join(base_path, f"{face}.png")).convert_alpha()
-        combined = pygame.Surface(pose_img.get_size(), pygame.SRCALPHA)
-        combined.blit(pose_img, (0, 0))
-        combined.blit(face_img, (0, 0))
-        return combined
-    except Exception as e:
-        print(f"Error loading layered character ({character}, {pose}, {face}): {e}")
-        return None
-
-# === Display speaker + dialogue ===
-def draw_dialogue(screen, speaker, text, font_size=24):
-    font = pygame.font.Font("assets/fonts/VarelaRound-Regular.ttf", font_size)
-
-    # Speaker name
-    speaker_surface = font.render(f"{speaker}:", True, (0, 0, 0))
-    screen.blit(speaker_surface, (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN))
-
-    # Dialogue text (wrapped)
-    draw_text_wrapped(
-        screen,
-        text,
-        (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN + font.get_linesize()),
-        font_size=font_size,
-        color=(0, 0, 0),
-        max_width=TEXTBOX_WIDTH - 2 * TEXT_MARGIN
-    )
-
-# === Draw input field ===
-def draw_input_box(screen, position, width, height, text='', selected=False):
-    border_color = (255, 0, 0) if selected else (0, 0, 0)
-    pygame.draw.rect(screen, border_color, (position[0], position[1], width, height), 3)
-    draw_text(screen, text, (position[0] + 5, position[1] + 5))
-
-# === Replace [var] in dialogue ===
 def substitute_text(text):
     for var, val in variables.items():
         text = text.replace(f"[{var}]", val)
     return text
 
-# === Input handler ===
 def handle_input_event(event, selected_input):
     global input_texts
     if event.key == K_RETURN:
@@ -221,17 +123,6 @@ def handle_input_event(event, selected_input):
         input_texts[selected_input] += event.unicode
     return False
 
-# === Load background ===
-def draw_background(screen, image_path):
-    try:
-        bg = pygame.image.load(os.path.join("assets/backgrounds", image_path)).convert()
-        bg = pygame.transform.scale(bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
-        return bg
-    except Exception as e:
-        print(f"Error loading background '{image_path}': {e}")
-        return None
-
-# === Start screen drawing ===
 def draw_start_screen(screen, selected_option, options):
     bg = pygame.image.load("assets/screens/all_singers.png").convert()
     bg = pygame.transform.scale(bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -241,7 +132,6 @@ def draw_start_screen(screen, selected_option, options):
         y = 250 + i * 70
         draw_option_box(screen, option, x, y, 300, 50, selected_option == i)
 
-# === Glitched horror screen ===
 def draw_glitched_menu(screen):
     bg = pygame.image.load("assets/screens/gmenu.png").convert()
     bg = pygame.transform.scale(bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -251,7 +141,6 @@ def draw_glitched_menu(screen):
     draw_text(screen, "Load.chr [missing]", (SCREEN_WIDTH // 2 - 100, 300), font_size=32, color=(180, 0, 0))
     draw_text(screen, "Exi__", (SCREEN_WIDTH // 2 - 100, 350), font_size=32, color=(255, 255, 255))
 
-# === Draw each menu option ===
 def draw_option_box(screen, text, x, y, width, height, selected):
     box_color = (255, 182, 193)
     border_color = (255, 105, 180) if selected else (200, 100, 120)
@@ -263,12 +152,14 @@ def draw_option_box(screen, text, x, y, width, height, selected):
     text_rect = text_surface.get_rect(center=(x + width // 2, y + height // 2))
     screen.blit(text_surface, text_rect)
 
-# === Main VN Engine ===
+def draw_input_box(screen, position, width, height, text='', selected=False):
+    border_color = (255, 0, 0) if selected else (0, 0, 0)
+    pygame.draw.rect(screen, border_color, (position[0], position[1], width, height), 3)
+    draw_text(screen, text, (position[0] + 5, position[1] + 5))
+
 def run_gui():
     global current_page, input_texts, variables
-    global selected_input, in_start_screen, selected_option
-    global typing, typed_text, text_start_time, user_text_speed
-    global previous_background, current_background, bg_transition_speed, bg_transition_alpha
+    global selected_input, in_start_screen, selected_option, last_page, user_text_speed
 
     pygame.init()
     screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
@@ -278,9 +169,16 @@ def run_gui():
     clock = pygame.time.Clock()
     presence.set_presence(details="In Main Menu")
 
+    background_manager = BackgroundManager(SCREEN_WIDTH, SCREEN_HEIGHT)
+    text_manager = TextManager(
+        font_path="assets/fonts/VarelaRound-Regular.ttf",
+        font_size=24,
+        max_width=TEXTBOX_WIDTH - 2 * TEXT_MARGIN
+    )
+
     story = load_story('story.json')
     running = True
-    load_song("title")
+    load_song("my_little_world", "wav", 1)
 
     while running:
         screen.fill((255, 255, 255))
@@ -322,10 +220,11 @@ def run_gui():
                         run_rhythm_minigame(screen, song_name=song_name)
                         presence.set_presence(details="Reading VN", state=f"Act Unknown", small_image="vn")
                         current_page += 1
+                        last_page = current_page
                         continue
 
-                    # === Input handling ===
-                    if 'inputs' in page and not page.get('inputs_done', False):
+                    # === Input handling: ONLY for real input pages ===
+                    if 'inputs' in page and page['inputs'] and not page.get('inputs_done', False):
                         if event.key == K_UP:
                             selected_input = (selected_input - 1) % len(input_texts)
                         elif event.key == K_DOWN:
@@ -335,14 +234,14 @@ def run_gui():
                                 variables[key] = input_texts[i]
                             input_texts = []
                             page['inputs_done'] = True
+                            current_page += 1
+                            continue  # Skip rest of event logic for this frame
+
                     elif event.key == K_RETURN:
-                        if typing:
-                            typing = False  # skip typing animation
+                        if text_manager.typing:
+                            text_manager.skip()
                         else:
                             current_page += 1
-                            typing = True
-                            typed_text = ""
-                            text_start_time = pygame.time.get_ticks()
 
         # === Render current screen ===
         if in_start_screen:
@@ -356,32 +255,20 @@ def run_gui():
                 pygame.time.delay(500)
                 page["flashed"] = True
 
-            if 'inputs' in page and not page.get('inputs_done', False) and not input_texts:
+            # Initialize input text array only on fresh input pages
+            if 'inputs' in page and page['inputs'] and not page.get('inputs_done', False) and not input_texts:
                 input_texts = ['' for _ in page['inputs']]
                 selected_input = 0
 
+            # Background logic
             if 'background' in page:
-                if page['background'] != page.get('last_loaded_bg'):
-                    previous_background = current_background
-                    current_background = draw_background(screen, page['background'])
-                    page['last_loaded_bg'] = page['background']
-                    bg_transition_alpha = 255
+                fade = True
+                if page['background'].lower() == "sudden":
+                    fade = False
+                background_manager.set_background(name=page['background'], fade=fade)
 
-            if current_background:
-                if previous_background and bg_transition_alpha > 0:
-                    temp = current_background.copy()
-                    temp.set_alpha(255 - bg_transition_alpha)
-                    prev = previous_background.copy()
-                    prev.set_alpha(bg_transition_alpha)
-                    screen.blit(prev, (0, 0))
-                    screen.blit(temp, (0, 0))
-                    bg_transition_alpha = max(0, bg_transition_alpha - bg_transition_speed)
-                else:
-                    screen.blit(current_background, (0, 0))
-            else:
-                screen.fill((255, 255, 255))
+            background_manager.draw(screen)
 
-            # === Character sprite logic (priority: split > pose > image) ===
             try:
                 if "position" in page:
                     sprite = render_character(page)
@@ -392,32 +279,25 @@ def run_gui():
 
             draw_textbox(screen)
 
-            if 'inputs' in page and not page.get('inputs_done', False):
+            # --- TextManager: always only treat non-empty 'inputs' as input pages
+            if last_page != current_page:
+                if 'inputs' in page and page['inputs'] and not page.get('inputs_done', False):
+                    text_manager.start("", user_text_speed)
+                else:
+                    full_text = substitute_text(page.get('text', ''))
+                    page_speed = page.get("text_speed", user_text_speed)
+                    text_manager.start(full_text, page_speed)
+                last_page = current_page
+
+            if 'inputs' in page and page['inputs'] and not page.get('inputs_done', False):
                 for i, prompt in enumerate(page['inputs']):
                     draw_text(screen, f"{prompt}:", (50, 100 + i * 60))
                     draw_input_box(screen, (150, 100 + i * 60), 300, 40, text=input_texts[i], selected=(i == selected_input))
             else:
-                full_text = substitute_text(page['text'])
-                page_speed = page.get("text_speed", user_text_speed)
+                draw_text(screen, f"{page['speaker']}:", (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN))
+                text_manager.update()
+                text_manager.draw(screen, (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN + 30))
 
-                if typing:
-                    elapsed = pygame.time.get_ticks() - text_start_time
-                    chars_to_show = elapsed // page_speed if page_speed > 0 else len(full_text)
-                    typed_text = full_text[:chars_to_show]
-                    draw_text(screen, f"{page['speaker']}:", (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN))
-                    draw_typing_text(
-                        screen,
-                        substitute_text(page['text']),
-                        (TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN + 30),
-                        font_size=24,
-                        color=(0, 0, 0),
-                        max_width=TEXTBOX_WIDTH - 2 * TEXT_MARGIN,
-                        chars_to_show=chars_to_show
-                    )
-                    if chars_to_show >= len(full_text):
-                        typing = False
-                else:
-                    draw_dialogue(screen, page['speaker'], full_text)
         else:
             draw_text(screen, "THE END", (SCREEN_WIDTH // 2 - 80, SCREEN_HEIGHT // 2), font_size=48)
 
@@ -427,6 +307,5 @@ def run_gui():
     pygame.quit()
     sys.exit()
 
-# === Launch ===
 if __name__ == "__main__":
     run_gui()
