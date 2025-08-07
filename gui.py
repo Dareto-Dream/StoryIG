@@ -176,9 +176,6 @@ def run_gui():
         max_width=TEXTBOX_WIDTH - 2 * TEXT_MARGIN
     )
 
-    print("TextManager max_width:", text_manager.max_width)
-    print("Draw pos:", TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN + 30)
-    print("Textbox_rect:", TEXTBOX_RECT)
 
     story = load_story('story.json')
     running = True

@@ -41,7 +41,7 @@ class TextManager:
     def _get_styled_font(self, bold=False, italic=False, underline=False):
         key = (bold, italic, underline)
         if key not in self.font_cache:
-            font = pygame.font.Font(self.font_path, self.font.get_height())
+            font = pygame.font.Font(self.font_path, self.font_size)
             font.set_bold(bold)
             font.set_italic(italic)
             font.set_underline(underline)
@@ -53,29 +53,24 @@ class TextManager:
         bold = italic = underline = False
 
         # [color=red]text[/color]
-        color_match = re.match(r'\[color=(.+?)\](.+?)\[/color\]', text)
-        if color_match:
+        if color_match := re.match(r'\[color=(.+?)\](.+?)\[/color\]', text):
             try:
                 chunk_color = pygame.Color(color_match.group(1))
             except ValueError:
                 chunk_color = default_color
             text = color_match.group(2)
-        # ***bolditalic***
-        elif re.match(r'^\*\*\*(.+)\*\*\*$', text):
-            text = re.sub(r'^\*\*\*(.+)\*\*\*$', r'\1', text)
+        elif bolditalic_match := re.match(r'^\*\*\*(.+)\*\*\*$', text):
+            text = bolditalic_match.group(1)
             bold = True
             italic = True
-        # **bold**
-        elif re.match(r'^\*\*(.+)\*\*$', text):
-            text = re.sub(r'^\*\*(.+)\*\*$', r'\1', text)
+        elif bold_match := re.match(r'^\*\*(.+)\*\*$', text):
+            text = bold_match.group(1)
             bold = True
-        # *italic*
-        elif re.match(r'^\*(.+)\*$', text):
-            text = re.sub(r'^\*(.+)\*$', r'\1', text)
+        elif italic_match := re.match(r'^\*(.+)\*$', text):
+            text = italic_match.group(1)
             italic = True
-        # __underline__
-        elif re.match(r'^__(.+)__$', text):
-            text = re.sub(r'^__(.+)__$', r'\1', text)
+        elif underline_match := re.match(r'^__(.+)__$', text):
+            text = underline_match.group(1)
             underline = True
 
         font_to_use = self._get_styled_font(bold, italic, underline)
