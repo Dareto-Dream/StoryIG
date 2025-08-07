@@ -128,8 +128,8 @@ def draw_start_screen(screen, selected_option, options):
     bg = pygame.transform.scale(bg, (SCREEN_WIDTH, SCREEN_HEIGHT))
     screen.blit(bg, (0, 0))
     for i, option in enumerate(options):
-        x = SCREEN_WIDTH // 2 - 150
-        y = 250 + i * 70
+        x = SCREEN_WIDTH // 2 - 600
+        y = 450 + i * 70
         draw_option_box(screen, option, x, y, 300, 50, selected_option == i)
 
 def draw_glitched_menu(screen):
@@ -175,6 +175,10 @@ def run_gui():
         font_size=24,
         max_width=TEXTBOX_WIDTH - 2 * TEXT_MARGIN
     )
+
+    print("TextManager max_width:", text_manager.max_width)
+    print("Draw pos:", TEXTBOX_X + TEXT_MARGIN, TEXTBOX_Y + TEXT_MARGIN + 30)
+    print("Textbox_rect:", TEXTBOX_RECT)
 
     story = load_story('story.json')
     running = True
