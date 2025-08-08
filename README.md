@@ -87,8 +87,8 @@ Once available, this section will include download links and installation instru
 
 ## 👥 Credits
 
-* **Lead Developer / Writer:** Commander
-* **Animation:** Melody (characters), placeholder art by Commander
+* **Lead Developer / Writer:** DeltaV
+* **Animation:** Melody (characters), placeholder art by DeltaV
 * **Music:** Freelance composers + in-house tracks
 * **Testing & Feedback:** Internal team & early playtesters
 
