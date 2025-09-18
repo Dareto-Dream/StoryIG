@@ -162,7 +162,8 @@ def run_gui():
     global selected_input, in_start_screen, selected_option, last_page, user_text_speed
 
     pygame.init()
-    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    flags = pygame.FULLSCREEN | pygame.HWSURFACE | pygame.DOUBLEBUF
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), flags)
     pygame.display.set_caption('Cadence Collapse')
     icon_surface = pygame.image.load("assets/icons/icon32.png").convert_alpha()
     pygame.display.set_icon(icon_surface)
@@ -188,6 +189,9 @@ def run_gui():
             if event.type == QUIT:
                 running = False
             elif event.type == KEYDOWN:
+                # Toggle fullscreen with F11
+                if event.key == pygame.K_F11:
+                    pygame.display.toggle_fullscreen()
                 if in_start_screen:
                     if event.key == K_UP:
                         selected_option = (selected_option - 1) % len(start_options)

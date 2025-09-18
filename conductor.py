@@ -128,9 +128,30 @@ if __name__ == "__main__":
     import sys
 
     pygame.init()
-    screen = pygame.display.set_mode((1280, 720))
+    # Start windowed; allow F11 to toggle fullscreen
+    screen = pygame.display.set_mode((1280, 720), pygame.RESIZABLE)
     pygame.display.set_caption("Conductor (Character) Test")
     clock = pygame.time.Clock()
+
+    is_fullscreen = False
+    windowed_size = (1280, 720)
+
+    def toggle_fullscreen():
+        global screen, is_fullscreen
+        if hasattr(pygame.display, 'toggle_fullscreen'):
+            try:
+                pygame.display.toggle_fullscreen()
+                is_fullscreen = not is_fullscreen
+                return
+            except Exception:
+                pass
+        # Fallback: recreate the display with appropriate flags
+        if not is_fullscreen:
+            screen = pygame.display.set_mode((0, 0), pygame.FULLSCREEN | pygame.HWSURFACE | pygame.DOUBLEBUF)
+            is_fullscreen = True
+        else:
+            screen = pygame.display.set_mode(windowed_size, pygame.RESIZABLE)
+            is_fullscreen = False
 
     frames = load_sprites_from_xml(
         "assets/minigame/notes/NOTE_assets.png",
@@ -204,6 +225,12 @@ if __name__ == "__main__":
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            elif event.type == pygame.KEYDOWN and event.key == pygame.K_F11:
+                toggle_fullscreen()
+            elif event.type == pygame.VIDEORESIZE and not is_fullscreen:
+                # update windowed_size on resize so toggling back restores latest size
+                windowed_size = (event.w, event.h)
+                screen = pygame.display.set_mode(windowed_size, pygame.RESIZABLE)
             conductor.handle_input(event)
         conductor.update(dt)
         if hasattr(conductor, "judgement_splash"):
